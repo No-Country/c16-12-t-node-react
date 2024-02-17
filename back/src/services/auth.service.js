@@ -1,18 +1,14 @@
-import { BaseService } from './base.service.js';
-
-let _repository = null;
-
-export class AuthService extends BaseService {
+export class AuthService {
   constructor({ repository }) {
     super({ repository });
-    _repository = repository;
+    this.repository = repository;
   }
 
   async login(data) {
-    return _repository.getUserByEmail(data.email);
+    return await this.repository.getUserByEmail(data.email);
   }
 
   async register(data) {
-    return _repository.create(data);
+    return await this.repository.create(data);
   }
 }

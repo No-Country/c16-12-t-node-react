@@ -1,8 +1,6 @@
-let _model = null;
-
 export class BaseRepository {
   constructor({ model }) {
-    _model = model;
+    this.model = model;
   }
 
   async getAll({ page, limit }) {
