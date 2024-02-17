@@ -1,7 +1,8 @@
 import { DataTypes } from 'sequelize';
-import sequelize from '../config.js';
+import { sequelize } from '../config/config.connection.js';
+import { Country } from './country.model.js';
 
-export const Country = sequelize.define('Country', {
+export const City = sequelize.define('City', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -9,10 +10,6 @@ export const Country = sequelize.define('Country', {
   },
   name: {
     type: DataTypes.STRING,
-    allowNull: false,
-  },
-  id_country: {
-    type: DataTypes.STRING(3),
     allowNull: false,
   },
   zip_code: {
@@ -28,3 +25,5 @@ export const Country = sequelize.define('Country', {
     allowNull: false,
   },
 });
+
+City.belongsTo(Country, { foreignKey: 'country_id', targetKey: 'id' });

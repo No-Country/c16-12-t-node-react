@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
-import sequelize from '../config.js';
+import { sequelize } from '../config/config.connection.js';
 
-export const City = sequelize.define('City', {
+export const Country = sequelize.define('Country', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -11,8 +11,8 @@ export const City = sequelize.define('City', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  country_id: {
-    type: DataTypes.STRING(3),
+  code: {
+    type: DataTypes.CHAR(3),
     allowNull: false,
   },
 });
