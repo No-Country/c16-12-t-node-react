@@ -21,7 +21,9 @@
     "env-var": "^7.4.1",
     "express": "^4.18.2",
     "helmet": "^7.1.0",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.9.1",
+    "sequelize": "^6.37.0"
   },
   "devDependencies": {
     "dotenv": "^16.4.4",
