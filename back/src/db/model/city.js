@@ -11,8 +11,16 @@ export const City = sequelize.define('City', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  country_id: {
-    type: DataTypes.STRING(3),
+  zip_code: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  latitud: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+  },
+  longitud: {
+    type: DataTypes.FLOAT,
     allowNull: false,
   },
 });
