@@ -19,7 +19,7 @@ class HandleError {
     return res.status(500).json({
       status: 500,
       name: 'Internal Server Error',
-      message: 'Something went wrong, please try again later',
+      message: `Internal Server Error: ${error.message}`,
     });
   }
 }
