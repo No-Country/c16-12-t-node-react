@@ -15,16 +15,18 @@ import { AuthRoute, TripRoute, UserRoute } from './routes/index.js';
 export const routes = () => {
   const router = express.Router();
   const apiRoutes = express.Router();
-
+  const tripRoute = new TripRoute();
+  
   router
-    .use(express.json())
-    .use(express.urlencoded({ extended: true }))
-    .use(cors())
-    .use(compression())
-    .use(helmet());
-
+  .use(express.json())
+  .use(express.urlencoded({ extended: true }))
+  .use(cors())
+  .use(compression())
+  .use(helmet());
+  
   apiRoutes.use('/auth', AuthRoute.routes());
   apiRoutes.use('/users', UserRoute.routes());
+  apiRoutes.use('/trip', tripRoute.routes());
 
   router.use('/api', apiRoutes);
   router.use(notFoundMiddleware);
