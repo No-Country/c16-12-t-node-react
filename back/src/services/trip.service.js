@@ -1,28 +1,31 @@
-import { BaseService } from './base.service.js';
 
-let _repository = null;
-
-export class TripService extends BaseService {
+export class TripService {
   constructor({ repository }) {
-    super({ repository });
-    _repository = repository;
+    this.repository = repository;
   }
+
+  /*
+    TODO: Implementar todos los metodos con la logica 
+    de vinculacion al usuario
+  */
 
   async getAllTrips() {
-    return _repository.getAll();
+    return await this.repository.getAllTrips();
   }
 
-  async getTripById(req, res) {
-    return _repository.getTripById(req, res);
-  }
-  async createTrip(req, res) {
-    return _repository.createTrip(req, res);
+  async getTripById(id) {
+    return await this.repository.getTripById(id);
   }
 
-  async updateTrip(req, res) {
-    return _repository.updateTrip(req, res);
+  async createTrip(tripData) {
+    return await this.repository.createTrip(tripData);
   }
-  async deleteTrip(req, res) {
-    return _repository.deleteTrip(req, res);
+
+  async updateTrip(id, tripData) {
+    return await this.repository.updateTrip(id, tripData);
+  }
+
+  async deleteTrip(id) {
+    return await this.repository.deleteTrip(id);
   }
 }
