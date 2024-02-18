@@ -1,25 +1,55 @@
+import customeError from '../errors/custome.error.js';
+
 export class BaseRepository {
   constructor({ model }) {
     this.model = model;
   }
 
-  async getAll({ page, limit }) {
-    throw new Error('Method not implemented.');
+  async getAll() {
+    try {
+      return await this.model.findAll();
+    } catch (error) {
+      throw customeError.serverError(`${error}`);
+    }
   }
 
   async getById(id) {
-    throw new Error('Method not implemented.');
+    try {
+      return await this.model.findOne({ where: { id } });
+    } catch (error) {
+      throw customeError.serverError(`${error}`);
+    }
   }
 
   async create(data) {
-    throw new Error('Method not implemented.');
+    try {
+      return await this.model.create(data);
+    } catch (error) {
+      throw customeError.serverError(`${error}`);
+    }
   }
 
   async update(id, data) {
-    throw new Error('Method not implemented.');
+    try {
+      const item = await this.getById(id);
+      if (!item) {
+        return null;
+      }
+
+      const res = await this.model.update(data, { where: { id } });
+      if (res.at(0) > 0) {
+        return this.getById(id);
+      }
+    } catch (error) {
+      throw customeError.serverError(`${error}`);
+    }
   }
 
   async delete(id) {
-    throw new Error('Method not implemented.');
+    try {
+      return await this.model.destroy({ where: { id } });
+    } catch (error) {
+      throw customeError.serverError(`${error}`);
+    }
   }
 }
