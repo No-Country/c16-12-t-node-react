@@ -15,10 +15,12 @@ export class UserService {
     return user;
   }
 
-  async udpateUserById(id, data) {
+  async updateUserById(id, data) {
     this.validateId(id);
-    const user = await this.repository.update(id, { ...data });
-    this.exeption(user);
+    const userData = await this.repository.update(id, { ...data });
+    this.exeption(userData);
+
+    const { password, ...user } = userData.dataValues;
     return user;
   }
 

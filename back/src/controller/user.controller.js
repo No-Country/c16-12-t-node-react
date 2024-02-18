@@ -20,11 +20,11 @@ export class UserController {
       .catch((err) => handleError.handle(err, res));
   };
 
-  udpateUserById = (req, res) => {
+  updateUserById = (req, res) => {
     const { id } = req.params;
     const dataUserUpdate = req.body;
     return this.service
-      .udpateUserById(id, dataUserUpdate)
+      .updateUserById(id, dataUserUpdate)
       .then((user) => res.status(200).json(user))
       .catch((err) => handleError.handle(err, res));
   };
