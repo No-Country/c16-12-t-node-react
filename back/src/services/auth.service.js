@@ -16,7 +16,11 @@ export class AuthService {
     if (!Validator.validatePassword(data.password))
       throw customeError.badRequest(`Must be at least 6 characters`);
 
-    const { password, ...user } = await this.repository.getUserByEmail(data.email);
+    const userExists = await this.repository.getUserByEmail(data.email);
+    if (!userExists) throw customeError.unauthorized('Invalid credentials');
+
+    const { password, ...user } = userExists.dataValues;
+
     let isMatch, token;
     try {
       isMatch = BcryptAdapter.compare(data.password, password);
@@ -28,7 +32,7 @@ export class AuthService {
     if (!isMatch) throw customeError.unauthorized('Invalid credentials');
     if (!token) throw customeError.serverError('Error generating token');
 
-    return { user: user.dataValues, token };
+    return { user, token };
   }
 
   async register(data) {
@@ -39,10 +43,12 @@ export class AuthService {
 
     const passWordHashed = BcryptAdapter.hash(data.password);
 
-    const { password, ...user } = await this.repository.create({
+    const newUser = await this.repository.create({
       ...data,
       password: passWordHashed,
     });
+
+    const { password, ...user } = newUser.dataValues;
 
     let token;
     try {
@@ -52,7 +58,7 @@ export class AuthService {
     }
     if (!token) throw customeError.serverError('Error generating token');
 
-    return { user: user.dataValues, token };
+    return { user, token };
   }
 
   validateAuthData(data) {
