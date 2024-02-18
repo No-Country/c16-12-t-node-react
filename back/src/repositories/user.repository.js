@@ -7,13 +7,33 @@ export class UserRepository extends BaseRepository {
     this.model = model;
   }
 
-  async getUserByEmail(email) {
-    let user;
+  async getAllUsers() {
     try {
-      user = await this.model.findOne({ email });
+      return await this.model.findAll({
+        attributes: { exclude: ['password'] },
+      });
     } catch (error) {
       throw customeError.serverError(`${error}`);
     }
-    return user;
+  }
+
+  async getUserById(id) {
+    try {
+      const user = await this.model.findOne({ where: { id } });
+      if (!user) return null;
+
+      const { password, ...data } = user?.dataValues;
+      return data;
+    } catch (error) {
+      throw customeError.serverError(`${error}`);
+    }
+  }
+
+  async getUserByEmail(email) {
+    try {
+      return await this.model.findOne({ where: { email } });
+    } catch (error) {
+      throw customeError.serverError(`${error}`);
+    }
   }
 }
