@@ -5,7 +5,7 @@ export class BaseRepository {
     this.model = model;
   }
 
-  async getAll({ page, limit }) {
+  async getAll() {
     try {
       return await this.model.findAll();
     } catch (error) {
@@ -15,7 +15,7 @@ export class BaseRepository {
 
   async getById(id) {
     try {
-      return await this.model.findOne(id);
+      return await this.model.findOne({ where: { id } });
     } catch (error) {
       throw customeError.serverError(`${error}`);
     }
