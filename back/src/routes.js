@@ -4,7 +4,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 
 import { notFoundMiddleware } from './middleware/index.js';
-import { AuthRoute, UserRoute } from './routes/index.js';
+import { AuthRoute, UserRoute, UploadRoute } from './routes/index.js';
 
 /**
  * Funtion to create express router
@@ -25,6 +25,7 @@ export const routes = () => {
 
   apiRoutes.use('/auth', AuthRoute.routes());
   apiRoutes.use('/users', UserRoute.routes());
+  apiRoutes.use('/upload', UploadRoute.routes());
 
   router.use('/api', apiRoutes);
   router.use(notFoundMiddleware);
