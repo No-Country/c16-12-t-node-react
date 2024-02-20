@@ -1,11 +1,8 @@
-import { BaseService } from './base.service.js';
-
 let _repository = null;
 
-export class CitiesService extends BaseService {
+export class CitiesService {
   constructor({ repository }) {
-    super({ repository });
-    _repository: repository;
+        _repository: repository;
   }
 
   async getAll(limit, page) {

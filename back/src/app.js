@@ -1,17 +1,22 @@
 import { envs } from './config/index.js';
 import { Server } from './server.js';
 import { routes } from './routes.js';
-import sequelize from './db/config.js';
+import { sequelize } from './db/mysql/config/config.connection.js';
+
+import './db/mysql/models/index.js';
 
 (async () => {
-  const route = routes();
-  const server = new Server({ port: envs.PORT, router: route });
   try {
-    await sequelize.authenticate();
-    console.log('Connection has been establish');
+    await sequelize.sync({ alter: false });
+    console.log('Connected to DB successfully');
+
+    const route = routes();
+    const server = new Server({ port: envs.PORT, router: route });
+    const port = await server.start();
+    if (port) {
+      console.log(`Server running on port ${port}`);
+    }
   } catch (error) {
-    console.error('Unable to connect to the database');
+    console.error(`Something went wrong: ${error}`);
   }
-  const port = await server.start();
-  if (port) console.log(`Server running at http://localhost:${port}`);
 })();
