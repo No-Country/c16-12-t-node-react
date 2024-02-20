@@ -1,27 +1,27 @@
-let _repository = null;
+import customeError from '../errors/custome.error.js';
 
 export class CitiesService {
   constructor({ repository }) {
-        _repository: repository;
+    this.repository = repository;
   }
 
-  async getAll(limit, page) {
-    return _repository.getAll(limit, page);
+  async getAllCities() {
+    return await this.repository.getAll();
   }
 
   async getById(id) {
-    return _repository.getById(id);
+    return this.repository.getById(id);
   }
 
   async create(data) {
-    return _repository.create(data);
+    return this.repository.create(data);
   }
 
   async update(id, data) {
-    return _repository.update(id, data);
+    return this.repository.update(id, data);
   }
 
   async delete(id) {
-    return _repository.delete(id);
+    return this.repository.delete(id);
   }
 }
