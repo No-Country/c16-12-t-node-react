@@ -1,4 +1,4 @@
-import Button from "./components/atom/button"
+import { Button } from "./components/atoms/index";
 function App() {
   return (
     <>
