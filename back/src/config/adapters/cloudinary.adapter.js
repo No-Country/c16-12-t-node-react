@@ -1,6 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
 
-import customeError from '../../errors/custome.error.js';
+import { CustomeError } from '../../errors/index.js';
 
 export class CloudinaryAdaper {
   constructor({ cloudinary_cloud_name, cloudinary_api_key, cloudinary_api_secret }) {
@@ -26,7 +26,7 @@ export class CloudinaryAdaper {
       }
       return files;
     } catch (error) {
-      throw customeError.serverError(`${error}`);
+      throw CustomeError.serverError(`${error}`);
     }
   }
 
@@ -50,12 +50,12 @@ export class CloudinaryAdaper {
       const resultDeleted = Object.values(filesDeleted?.deleted);
 
       if (resultDeleted.includes('not_found')) {
-        throw customeError.notFound('File not found');
+        throw CustomeError.notFound('File not found');
       }
 
       return resultDeleted.includes('deleted');
     } catch (error) {
-      throw customeError.serverError(`${error}`);
+      throw CustomeError.serverError(`${error}`);
     }
   }
 }

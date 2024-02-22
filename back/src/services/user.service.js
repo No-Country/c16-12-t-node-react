@@ -1,4 +1,4 @@
-import customeError from '../errors/custome.error.js';
+import { CustomeError } from '../errors/index.js';
 
 export class UserService {
   constructor({ repository }) {
@@ -32,11 +32,11 @@ export class UserService {
   }
 
   validateId(id) {
-    if (!id) throw customeError.badRequest('User Id is required');
-    if (isNaN(id)) throw customeError.badRequest('User Id must be a number');
+    if (!id) throw CustomeError.badRequest('User Id is required');
+    if (isNaN(id)) throw CustomeError.badRequest('User Id must be a number');
   }
 
   exeption(user) {
-    if (!user) throw customeError.notFound('User not found');
+    if (!user) throw CustomeError.notFound('User not found');
   }
 }

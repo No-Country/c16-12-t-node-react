@@ -1,5 +1,3 @@
-import customeError from '../errors/custome.error.js';
-
 export class CitiesService {
   constructor({ repository }) {
     this.repository = repository;

@@ -1,4 +1,4 @@
-import customeError from '../errors/custome.error.js';
+import { CustomeError } from '../errors/index.js';
 import { BaseRepository } from './base.repository.js';
 
 export class CountryRepository extends BaseRepository {
@@ -23,7 +23,7 @@ export class CountryRepository extends BaseRepository {
       if (!country) return { message: 'The country cannot be found' };
       return country;
     } catch (error) {
-      throw customeError.serverError(`${error}`);
+      throw CustomeError.serverError(`${error}`);
     }
   }
 }

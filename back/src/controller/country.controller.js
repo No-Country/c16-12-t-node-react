@@ -1,4 +1,4 @@
-import handleError from '../errors/handle.error.js';
+import { HandleError } from '../errors/index.js';
 
 export class CountryController {
   constructor({ service }) {
@@ -10,7 +10,7 @@ export class CountryController {
     return this.service
       .getAllCountries()
       .then((countries) => res.status(200).json(countries))
-      .catch((err) => handleError.handle(err, res));
+      .catch((err) => HandleError.handle(err, res));
   };
 
   //CREATE NEW COUNTRY
@@ -20,6 +20,6 @@ export class CountryController {
     return this.country
       .createCountry(countryData)
       .then((newCountry) => res.status(201).json(newCountry))
-      .catch((err) => handleError.handle(err, res));
+      .catch((err) => HandleError.handle(err, res));
   };
 }

@@ -1,4 +1,4 @@
-import customeError from '../errors/custome.error.js';
+import { CustomeError } from '../errors/index.js';
 import { BaseRepository } from './base.repository.js';
 
 export class UserRepository extends BaseRepository {
@@ -13,7 +13,7 @@ export class UserRepository extends BaseRepository {
         attributes: { exclude: ['password'] },
       });
     } catch (error) {
-      throw customeError.serverError(`${error}`);
+      throw CustomeError.serverError(`${error}`);
     }
   }
 
@@ -25,7 +25,7 @@ export class UserRepository extends BaseRepository {
       const { password, ...data } = user?.dataValues;
       return data;
     } catch (error) {
-      throw customeError.serverError(`${error}`);
+      throw CustomeError.serverError(`${error}`);
     }
   }
 
@@ -33,7 +33,7 @@ export class UserRepository extends BaseRepository {
     try {
       return await this.model.findOne({ where: { email } });
     } catch (error) {
-      throw customeError.serverError(`${error}`);
+      throw CustomeError.serverError(`${error}`);
     }
   }
 }
