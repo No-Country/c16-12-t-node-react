@@ -13,10 +13,7 @@ export class CountryRoute {
     const controller = new CountryController({ service });
 
     router.get('/', controller.getAllCountries.bind(controller));
-    router.get('/:id', controller.getCountryById.bind(controller));
-    router.post('/', controller.createCountry.bind(controller));
-    router.patch('/:id', controller.updateCountry.bind(controller));
-    router.delete('/:id', controller.deleteCountryById.bind(controller));
+    router.post('/:id', controller.createCountry.bind(controller));
 
     return router;
   }
