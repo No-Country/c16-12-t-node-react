@@ -1,3 +1,4 @@
+import { UpdateUserDto } from '../domain/dtos/index.js';
 import { HandleError } from '../errors/index.js';
 
 export class UserController {
@@ -23,9 +24,12 @@ export class UserController {
   updateUserById = (req, res) => {
     const { id } = req.params;
     const dataUserUpdate = req.body;
-    //todo: add update dto
+
+    const [error, updateDto] = UpdateUserDto.create({ id, ...dataUserUpdate });
+    if (error) return HandleError.handle(error, res);
+
     return this.service
-      .updateUserById(id, dataUserUpdate)
+      .updateUserById(updateDto)
       .then((user) => res.status(200).json(user))
       .catch((err) => HandleError.handle(err, res));
   };
