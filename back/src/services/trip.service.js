@@ -1,4 +1,3 @@
-
 export class TripService {
   constructor({ repository }) {
     this.repository = repository;
