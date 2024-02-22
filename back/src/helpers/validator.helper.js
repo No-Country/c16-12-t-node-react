@@ -8,7 +8,14 @@ export class Validator {
       isLength: (value, { min }) => {
         return value.length >= min;
       },
+      isNan: (value) => {
+        return !isNaN(value);
+      },
     };
+  }
+
+  static validateId(id) {
+    return this.getValidator().isNan(id);
   }
 
   static validateEmail(email) {
