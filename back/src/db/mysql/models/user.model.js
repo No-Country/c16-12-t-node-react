@@ -23,7 +23,7 @@ export const User = sequelize.define('User', {
   },
   phone: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   dni: {
     type: DataTypes.STRING,
@@ -38,6 +38,23 @@ export const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: true,
     defaultValue: 'No avatar',
+  },
+  role: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 'passenger',
+    validate: {
+      isIn: [['driver', 'passenger', 'admin']],
+    },
+  },
+  rating: {
+    type: DataTypes.FLOAT,
+    allowNull: true,
+    defaultValue: 0,
+    validate: {
+      min: 0,
+      max: 5,
+    },
   },
   information: {
     type: DataTypes.STRING,
