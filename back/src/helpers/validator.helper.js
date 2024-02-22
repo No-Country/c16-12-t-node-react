@@ -20,7 +20,7 @@ export class Validator {
   }
 
   static validateName(name) {
-    return this.getValidator().isLength(name, { min: 5 });
+    return this.getValidator().isLength(name, { min: 3 });
   }
 
   static validatePhone(phone) {
