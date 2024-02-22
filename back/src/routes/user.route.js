@@ -4,6 +4,7 @@ import { UserController } from '../controller/index.js';
 import { UserRepository } from '../repositories/index.js';
 import { UserService } from '../services/index.js';
 import { User } from '../db/mysql/models/index.js';
+import { AuthMiddleware } from '../middleware/index.js';
 
 export class UserRoute {
   static routes() {
@@ -14,9 +15,17 @@ export class UserRoute {
     const controller = new UserController({ service });
 
     router.get('/', controller.getAllUsers.bind(controller));
-    router.get('/:id', controller.getUserById.bind(controller));
-    router.patch('/:id', controller.updateUserById.bind(controller));
-    router.delete('/:id', controller.deleteUserById.bind(controller));
+    router.get('/:id', [AuthMiddleware.authentication], controller.getUserById.bind(controller));
+    router.patch(
+      '/:id',
+      [AuthMiddleware.authentication],
+      controller.updateUserById.bind(controller),
+    );
+    router.delete(
+      '/:id',
+      [AuthMiddleware.authentication],
+      controller.deleteUserById.bind(controller),
+    );
 
     return router;
   }
