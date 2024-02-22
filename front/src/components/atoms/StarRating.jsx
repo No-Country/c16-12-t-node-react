@@ -6,6 +6,8 @@ export const StarRating = ({ userRating }) => {
   const [rating, setRating] = useState(userRating);
   const [hover, setHover] = useState(null);
 
+  //todo: add fetch rating on db
+
   const handleRating = (ratingValue) => {
     setRating(ratingValue);
   };
