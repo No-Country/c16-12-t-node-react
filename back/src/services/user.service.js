@@ -1,3 +1,4 @@
+import { BcryptAdapter } from '../config/adapters/bcrypt.adapter.js';
 import { CustomeError } from '../errors/index.js';
 import { Validator } from '../helpers/validator.helper.js';
 
@@ -9,6 +10,7 @@ export class UserService {
   async getAllUsers() {
     return await this.repository.getAllUsers();
   }
+
   async getUserById(id) {
     this.validateId(id);
     const user = await this.repository.getUserById(id);
@@ -19,10 +21,15 @@ export class UserService {
   async updateUserById(updateDto) {
     const { id, ...data } = updateDto;
 
-    const userData = await this.repository.update(id, { ...data });
+    let passWordHashed;
+    if (data?.password) {
+      passWordHashed = BcryptAdapter.hash(data.password);
+    }
+
+    const userData = await this.repository.update(id, { ...data, password: passWordHashed });
     this.exeption(userData);
 
-    const { password, ...user } = userData.dataValues;
+    const { password, ...user } = userData?.dataValues;
     return user;
   }
 

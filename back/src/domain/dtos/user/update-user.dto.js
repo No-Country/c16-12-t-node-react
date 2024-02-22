@@ -17,35 +17,29 @@ export class UpdateUserDto {
   }
 
   static create(props) {
-    const { id, name, lastNane, email, password, phone, dni, address, role, avatar, rating } =
-      props;
+    const { user, id, ...data } = props;
 
     const roles = ['admin', 'passenger', 'driver'];
 
+    if (!Object.values(data).length)
+      return [CustomeError.badRequest('Missing user properties in request')];
     if (!id) return [CustomeError.badRequest('Missing user Id property in request')];
     if (!Validator.validateId(id))
       return [CustomeError.badRequest(`Invalid user Id '${id}'  property in request`)];
-    if (!roles.includes(role))
+    if (data.role && !roles.includes(data.role))
       return [
         CustomeError.badRequest(
-          `Invalid role '${role}' property in request. Allowed roles: ${roles.join(', ')}`,
+          `Invalid role '${data.role}' property in request. Allowed roles: ${data.roles.join(', ')}`,
         ),
       ];
+    if (data.rating && !Validator.validateRating(data.rating))
+      return [CustomeError.badRequest(`Ranking value '${data.rating}' must be between 0 and 5`)];
 
     return [
       undefined,
       new UpdateUserDto({
-        id,
-        name,
-        lastNane,
-        email,
-        password,
-        phone,
-        dni,
-        address,
-        role,
-        avatar,
-        rating,
+        id: +data.id,
+        ...props,
       }),
     ];
   }
