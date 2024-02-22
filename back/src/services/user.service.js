@@ -1,4 +1,5 @@
 import { CustomeError } from '../errors/index.js';
+import { Validator } from '../helpers/validator.helper.js';
 
 export class UserService {
   constructor({ repository }) {
@@ -15,8 +16,9 @@ export class UserService {
     return user;
   }
 
-  async updateUserById(id, data) {
-    this.validateId(id);
+  async updateUserById(updateDto) {
+    const { id, ...data } = updateDto;
+
     const userData = await this.repository.update(id, { ...data });
     this.exeption(userData);
 
@@ -32,8 +34,8 @@ export class UserService {
   }
 
   validateId(id) {
-    if (!id) throw CustomeError.badRequest('User Id is required');
-    if (isNaN(id)) throw CustomeError.badRequest('User Id must be a number');
+    if (!id) throw CustomeError.badRequest('Id is required');
+    if (!Validator.validateId(id)) throw CustomeError.badRequest(`Invalid id: '${id}'`);
   }
 
   exeption(user) {
