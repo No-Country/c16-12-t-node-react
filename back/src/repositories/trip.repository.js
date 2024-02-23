@@ -1,5 +1,5 @@
 import { BaseRepository } from './base.repository.js';
-
+import customeError from '../errors/custome.error.js';
 export class TripRepository extends BaseRepository {
   constructor({ model }) {
     super({ model });
