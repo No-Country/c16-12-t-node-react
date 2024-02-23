@@ -11,6 +11,7 @@ import {
   UploadRoute,
   CitiesRoute,
   CountryRoute,
+  FromToRoute,
 } from './routes/index.js';
 
 /**
@@ -37,6 +38,7 @@ export const routes = () => {
   apiRoutes.use('/trip', tripRoute.routes());
   apiRoutes.use('/upload', UploadRoute.routes());
   apiRoutes.use('/countries', CountryRoute.routes());
+  apiRoutes.use('/fromto', FromToRoute.routes());
 
   router.use('/api', apiRoutes);
 
