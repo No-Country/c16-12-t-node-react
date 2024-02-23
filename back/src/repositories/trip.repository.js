@@ -1,3 +1,4 @@
+import { CustomeError } from '../errors/index.js';
 import { BaseRepository } from './base.repository.js';
 
 export class TripRepository extends BaseRepository {
@@ -28,7 +29,7 @@ export class TripRepository extends BaseRepository {
 
       return trip;
     } catch (error) {
-      throw customeError.serverError(`${error}`);
+      throw CustomeError.serverError(`${error}`);
     }
   }
 

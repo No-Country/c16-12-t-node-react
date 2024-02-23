@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import customeError from '../errors/custome.error.js';
+import { CustomeError } from '../errors/index.js';
 
 export class UploadService {
   constructor({ uploadAdapter }) {
@@ -21,13 +21,13 @@ export class UploadService {
 
       return files;
     } catch (error) {
-      throw customeError.serverError(`${error}`);
+      throw CustomeError.serverError(`${error}`);
     }
   }
 
   async remove(data) {
     if (!data.files) {
-      throw customeError.notFound('File not found');
+      throw CustomeError.notFound('File not found');
     }
 
     const files = JSON.parse(data.files);

@@ -8,7 +8,21 @@ export class Validator {
       isLength: (value, { min }) => {
         return value.length >= min;
       },
+      isNumber: (value) => {
+        return !isNaN(value);
+      },
+      isBetween: (value, { min, max }) => {
+        return value >= min && value <= max;
+      },
     };
+  }
+
+  static validateId(id) {
+    return this.getValidator().isNumber(id);
+  }
+
+  static validateRating(rating) {
+    return this.getValidator().isBetween(rating, { min: 0, max: 5 });
   }
 
   static validateEmail(email) {
@@ -20,7 +34,7 @@ export class Validator {
   }
 
   static validateName(name) {
-    return this.getValidator().isLength(name, { min: 5 });
+    return this.getValidator().isLength(name, { min: 3 });
   }
 
   static validatePhone(phone) {

@@ -1,4 +1,4 @@
-import HandleError from '../errors/handle.error.js';
+import { HandleError } from '../errors/index.js';
 
 export class CitiesController {
   constructor({ service }) {

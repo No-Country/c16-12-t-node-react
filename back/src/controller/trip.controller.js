@@ -1,4 +1,4 @@
-import handleError from '../errors/handle.error.js';
+import { HandleError } from '../errors/index.js';
 
 export class TripController {
   constructor({ service }) {
@@ -10,7 +10,7 @@ export class TripController {
     return this.service
       .getAllTrips()
       .then((users) => res.status(200).json(users))
-      .catch((err) => handleError.handle(err, res));
+      .catch((err) => HandleError.handle(err, res));
   };
 
   // Fetch a single trip by id
@@ -19,7 +19,7 @@ export class TripController {
     return this.service
       .getTripById(id)
       .then((user) => res.status(200).json(user))
-      .catch((err) => handleError.handle(err, res));
+      .catch((err) => HandleError.handle(err, res));
   };
 
   // Create a new trip

@@ -1,4 +1,6 @@
-import customeError from '../errors/custome.error.js';
+import { BcryptAdapter } from '../config/adapters/bcrypt.adapter.js';
+import { CustomeError } from '../errors/index.js';
+import { Validator } from '../helpers/validator.helper.js';
 
 export class UserService {
   constructor({ repository }) {
@@ -8,6 +10,7 @@ export class UserService {
   async getAllUsers() {
     return await this.repository.getAllUsers();
   }
+
   async getUserById(id) {
     this.validateId(id);
     const user = await this.repository.getUserById(id);
@@ -15,12 +18,18 @@ export class UserService {
     return user;
   }
 
-  async updateUserById(id, data) {
-    this.validateId(id);
-    const userData = await this.repository.update(id, { ...data });
+  async updateUserById(updateDto) {
+    const { id, ...data } = updateDto;
+
+    let passWordHashed;
+    if (data?.password) {
+      passWordHashed = BcryptAdapter.hash(data.password);
+    }
+
+    const userData = await this.repository.update(id, { ...data, password: passWordHashed });
     this.exeption(userData);
 
-    const { password, ...user } = userData.dataValues;
+    const { password, ...user } = userData?.dataValues;
     return user;
   }
 
@@ -32,11 +41,11 @@ export class UserService {
   }
 
   validateId(id) {
-    if (!id) throw customeError.badRequest('User Id is required');
-    if (isNaN(id)) throw customeError.badRequest('User Id must be a number');
+    if (!id) throw CustomeError.badRequest('Id is required');
+    if (!Validator.validateId(id)) throw CustomeError.badRequest(`Invalid id: '${id}'`);
   }
 
   exeption(user) {
-    if (!user) throw customeError.notFound('User not found');
+    if (!user) throw CustomeError.notFound('User not found');
   }
 }
