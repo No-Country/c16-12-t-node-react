@@ -23,4 +23,7 @@ export class UploadController {
       .then((data) => res.status(200).json(data))
       .catch((err) => handleError.handle(err, res));
   };
+  test = (req, res) => {
+    
+  }
 }

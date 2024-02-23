@@ -36,4 +36,7 @@ export class UserController {
       .then((user) => res.status(200).json(user))
       .catch((err) => handleError.handle(err, res));
   };
+  test = (req, res) => {
+    
+  }
 }

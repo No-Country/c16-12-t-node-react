@@ -55,4 +55,8 @@ export class TripController {
       .then((trip) => res.status(201).send(trip))
       .catch((error) => res.status(500).send({ message: error.message }));
   };
+
+  test = (req, res) => {
+    
+  }
 }
