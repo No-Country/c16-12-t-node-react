@@ -1,9 +1,9 @@
 import express from 'express';
 
-import { CitiesController } from '../controller/cities.controller.js';
-import { CitiesService } from '../services/cities.service.js';
-import { CitiesRepository } from '../repositories/cities.repository.js';
-import { City } from '../db/mysql/models/city.model.js';
+import { CitiesController } from '../controller/index.js';
+import { CitiesService } from '../services/index.js';
+import { CitiesRepository } from '../repositories/index.js';
+import { City } from '../db/mysql/models/index.js';
 
 export class CitiesRoute {
   static routes() {
