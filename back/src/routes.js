@@ -2,8 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
-
 import { notFoundMiddleware } from './middleware/index.js';
+import { AuthRoute } from './routes/index.js';
 import {
   AuthRoute,
   TripRoute,
@@ -12,6 +12,7 @@ import {
   CitiesRoute,
   CountryRoute,
 } from './routes/index.js';
+
 
 /**
  * Funtion to create express router
@@ -22,7 +23,8 @@ import {
 export const routes = () => {
   const router = express.Router();
   const apiRoutes = express.Router();
-  const tripRoute = new TripRoute();
+
+  const helleRoute = new AuthRoute();
 
   router
     .use(express.json())
@@ -31,6 +33,7 @@ export const routes = () => {
     .use(compression())
     .use(helmet());
 
+  apiRoutes.use('/auth', helleRoute.routes());
   apiRoutes.use('/cities', CitiesRoute.routes());
   apiRoutes.use('/auth', AuthRoute.routes());
   apiRoutes.use('/users', UserRoute.routes());
