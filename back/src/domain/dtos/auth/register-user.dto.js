@@ -45,7 +45,7 @@ export class RegisterUserDto {
       return [CustomeError.badRequest(`Invalid email: ${email}`)];
 
     if (!Validator.validatePassword(password))
-      return [CustomeError.badRequest(`Invalid password: ${password}`)];
+      return [CustomeError.badRequest(`Password '${password}' must be at least 6 characters`)];
 
     if (isNaN(phone)) return [CustomeError.badRequest(`Phone '${phone}' must be a number`)];
 
@@ -57,7 +57,10 @@ export class RegisterUserDto {
     if (!Validator.validateDni(dni))
       return [CustomeError.badRequest(`Dni must be at least 8 digits: ${dni}`)];
 
-    if (!roles.includes(role)) return [CustomeError.badRequest(`Invalid role: ${role}`)];
+    if (!roles.includes(role))
+      return [
+        CustomeError.badRequest(`Invalid role '${role}'. Allowed roles: ${roles.join(', ')}`),
+      ];
 
     if (isNaN(cityId)) return [CustomeError.badRequest(`City id '${cityId}' must be a number`)];
 
