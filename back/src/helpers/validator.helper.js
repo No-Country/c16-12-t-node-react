@@ -38,15 +38,17 @@ export class Validator {
   }
 
   static validatePhone(phone) {
-    return this.getValidator().isLength(phone, { min: 8 });
+    return this.getValidator().isLength(phone, { min: 8 }) && this.getValidator().isNumber(phone);
   }
 
   static validateDni(dni) {
-    return this.getValidator().isLength(dni, { min: 8 });
+    return this.getValidator().isLength(dni, { min: 8 }) && this.getValidator().isNumber(dni);
   }
 
   static validateZipCode(zipCode) {
-    return this.getValidator().isLength(zipCode, { min: 5 });
+    return (
+      this.getValidator().isLength(zipCode, { min: 5 }) && this.getValidator().isNumber(zipCode)
+    );
   }
 
   static validateCity(city) {
@@ -58,10 +60,12 @@ export class Validator {
   }
 
   static validateSeats(seats) {
-    return this.getValidator().isLength(seats, { min: 1 });
+    return this.getValidator().isLength(seats, { min: 1 }) && this.getValidator().isNumber(seats);
   }
 
   static validateDistance(distance) {
-    return this.getValidator().isLength(distance, { min: 1 });
+    return (
+      this.getValidator().isLength(distance, { min: 1 }) && this.getValidator().isNumber(distance)
+    );
   }
 }
