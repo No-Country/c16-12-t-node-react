@@ -6,10 +6,6 @@ export class CitiesRepository extends BaseRepository {
   }
 
   async getCityByName(name) {
-    // implementation on database
-
-    return await this.model.findAll({
-      name: name,
-    });
+    return await this.model.findAll({ where: { name } });
   }
 }
