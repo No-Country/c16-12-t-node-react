@@ -34,7 +34,7 @@ export class CountryController {
     return this.service
       .updateCountry(updateCountryDto)
       .then((country) => res.status(201).json(country))
-      .catch((error) => res.status(500).send({ message: error.message }));
+      .catch((error) => HandleError.handle(error, res));
   };
 
   //CREATE NEW COUNTRY
@@ -57,6 +57,6 @@ export class CountryController {
     return this.service
       .deleteCountryById(id)
       .then((country) => res.status(201).json(country))
-      .catch((error) => res.status(500).send({ message: error.message }));
+      .catch((error) => HandleError.handle(error, res));
   };
 }
