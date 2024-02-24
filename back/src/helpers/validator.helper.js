@@ -68,4 +68,16 @@ export class Validator {
       this.getValidator().isLength(distance, { min: 1 }) && this.getValidator().isNumber(distance)
     );
   }
+
+  static validateLatitud(latitud) {
+    return (
+      this.getValidator().isLength(latitud, { min: 4 }) && this.getValidator().isNumber(latitud)
+    );
+  }
+
+  static validateLongitud(latitud) {
+    return (
+      this.getValidator().isLength(latitud, { min: 4 }) && this.getValidator().isNumber(latitud)
+    );
+  }
 }

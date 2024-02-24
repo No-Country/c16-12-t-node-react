@@ -1,4 +1,4 @@
-import { CreateCityDto } from '../domain/dtos/index.js';
+import { CreateCityDto, UpdateCityDto } from '../domain/dtos/index.js';
 import { HandleError } from '../errors/index.js';
 
 export class CitiesController {
@@ -35,9 +35,12 @@ export class CitiesController {
 
   updateCityById = (req, res) => {
     const { id } = req.params;
-    const data = req.body;
+
+    const [error, updateDto] = UpdateCityDto.create({ id, ...req.body });
+    if (error) return HandleError.handle(error, res);
+
     return this.service
-      .update(id, data)
+      .update(updateDto)
       .then((data) => res.status(200).json(data))
       .catch((err) => HandleError.handle(err, res));
   };
