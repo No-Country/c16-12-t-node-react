@@ -32,6 +32,12 @@ export class UpdateUserDto {
           `Invalid role '${data.role}' property in request. Allowed roles: ${data.roles.join(', ')}`,
         ),
       ];
+    if (data.email && !Validator.validateEmail(data.email))
+      return [CustomeError.badRequest(`Invalid email '${data.email}' property in request`)];
+    if (data.dni && !Validator.validateDni(data.dni))
+      return [CustomeError.badRequest(`Invalid dni '${data.dni}' property in request`)];
+    if (data.phone && !Validator.validatePhone(data.phone))
+      return [CustomeError.badRequest(`Invalid phone '${data.phone}' property in request`)];
     if (data.rating && !Validator.validateRating(data.rating))
       return [CustomeError.badRequest(`Ranking value '${data.rating}' must be between 0 and 5`)];
 
