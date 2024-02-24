@@ -23,12 +23,18 @@ export class CountryService {
 
   async updateCountry(data) {
     const { id } = data;
-    return await this.repository.update(id, { ...data });
+    const countryUpdated = await this.repository.update(id, { ...data });
+
+    if (!countryUpdated) throw CustomeError.badRequest(`Country with ${id} not found`);
+    return countryUpdated;
   }
 
   async deleteCountryById(id) {
     this.validateId(id);
-    return await this.repository.delete(id);
+    const countryDeleted = await this.repository.delete(id);
+
+    if (!countryDeleted) throw CustomeError.badRequest(`Country with ${id} not found`);
+    return true;
   }
 
   validateId(id) {
