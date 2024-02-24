@@ -1,3 +1,5 @@
+import { CreateCountryDto } from '../domain/dtos/country/create-country.dto.js';
+import { UpdateCountryDto } from '../domain/dtos/country/update-country.dto.js';
 import { HandleError } from '../errors/index.js';
 
 export class CountryController {
@@ -19,17 +21,18 @@ export class CountryController {
     return this.service
       .getCountryById(id)
       .then((country) => res.status(200).json(country))
-      .catch((err) => handleError.handle(err, res));
+      .catch((err) => HandleError.handle(err, res));
   };
 
   //UPDATE COUNTRY
   updateCountry = (req, res) => {
     const { id } = req.params;
-    if (!id) {
-      return res.status(400).send({ message: 'Missing country id' });
-    }
+
+    const [error, updateCountryDto] = UpdateCountryDto.create({ id, ...req.body });
+    if (error) return HandleError.handle(error, res);
+
     return this.service
-      .updateCountry(id, req.body)
+      .updateCountry(updateCountryDto)
       .then((country) => res.status(201).json(country))
       .catch((error) => res.status(500).send({ message: error.message }));
   };
@@ -38,8 +41,11 @@ export class CountryController {
   createCountry = (req, res) => {
     const countryData = req.body;
 
+    const [error, countryDto] = CreateCountryDto.create(countryData);
+    if (error) return HandleError.handle(error, res);
+
     return this.service
-      .createCountry(countryData)
+      .createCountry(countryDto)
       .then((newCountry) => res.status(201).json(newCountry))
       .catch((err) => HandleError.handle(err, res));
   };
@@ -47,9 +53,7 @@ export class CountryController {
   //DELTE COUNTRY
   deleteCountryById = (req, res) => {
     const { id } = req.params;
-    if (!id) {
-      return res.status(400).send({ message: 'Missing country id' });
-    }
+
     return this.service
       .deleteCountryById(id)
       .then((country) => res.status(201).json(country))
