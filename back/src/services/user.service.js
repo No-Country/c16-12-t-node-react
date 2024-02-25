@@ -13,9 +13,7 @@ export class UserService {
 
   async getUserById(id) {
     this.validateId(id);
-    const user = await this.repository.getUserById(id);
-    this.exeption(user);
-    return user;
+    return await this.repository.getUserById(id);
   }
 
   async updateUserById(updateDto) {
@@ -26,26 +24,16 @@ export class UserService {
       passWordHashed = BcryptAdapter.hash(data.password);
     }
 
-    const userData = await this.repository.update(id, { ...data, password: passWordHashed });
-    this.exeption(userData);
-
-    const { password, ...user } = userData?.dataValues;
-    return user;
+    return await this.repository.updateUser(id, { ...data, passWordHashed });
   }
 
   async deleteUserById(id) {
     this.validateId(id);
-    const user = await this.repository.delete(id);
-    this.exeption(user);
-    return user;
+    return await this.repository.deleteUser(id);
   }
 
   validateId(id) {
     if (!id) throw CustomeError.badRequest('Id is required');
     if (!Validator.validateId(id)) throw CustomeError.badRequest(`Invalid id: '${id}'`);
-  }
-
-  exeption(user) {
-    if (!user) throw CustomeError.notFound('User not found');
   }
 }
