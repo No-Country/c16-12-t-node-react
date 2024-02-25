@@ -14,11 +14,14 @@ export class BaseRepository {
   }
 
   async getById(id) {
+    let entity;
     try {
-      return await this.model.findOne({ where: { id } });
+      entity = await this.model.findOne({ where: { id } });
     } catch (error) {
       throw CustomeError.serverError(`${error}`);
     }
+    if (!entity) throw CustomeError.notFound(`${this.model.name} with id '${id}' not found`);
+    return entity;
   }
 
   async create(data) {
@@ -30,12 +33,9 @@ export class BaseRepository {
   }
 
   async update(id, data) {
-    try {
-      const item = await this.getById(id);
-      if (!item) {
-        return null;
-      }
+    await this.getById(id);
 
+    try {
       const res = await this.model.update(data, { where: { id } });
       if (res.at(0) > 0) {
         return this.getById(id);
@@ -46,8 +46,11 @@ export class BaseRepository {
   }
 
   async delete(id) {
+    await this.getById(id);
+
     try {
-      return await this.model.destroy({ where: { id } });
+      const entityDeleted = await this.model.destroy({ where: { id } });
+      if (entityDeleted) return true;
     } catch (error) {
       throw CustomeError.serverError(`${error}`);
     }
