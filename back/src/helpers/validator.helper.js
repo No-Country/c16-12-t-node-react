@@ -69,6 +69,14 @@ export class Validator {
     );
   }
 
+  static validateTimeEstimated(timeEstimated) {
+    return this.getValidator().isNumber(timeEstimated);
+  }
+
+  static validatePrice(price) {
+    return this.getValidator().isNumber(price);
+  }
+
   static validateLatitud(latitud) {
     return (
       this.getValidator().isLength(latitud, { min: 4 }) && this.getValidator().isNumber(latitud)
