@@ -5,3 +5,4 @@ export * from './driver_passenger.model.js';
 export * from './from_to.model.js';
 export * from './trip.model.js';
 export * from './user.model.js';
+export * from './seat_reserved.model.js';
