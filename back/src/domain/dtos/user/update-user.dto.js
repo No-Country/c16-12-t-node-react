@@ -21,17 +21,18 @@ export class UpdateUserDto {
 
     const roles = ['admin', 'passenger', 'driver'];
 
-    if (!Object.values(data).length)
+    if (!Object.keys(data).length)
       return [CustomeError.badRequest('Missing user properties in request')];
     if (!id) return [CustomeError.badRequest('Missing user Id property in request')];
     if (!Validator.validateId(id))
       return [CustomeError.badRequest(`Invalid user Id '${id}'  property in request`)];
-    if (data.role && !roles.includes(data.role))
+    if (Object.keys(data).includes('role') && !roles.includes(data?.role)) {
       return [
         CustomeError.badRequest(
-          `Invalid role '${data.role}' property in request. Allowed roles: ${data.roles.join(', ')}`,
+          `Invalid role '${data?.role}' property in request. Allowed roles: ${roles.join(', ')}`,
         ),
       ];
+    }
     if (data.email && !Validator.validateEmail(data.email))
       return [CustomeError.badRequest(`Invalid email '${data.email}' property in request`)];
     if (data.dni && !Validator.validateDni(data.dni))
