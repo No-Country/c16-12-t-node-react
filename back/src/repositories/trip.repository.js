@@ -1,87 +1,129 @@
+import { Op } from 'sequelize';
 import { CustomeError } from '../errors/index.js';
 import { BaseRepository } from './base.repository.js';
+import { envs } from '../config/index.js';
 
 export class TripRepository extends BaseRepository {
-  constructor({ model }) {
-    super({ model });
-    this.model = model;
+  constructor({ tripModel, cityModel, UserModel, ReservationModel }) {
+    super({ model: tripModel });
+    this.tripModel = tripModel;
+    this.cityModel = cityModel;
+    this.UserModel = UserModel;
+    this.ReservationModel = ReservationModel;
   }
 
-  /*
-    TODO: Implementar todos los metodos con la logica 
-    de vinculacion al usuario
-  */
+  async getAllTrips({ page, limit }) {
+    const offset = (page - 1) * limit;
 
-  // Obtener todos los viajes
-  async getAllTrips() {
     try {
-      return await this.model.findAll();
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
+      const [total, trips] = await Promise.all([
+        this.tripModel.count(),
+        this.tripModel.findAll({ offset, limit }),
+      ]);
 
-  // Obtener un viaje por ID
-  async getTripById(id) {
-    try {
-      const trip = await this.model.findOne({ where: { id } });
-      if (!trip) return { message: 'Trip not found' };
+      for (let i = 0; i < trips.length; i++) {
+        const [origin, destiny] = await this.getCitys(trips[i].origin_id, trips[i].destiny_id);
+        trips[i].dataValues.origin = origin.id === trips[i].origin_id ? origin : destiny;
+        trips[i].dataValues.destiny = destiny.id === trips[i].destiny_id ? destiny : origin;
+        delete trips[i]?.dataValues.origin_id;
+        delete trips[i]?.dataValues.destiny_id;
+      }
 
-      return trip;
+      const nextPage =
+        page * limit < total ? `${envs.BASE_API}/trips?page=${page + 1}&limit=${limit}` : null;
+      const prevPage =
+        page - 1 > 0 && limit - 1 < total
+          ? `${envs.BASE_API}/properties?page=${page - 1}&limit=${limit}`
+          : null;
+
+      return {
+        page,
+        limit,
+        total,
+        nextPage,
+        prevPage,
+        data: trips,
+      };
     } catch (error) {
       throw CustomeError.serverError(`${error}`);
     }
   }
 
-  // Crear un nuevo viaje
+  async getTripById(id) {
+    try {
+      const passengers = await this.ReservationModel.findAll({
+        where: { trip_id: id },
+        attributes: ['id', 'user_id', 'seats_reserved', 'reserved_status'],
+      });
+
+      for (let i = 0; i < passengers.length; i++) {
+        const user = await this.UserModel.findOne({
+          where: { id: passengers[i]?.user_id },
+          attributes: ['id', 'name', 'email', 'phone', 'dni', 'address', 'role', 'avatar'],
+        });
+        passengers[i].dataValues.user = user;
+        delete passengers[i]?.dataValues.user_id;
+      }
+
+      const trip = await this.tripModel.findOne({
+        where: { id: id },
+      });
+
+      if (!trip) return null;
+
+      const [origin, destiny] = await this.getCitys(trip.origin_id, trip.destiny_id);
+
+      delete trip?.dataValues.origin_id;
+      delete trip?.dataValues.destiny_id;
+
+      return {
+        ...trip.dataValues,
+        origin,
+        destiny,
+        passengers: [...passengers],
+      };
+    } catch (error) {
+      throw CustomeError.serverError(`${error}`);
+    }
+  }
+
   async createTrip(tripData) {
     try {
-      const new_trip = await this.model.create(tripData);
-
-      if (!new_trip) return { message: 'Failed to create trip' };
-
-      console.log(new_trip);
-      return {
-        message: 'Trip created successfully',
-        trip: new_trip,
-      };
+      return await this.tripModel.create(tripData);
     } catch (error) {
-      throw new Error(error);
+      throw CustomeError.serverError(`${error}`);
     }
   }
 
-  // Actualizar un viaje
-  async updateTrip(id, tripData) {
+  async getCitys(origin, destiny) {
     try {
-      await this.model.update(tripData, {
-        where: { id: id },
+      return await this.cityModel.findAll({
+        where: {
+          [Op.or]: [{ id: +origin }, { id: +destiny }],
+        },
       });
-      return {
-        message: 'Trip updated successfully',
-        trip: tripData,
-      };
     } catch (error) {
-      throw new Error(error);
+      throw CustomeError.serverError(`${error}`);
     }
   }
 
-  // Eliminar un viaje
-  async deleteTrip(id) {
+  async reserveTrip(data) {
     try {
-      const deletedTrip = await this.model.findOne({
-        where: { id: id },
-      });
-
-      const deletedRows = await this.model.destroy({
-        where: { id: id },
-      });
-      return {
-        message: 'Trip deleted successfully',
-        rows: deletedRows,
-        trip_deleted: deletedTrip,
-      };
+      return await this.ReservationModel.create(data);
     } catch (error) {
-      throw new Error(error);
+      console.log(error);
+      throw CustomeError.serverError(`${error}`);
+    }
+  }
+
+  async cancelTrip(id) {
+    try {
+      return await this.ReservationModel.update(
+        { reserved_status: 'cancelled' },
+        { where: { id } },
+      );
+    } catch (error) {
+      throw CustomeError.serverError(`${error}`);
     }
   }
 }
