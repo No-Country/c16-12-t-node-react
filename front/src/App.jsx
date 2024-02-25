@@ -1,11 +1,13 @@
 import React from 'react';
 
-function App() {
+import LugaresLibres from './components/atoms/AvailablePlaces';
+
+const App = () => {
   return (
-    <>
-      <h1>Hello World</h1>
-    </>
+    <div>
+      <LugaresLibres numero={5} />
+    </div>
   );
-}
+};
 
 export default App;
