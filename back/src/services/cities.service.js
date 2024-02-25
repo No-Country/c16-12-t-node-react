@@ -12,20 +12,11 @@ export class CitiesService {
 
   async getById(id) {
     this.validateId(id);
-    const city = await this.repository.getById(id);
-    if (!city) throw CustomeError.notFound(`City with id '${id}' not found`);
-    return city;
+    return await this.repository.getById(id);
   }
 
   async create(data) {
-    const cityExists = await this.repository.getCityByName(data.name);
-    if (cityExists) throw CustomeError.badRequest(`City with name '${data.name}' already exists`);
-
-    return await this.repository.create({
-      ...data,
-      zip_code: data.zipCode,
-      country_id: data.countryId,
-    });
+    return await this.repository.createCity(data);
   }
 
   async update(data) {
