@@ -1,5 +1,3 @@
-import customeError from '../errors/custome.error.js';
-
 export class FromToService {
   constructor({ repository }) {
     this.repository = repository;
