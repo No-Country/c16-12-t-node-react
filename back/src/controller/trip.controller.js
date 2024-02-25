@@ -1,3 +1,5 @@
+import { CreateTripDto } from '../domain/dtos/trip/create-trip.dto.js';
+import { UpdateTripDto } from '../domain/dtos/trip/update-trip.dto.js';
 import { HandleError } from '../errors/index.js';
 
 export class TripController {
@@ -7,8 +9,9 @@ export class TripController {
 
   // Fetch all trips
   getAllTrips = (req, res) => {
+    const { page = 1, limit = 10 } = req.query;
     return this.service
-      .getAllTrips()
+      .getAllTrips({ page: Number(page), limit: Number(limit) })
       .then((users) => res.status(200).json(users))
       .catch((err) => HandleError.handle(err, res));
   };
@@ -24,35 +27,50 @@ export class TripController {
 
   // Create a new trip
   createTrip = (req, res) => {
+    const { user } = req.body;
+    const [error, createTripDto] = CreateTripDto.create({ user, ...req.body });
+    if (error) return HandleError.handle(error, res);
+
     return this.service
-      .createTrip(req.body)
-      .then((trip) => res.status(201).send(trip))
-      .catch((error) => res.status(400).send({ message: error.message }));
+      .createTrip(createTripDto)
+      .then((trip) => res.status(201).json(trip))
+      .catch((error) => HandleError.handle(error, res));
   };
 
   // Update a trip
   updateTrip = (req, res) => {
     const { id } = req.params;
-    if (!id) {
-      return res.status(400).send({ message: 'Missing trip id' });
-    }
+    const [error, updateTripDto] = UpdateTripDto.create({ id, ...req.body });
+    if (error) return HandleError.handle(error, res);
 
     return this.service
-      .updateTrip(id, req.body)
-      .then((trip) => res.status(201).send(trip))
-      .catch((error) => res.status(400).send({ message: error.message }));
+      .updateTrip(updateTripDto)
+      .then((trip) => res.status(201).json(trip))
+      .catch((error) => HandleError.handle(error, res));
   };
 
   // Delete a trip
   deleteTrip = (req, res) => {
     const { id } = req.params;
-    if (!id) {
-      return res.status(400).send({ message: 'Missing trip id' });
-    }
-
     return this.service
       .deleteTrip(id)
-      .then((trip) => res.status(201).send(trip))
-      .catch((error) => res.status(500).send({ message: error.message }));
+      .then((trip) => res.status(200).json(trip))
+      .catch((error) => HandleError.handle(error, res));
+  };
+
+  reserveTrip = (req, res) => {
+    const { tripId } = req.params;
+    return this.service
+      .reserveTrip({ tripId, ...req.body })
+      .then((trip) => res.status(201).json(trip))
+      .catch((error) => HandleError.handle(error, res));
+  };
+
+  cancelTrip = (req, res) => {
+    const { reservedId } = req.params;
+    return this.service
+      .cancelTrip(reservedId)
+      .then((trip) => res.status(201).json(trip))
+      .catch((error) => HandleError.handle(error, res));
   };
 }
