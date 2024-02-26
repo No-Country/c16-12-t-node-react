@@ -12,6 +12,10 @@ export const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  last_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -40,11 +44,11 @@ export const User = sequelize.define('User', {
     defaultValue: 'No avatar',
   },
   role: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false,
-    defaultValue: 'passenger',
+    defaultValue: 2,
     validate: {
-      isIn: [['driver', 'passenger', 'admin']],
+      isIn: [[1, 2, 3]],
     },
   },
   rating: {
@@ -60,6 +64,10 @@ export const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: true,
     defaultValue: 'No information',
+  },
+  city_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
   },
 });
 
