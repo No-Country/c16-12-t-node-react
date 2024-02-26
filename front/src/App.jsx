@@ -1,13 +1,7 @@
-import React from 'react';
-
-import TripTime from './components/atoms/TripTime';
-
-const App = () => {
-  const currentTime = '20:30';
-  
+function App() {
   return (
     <div>
-      <TripTime time={currentTime} />
+      <h1>Hello World</h1>
     </div>
   );
 };
