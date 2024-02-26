@@ -14,6 +14,8 @@ export class UpdateUserDto {
     this.role = props.role;
     this.avatar = props.avatar;
     this.rating = props.rating;
+    this.cityId = props.cityId;
+    this.information = props.information;
   }
 
   static create(props) {
@@ -46,6 +48,7 @@ export class UpdateUserDto {
       undefined,
       new UpdateUserDto({
         id: +data.id,
+        cityId: +data.cityId,
         ...props,
       }),
     ];
