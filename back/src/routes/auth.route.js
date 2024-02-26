@@ -10,7 +10,7 @@ export class AuthRoute {
   static routes() {
     const router = express.Router();
 
-    const repository = new UserRepository({ model: User });
+    const repository = new UserRepository({ userModel: User });
     const service = new AuthService({ repository, jwt_secret: envs.JWT_SECRET });
     const controller = new AuthController({ service });
 
