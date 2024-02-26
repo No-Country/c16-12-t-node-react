@@ -1,11 +1,13 @@
 import React from 'react';
 
-import LugaresLibres from './components/atoms/AvailablePlaces';
+import TripTime from './components/atoms/TripTime';
 
 const App = () => {
+  const currentTime = '20:30';
+  
   return (
     <div>
-      <LugaresLibres numero={5} />
+      <TripTime time={currentTime} />
     </div>
   );
 };

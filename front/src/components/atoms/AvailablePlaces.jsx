@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LugaresLibres = ({ numero }) => {
+const AvailablePlaces = ({ numero }) => {
   return (
     <div style={{ border: '1px solid #000', padding: '10px', borderRadius: '5px', display: 'flex', alignItems: 'center' }}>
       <div style={{ fontSize: '24px', fontWeight: 'bold', marginRight: '10px' }}>{numero}</div>
@@ -9,4 +9,4 @@ const LugaresLibres = ({ numero }) => {
   );
 };
 
-export default LugaresLibres;
+export default AvailablePlaces;

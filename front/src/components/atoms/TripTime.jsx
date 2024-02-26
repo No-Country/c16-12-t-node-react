@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaClock } from 'react-icons/fa';
 
-const RelojConHora = ({ time }) => {
+const TripTime = ({ time }) => {
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <FaClock style={{ marginRight: '10px' }} />
@@ -10,4 +10,4 @@ const RelojConHora = ({ time }) => {
   );
 };
 
-export default RelojConHora;
+export default TripTime;
