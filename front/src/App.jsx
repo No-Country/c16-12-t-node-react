@@ -1,6 +1,6 @@
 function App() {
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center">\
       <h1>Hello World</h1>
     </div>
   );

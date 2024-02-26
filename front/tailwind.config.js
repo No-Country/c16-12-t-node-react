@@ -44,13 +44,14 @@ export default {
           darker: '#0d0d0d'
         } 
       },
-    },
-    height:{
-      '810' : '50.625rem'
-    },
-    width: {
-      '542':'33.875rem'
+      height:{
+        '810' : '50.625rem'
+      },
+      width: {
+        '542':'33.875rem'
+      }
     }
+
   },
   plugins: [],
 }
