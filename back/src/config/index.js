@@ -8,4 +8,8 @@ export const envs = {
   DB_PASSWORD: env.get('DB_PASSWORD').required().asString(),
   DB_HOST: env.get('DB_HOST').required().asString(),
   DB_DIALECT_MYSQL: env.get('DB_DIALECT_MYSQL').required().asString(),
+  JWT_SECRET: env.get('JWT_SECRET').required().asString(),
+  CLOUDINARY_CLOUD_NAME: env.get('CLOUDINARY_CLOUD_NAME').required().asString(),
+  CLOUDINARY_API_KEY: env.get('CLOUDINARY_API_KEY').required().asString(),
+  CLOUDINARY_API_SECRET: env.get('CLOUDINARY_API_SECRET').required().asString(),
 };
