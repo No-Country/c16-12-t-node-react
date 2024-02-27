@@ -3,7 +3,6 @@ import { Validator } from '../../../helpers/validator.helper.js';
 
 export class UpdateTripDto {
   constructor(props) {
-    console.log('-------> constructor', props);
     this.id = props.id;
     this.distance = props.distance;
     this.time_estimated = props.time_estimated;

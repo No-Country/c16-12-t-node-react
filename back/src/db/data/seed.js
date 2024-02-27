@@ -1,7 +1,9 @@
 import { sequelize } from '../mysql/config/config.connection.js';
+import { City, Country, Role, SeatReserved, Trip, User } from '../mysql/models/index.js';
+import { seedData } from './data.js';
 
 (async () => {
-  await sequelize.authenticate();
+  await sequelize.sync({ force: true });
 
   await main();
 
@@ -9,22 +11,29 @@ import { sequelize } from '../mysql/config/config.connection.js';
 })();
 
 async function main() {
-  // todo 1: delete data from all tables
-  await Promise.all([
-    sequelize.query('SET FOREIGN_KEY_CHECKS = 0'),
-    sequelize.query('TRUNCATE TABLE `chat`'),
-    sequelize.query('TRUNCATE TABLE `city`'),
-    sequelize.query('TRUNCATE TABLE `country`'),
-    sequelize.query('TRUNCATE TABLE `reservation`'),
-    sequelize.query('TRUNCATE TABLE `role`'),
-    sequelize.query('TRUNCATE TABLE `trip`'),
-    sequelize.query('TRUNCATE TABLE `user`'),
-    sequelize.query('SET FOREIGN_KEY_CHECKS = 1'),
-  ]);
-  // todo 2: create countries
-  // todo 3: create cities
-  // todo 4: create roles
-  // todo 5: create users
-  // todo 6: create trips
-  // todo 7: create reservations
+  // todo 2: create roles
+  await Role.bulkCreate(seedData.roles);
+
+  // todo 3: create countries
+  await Country.bulkCreate(seedData.countries);
+
+  // todo 4: create cities
+  await City.bulkCreate(seedData.cities.colombia);
+  await City.bulkCreate(seedData.cities.peru);
+  await City.bulkCreate(seedData.cities.venezuela);
+  await City.bulkCreate(seedData.cities.ecuador);
+  await City.bulkCreate(seedData.cities.brasil);
+  await City.bulkCreate(seedData.cities.paraguay);
+  await City.bulkCreate(seedData.cities.chile);
+  await City.bulkCreate(seedData.cities.uruguay);
+  await City.bulkCreate(seedData.cities.argentina);
+
+  // todo 6: create users
+  await User.bulkCreate(seedData.users);
+
+  // todo 7: create trips
+  await Trip.bulkCreate(seedData.trips);
+
+  // todo 8: create reservations
+  await SeatReserved.bulkCreate(seedData.reservations);
 }
