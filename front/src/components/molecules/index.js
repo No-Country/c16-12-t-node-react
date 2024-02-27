@@ -1,2 +1,1 @@
-export { NavBar } from './NavBar';
-export { SearchBar } from './SearchBar'; 
+export { NavBar } from './NavBar.jsx';

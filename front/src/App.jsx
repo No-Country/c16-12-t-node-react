@@ -1,8 +1,9 @@
-import { SearchBar } from "./components/molecules/SearchBar";
+
+import { NavBar } from "./components/molecules/index.js";
 function App() {
   return (
+    
     <div>
-      <SearchBar/>
     </div>
   );
 };
