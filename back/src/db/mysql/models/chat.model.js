@@ -22,5 +22,5 @@ export const Chat = sequelize.define('Chat', {
   },
 });
 
-Chat.belongsTo(User, { through: 'Driver_Passenger', foreignKey: 'passenger_id', targetKey: 'id' });
-Chat.belongsTo(User, { through: 'Driver_Passenger', foreignKey: 'driver_id', targetKey: 'id' });
+Chat.belongsTo(User, { foreignKey: 'passenger_id', targetKey: 'id' });
+Chat.belongsTo(User, { foreignKey: 'driver_id', targetKey: 'id' });
