@@ -10,9 +10,9 @@ export const Role = sequelize.define('Role', {
   name: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: 'Passenger',
+    defaultValue: 'passenger',
     validate: {
-      isIn: [['Passenger', 'Driver', 'Admin']],
+      isIn: [['passenger', 'driver', 'admin']],
     },
   },
 });
