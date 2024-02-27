@@ -29,7 +29,6 @@ export class TripRepository extends BaseRepository {
             JSON_OBJECT(
               'id', o.id,
               'name', o.name,
-              'zip_code', o.zip_code,
               'latitud', o.latitud,
               'longitud', o.longitud,
               'country', (SELECT JSON_OBJECT('id', co.id, 'name', co.name, 'code', co.code))
@@ -38,7 +37,6 @@ export class TripRepository extends BaseRepository {
             JSON_OBJECT(
               'id', d.id,
               'name', d.name,
-              'zip_code', d.zip_code,
               'latitud', d.latitud,
               'longitud', d.longitud,
               'country_id', d.country_id,
@@ -127,7 +125,8 @@ export class TripRepository extends BaseRepository {
                         JSON_OBJECT(
                             'id', sr.id,
                             'seats', sr.seats_reserved,
-                            'status', sr.reserved_status
+                            'status', sr.reserved_status,
+                            'user', JSON_OBJECT('id', u.id, 'name', u.name, 'email', u.email, 'phone', u.phone)
                         )
                     )
                 FROM SeatReserveds AS sr
@@ -180,6 +179,19 @@ export class TripRepository extends BaseRepository {
     } catch (error) {
       throw CustomeError.serverError(`${error}`);
     }
+  }
+
+  async updateTrip(id, data) {
+    await this.findOne({ id });
+
+    let tripUpdated;
+    const response = await this.tripModel.update(data, { where: { id } });
+    if (response.at(0) === 1) {
+      tripUpdated = await this.getTripById(id);
+    } else {
+      throw CustomeError.notAcceptable('Trip not updated');
+    }
+    return tripUpdated;
   }
 
   async getCitys(origin, destiny) {
