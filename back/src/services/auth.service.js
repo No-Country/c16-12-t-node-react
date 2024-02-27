@@ -10,10 +10,10 @@ export class AuthService {
 
   async login(data) {
     const { email } = data;
-    const userExists = await this.repository.findUserByEmail(email);
-    if (!userExists) throw CustomeError.unauthorized('user not found');
+    const userExists = await this.repository.getUserByEmail(email);
+    if (!userExists) throw CustomeError.unauthorized(`User with email '${email}' not found`);
 
-    const { password, ...user } = userExists.at(0);
+    const { password, ...user } = userExists.dataValues;
 
     let isMatch, token;
     try {
@@ -31,17 +31,20 @@ export class AuthService {
 
   async register(data) {
     const { email } = data;
-    const userExists = await this.repository.findUserByEmail(email);
-    if (userExists.length > 0) throw CustomeError.conflict('User already exists');
+
+    const userExists = await this.repository.getUserByEmail(email);
+    if (userExists) throw CustomeError.conflict(`User with email '${email}' already exists`);
 
     const passWordHashed = BcryptAdapter.hash(data.password);
-    const newUser = await this.repository.create({
+
+    const userData = {
       ...data,
       last_name: data.lastName,
       password: passWordHashed,
-      city_id: data.cityId,
-    });
+      role: +data.role,
+    };
 
+    const newUser = await this.repository.createUser(userData);
     const { password, ...user } = newUser.dataValues;
 
     let token;

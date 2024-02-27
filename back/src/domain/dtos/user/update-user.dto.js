@@ -5,7 +5,7 @@ export class UpdateUserDto {
   constructor(props) {
     this.id = props.id;
     this.name = props.name;
-    this.lastNane = props.lastNane;
+    this.last_nane = props.last_nane;
     this.email = props.email;
     this.password = props.password;
     this.phone = props.phone;
@@ -14,27 +14,18 @@ export class UpdateUserDto {
     this.role = props.role;
     this.avatar = props.avatar;
     this.rating = props.rating;
-    this.cityId = props.cityId;
+    this.city_id = props.city_id;
     this.information = props.information;
   }
 
   static create(props) {
     const { user, id, ...data } = props;
 
-    const roles = ['admin', 'passenger', 'driver'];
-
     if (!Object.keys(data).length)
       return [CustomeError.badRequest('Missing user properties in request')];
     if (!id) return [CustomeError.badRequest('Missing user Id property in request')];
     if (!Validator.validateId(id))
       return [CustomeError.badRequest(`Invalid user Id '${id}'  property in request`)];
-    if (Object.keys(data).includes('role') && !roles.includes(data?.role)) {
-      return [
-        CustomeError.badRequest(
-          `Invalid role '${data?.role}' property in request. Allowed roles: ${roles.join(', ')}`,
-        ),
-      ];
-    }
     if (data.email && !Validator.validateEmail(data.email))
       return [CustomeError.badRequest(`Invalid email '${data.email}' property in request`)];
     if (data.dni && !Validator.validateDni(data.dni))
@@ -43,12 +34,14 @@ export class UpdateUserDto {
       return [CustomeError.badRequest(`Invalid phone '${data.phone}' property in request`)];
     if (data.rating && !Validator.validateRating(data.rating))
       return [CustomeError.badRequest(`Ranking value '${data.rating}' must be between 0 and 5`)];
+    if (data.city_id && !Validator.validateId(data.city_id))
+      return [CustomeError.badRequest(`Invalid city id '${data.city_id}' property in request`)];
 
     return [
       undefined,
       new UpdateUserDto({
         id: +data.id,
-        cityId: +data.cityId,
+        city_id: data.city_id,
         ...props,
       }),
     ];
