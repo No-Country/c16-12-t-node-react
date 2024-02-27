@@ -30,5 +30,15 @@ export const SeatReserved = sequelize.define('SeatReserved', {
   },
 });
 
-SeatReserved.belongsTo(Trip, { foreignKey: 'trip_id', targetKey: 'id' });
-SeatReserved.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id' });
+SeatReserved.belongsTo(Trip, {
+  foreignKey: 'trip_id',
+  targetKey: 'id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
+SeatReserved.belongsTo(User, {
+  foreignKey: 'user_id',
+  targetKey: 'id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
