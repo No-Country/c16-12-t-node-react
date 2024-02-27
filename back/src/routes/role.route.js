@@ -16,8 +16,8 @@ export class RoleRoute {
 
     router.get('/', controller.getAllRoles.bind(controller));
     router.post('/', controller.CreateRole.bind(controller));
-    router.patch('/:id', controller.UpdateRole.bind(controller));
-    router.delete('/:id', controller.DeleteRole.bind(controller));
+    router.patch('/:id', [AuthMiddleware.authentication], controller.UpdateRole.bind(controller));
+    router.delete('/:id', [AuthMiddleware.authentication], controller.DeleteRole.bind(controller));
 
     return router;
   }
