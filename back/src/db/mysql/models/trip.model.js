@@ -45,8 +45,8 @@ export const Trip = sequelize.define('Trip', {
   },
 });
 
-Trip.belongsTo(City, { through: 'From_to', foreignKey: 'origin_id', targetKey: 'id' });
-Trip.belongsTo(City, { through: 'From_to', foreignKey: 'destiny_id', targetKey: 'id' });
+Trip.belongsTo(City, { foreignKey: 'origin_id', targetKey: 'id' });
+Trip.belongsTo(City, { foreignKey: 'destiny_id', targetKey: 'id' });
 Trip.belongsTo(User, {
   foreignKey: 'driver_id',
   targetKey: 'id',

@@ -3,15 +3,11 @@ import { Validator } from '../../../helpers/validator.helper.js';
 
 export class CreateTripDto {
   constructor(props) {
-    this.distance = props.distance;
-    this.timeEstimated = props.timeEstimated;
     this.seats = props.seats;
-    this.seatsReserved = props.seatsReserved;
     this.seatPrice = props.seatPrice;
     this.totalPrice = props.totalPrice;
     this.origin = props.origin;
     this.destiny = props.destiny;
-    this.passenger = props.passenger;
     this.driver = props.driver;
   }
   static create(props) {
@@ -23,8 +19,6 @@ export class CreateTripDto {
       origin: 'origin',
       destiny: 'destiny',
     };
-
-    const driver = user.role === 'driver' ? user.id : null;
 
     for (const field in tripFields) {
       if (!props[field]) {
@@ -47,9 +41,6 @@ export class CreateTripDto {
     if (!Validator.validateId(props.destiny))
       return [CustomeError.badRequest(`'${tripFields.destiny}' must be a number`)];
 
-    if (!Validator.validateId(driver))
-      return [CustomeError.badRequest(`'${driver}' must be a number`)];
-
-    return [undefined, new CreateTripDto({ ...props, driver })];
+    return [undefined, new CreateTripDto({ ...props, driver: user.id })];
   }
 }

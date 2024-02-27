@@ -7,7 +7,6 @@ export class TripService {
   }
 
   async getAllTrips(pagination) {
-    console.log(pagination);
     return await this.repository.getAllTrips(pagination);
   }
 
@@ -63,10 +62,10 @@ export class TripService {
       trip_id: data.tripId,
       user_id: data.user.id,
     };
+
     const seatReserved = await this.repository.reserveTrip(reserve);
 
     const trip = await this.repository.getById(data.tripId);
-    console.log(trip);
 
     return {
       trip,
