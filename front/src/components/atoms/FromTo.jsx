@@ -4,11 +4,11 @@ import { IoFlagOutline } from 'react-icons/io5';
 
 const FromTo = ({ from, to }) => (
   <div className="flex  flex-col justify-start">
-    <span className="">
+    <span>
       <CiLocationOn className="inline mr-1" />
       Desde <span className="font-extralight">{from}</span>
     </span>
-    <span className="">
+    <span>
       <IoFlagOutline className="inline mr-1" />
       Hasta <span className="font-extralight">{to}</span>
     </span>
