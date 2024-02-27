@@ -6,3 +6,4 @@ export * from './city/update-city.dto.js';
 export * from './trip/create-trip.dto.js';
 export * from './trip/update-trip.dto.js';
 export * from './role/create-role.js';
+export * from './rating/create-rating.js';

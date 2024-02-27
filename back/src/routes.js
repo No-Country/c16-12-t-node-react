@@ -11,8 +11,8 @@ import {
   UploadRoute,
   CitiesRoute,
   CountryRoute,
-  FromToRoute,
   RoleRoute,
+  RatingRoute,
 } from './routes/index.js';
 
 /**
@@ -38,8 +38,8 @@ export const routes = (baseUriApi) => {
   apiRoutes.use('/trips', TripRoute.routes());
   apiRoutes.use('/upload', UploadRoute.routes());
   apiRoutes.use('/countries', CountryRoute.routes());
-  apiRoutes.use('/fromto', FromToRoute.routes());
   apiRoutes.use('/roles', RoleRoute.routes());
+  apiRoutes.use('/ratings', RatingRoute.routes());
 
   router.use(baseUriApi, apiRoutes);
 

@@ -5,3 +5,4 @@ export * from './trip.model.js';
 export * from './user.model.js';
 export * from './seat_reserved.model.js';
 export * from './role.model.js';
+export * from './ranting.model.js';
