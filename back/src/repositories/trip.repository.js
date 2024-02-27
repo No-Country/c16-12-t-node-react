@@ -65,7 +65,7 @@ export class TripRepository extends BaseRepository {
           : null;
 
       const trips = await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
-      console.log(trips);
+
       return {
         page,
         limit,
