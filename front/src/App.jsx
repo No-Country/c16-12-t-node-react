@@ -5,6 +5,6 @@ function App() {
       <SearchBar/>
     </div>
   );
-}
+};
 
 export default App;
