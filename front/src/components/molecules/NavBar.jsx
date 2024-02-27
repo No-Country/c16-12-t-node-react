@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { Button } from '../atoms/Button';
+import { Button } from '../atoms/index.js';
 import { MdMenu } from 'react-icons/md';
 export const NavBar = () => {
 
@@ -28,6 +28,7 @@ export const NavBar = () => {
           <Link to="/" className="hover:bg-primary-200 inline-block px-4 py-2 rounded-lg">Sobre nosotros</Link>
           <Link to="/" className="hover:bg-primary-200 inline-block px-4 py-2 rounded-lg">Contactanos</Link>
         </div>
+      {/* luego de inicar la sesion debe renderizar el avatar.*/}
         <Button content="login" size="small">
           <Link to="/login"></Link>
         </Button>
