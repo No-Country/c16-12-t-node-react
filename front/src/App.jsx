@@ -1,8 +1,11 @@
+import React from 'react';
+import { CheckBox } from './components/atoms/CheckBox';
 
-function App() {
+const App = () => {
   return (
-    <div>
-      <h1>Hello World</h1>
+    <div className="App">
+      <h1>Ejemplo de CheckBox</h1>
+      <CheckBox />
     </div>
   );
 };

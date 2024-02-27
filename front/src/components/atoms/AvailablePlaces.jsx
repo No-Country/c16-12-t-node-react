@@ -1,12 +1,10 @@
 import React from 'react';
 
-const AvailablePlaces = ({ numero }) => {
+export const AvailablePlaces = ({ numero }) => {
   return (
-    <div style={{ border: '1px solid #000', padding: '10px', borderRadius: '5px', display: 'flex', alignItems: 'center' }}>
-      <div style={{ fontSize: '24px', fontWeight: 'bold', marginRight: '10px' }}>{numero}</div>
+    <div className="border-solid border border-black p-4 rounded-md flex items-center w-40 h-10">
+      <div className="text-2xl font-bold mr-4">{numero}</div>
       <div>Lugares libres</div>
     </div>
   );
 };
-
-export default AvailablePlaces;
