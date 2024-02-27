@@ -1,49 +1,158 @@
+import { sequelize } from '../db/mysql/config/config.connection.js';
+
 import { CustomeError } from '../errors/index.js';
 import { BaseRepository } from './base.repository.js';
 
 export class UserRepository extends BaseRepository {
-  constructor({ model }) {
-    super({ model });
-    this.model = model;
+  constructor({ userModel, roleModel, cityModel }) {
+    super({ model: userModel });
+    this.userModel = userModel;
+    this.roleModel = roleModel;
+    this.cityModel = cityModel;
   }
 
   async getAllUsers() {
+    const query = `
+        SELECT
+          u.id,
+          u.name,
+          u.last_name,
+          u.email,
+          u.phone,
+          u.dni,
+          u.address,
+          u.avatar,
+          COALESCE(AVG(ra.rating), 0) AS rating,
+          u.information,
+          JSON_OBJECT('id', r.id, 'name', r.name) AS role,
+          JSON_OBJECT('id', c.id, 'name', c.name) AS city,
+          JSON_OBJECT('id', co.id, 'name', co.name) AS country
+        FROM 
+            Users u
+        LEFT JOIN 
+            Roles r ON u.role = r.id
+        INNER JOIN 
+            Cities c ON u.city_id = c.id
+        INNER JOIN 
+            Countries co ON c.country_id = co.id
+        LEFT JOIN 
+            Ratings ra ON ra.rated_user_id = u.id
+        GROUP BY
+          u.id, u.name, u.last_name, u.email, u.phone, u.dni, u.address, u.avatar, u.information, r.id, r.name, c.id, c.name, co.id, co.name;
+      `;
+
     try {
-      return await this.model.findAll({
-        attributes: { exclude: ['password'] },
-      });
+      return await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
     } catch (error) {
       throw CustomeError.serverError(`${error}`);
     }
   }
 
   async getUserById(id) {
-    const user = await this.findOne({ id });
+    const query = `
+        SELECT 
+          u.id,
+          u.name,
+          u.last_name,
+          u.email,
+          u.phone,
+          u.dni,
+          u.address,
+          u.avatar,
+          COALESCE(AVG(ra.rating), 0) AS rating,
+          u.information,
+          (SELECT JSON_OBJECT('id', r.id, 'name', r.name)) AS role,
+          (SELECT JSON_OBJECT('id', c.id, 'name', c.name)) AS city,
+          (SELECT JSON_OBJECT('id', co.id, 'name', co.name)) AS country
+        FROM Users u
+        INNER JOIN Roles r
+          ON u.role = r.id
+        INNER JOIN Cities c
+          ON u.city_id = c.id
+        INNER JOIN Countries co
+          ON c.country_id = co.id
+        LEFT JOIN Ratings ra
+          ON ra.rated_user_id = u.id
+        WHERE u.id = ${id};
+      `;
+
+    await this.findOne({ id });
 
     try {
-      const { password, ...data } = user?.dataValues;
-      return data;
+      const user = await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
+      return user.at(0);
+    } catch (error) {
+      throw CustomeError.serverError(`${error}`);
+    }
+  }
+
+  async createUser(data) {
+    const { cityId, role } = data;
+
+    const userData = {
+      ...data,
+      city_id: +cityId,
+      role: +role,
+    };
+
+    const roleExists = await this.roleModel.findOne({ where: { id: role } });
+    if (!roleExists) throw CustomeError.notFound(`Role with id '${role}' not found`);
+
+    const cityExists = await this.cityModel.findOne({ where: { id: cityId } });
+    if (!cityExists) throw CustomeError.notFound(`City with id '${cityId}' not found`);
+
+    try {
+      const user = await this.userModel.create(userData);
+      return user;
     } catch (error) {
       throw CustomeError.serverError(`${error}`);
     }
   }
 
   async updateUser(id, data) {
+    const query = `
+      SELECT 
+        u.id,
+        u.name,
+        u.last_name,
+        u.email,
+        u.phone,
+        u.dni,
+        u.address,
+        u.avatar,
+        COALESCE(AVG(ra.rating), 0) AS rating,
+        u.information,
+        (SELECT JSON_OBJECT('id', r.id, 'name', r.name)) AS role,
+        (SELECT JSON_OBJECT('id', c.id, 'name', c.name)) AS city,
+        (SELECT JSON_OBJECT('id', co.id, 'name', co.name)) AS country
+      FROM Users u
+      INNER JOIN Roles r
+        ON u.role = r.id
+      INNER JOIN Cities c
+        ON u.city_id = c.id
+      INNER JOIN Countries co
+        ON c.country_id = co.id
+      LEFT JOIN Ratings ra
+        ON ra.rated_user_id = u.id
+      WHERE u.id = ${id};
+      `;
+
     await this.findOne({ id });
 
     let userUpdated;
     try {
-      const response = await this.model.update(
+      const response = await this.userModel.update(
         { ...data, password: data.passWordHashed },
         { where: { id } },
       );
 
-      if (response.at(0) > 0) {
-        userUpdated = await this.findOne({ id });
+      if (response.at(0) === 1) {
+        userUpdated = await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
+      } else {
+        throw CustomeError.notAcceptable('User not updated');
       }
 
-      const { password, ...user } = userUpdated.dataValues;
-      return user;
+      return userUpdated.at(0);
     } catch (error) {
       throw CustomeError.serverError(`${error}`);
     }
@@ -52,7 +161,7 @@ export class UserRepository extends BaseRepository {
   async deleteUser(id) {
     await this.findOne({ id });
     try {
-      const user = await this.model.destroy({ where: { id } });
+      const user = await this.userModel.destroy({ where: { id } });
       if (user) return true;
     } catch (error) {
       throw CustomeError.serverError(`${error}`);
@@ -61,7 +170,7 @@ export class UserRepository extends BaseRepository {
 
   async getUserByEmail(email) {
     try {
-      return await this.model.findOne({ where: { email } });
+      return await this.userModel.findOne({ where: { email } });
     } catch (error) {
       throw CustomeError.serverError(`${error}`);
     }
@@ -70,12 +179,14 @@ export class UserRepository extends BaseRepository {
   async findOne(query) {
     let entity;
     try {
-      entity = await this.model.findOne({ where: query });
+      entity = await this.userModel.findOne({ where: query });
     } catch (error) {
       throw CustomeError.serverError(`${error}`);
     }
+
     const res = Object.values(query);
-    if (!entity) throw CustomeError.notFound(`${this.model.name} with '${res}' not found`);
+    if (!entity) throw CustomeError.notFound(`${this.userModel.name} with '${res}' not found`);
+
     return entity;
   }
 }

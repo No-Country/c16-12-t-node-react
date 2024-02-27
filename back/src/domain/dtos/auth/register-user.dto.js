@@ -2,9 +2,21 @@ import { CustomeError } from '../../../errors/index.js';
 import { Validator } from '../../../helpers/validator.helper.js';
 
 export class RegisterUserDto {
-  constructor({ name, lastNane, email, password, phone, dni, address, role, avatar, rating }) {
+  constructor({
+    name,
+    lastName,
+    email,
+    password,
+    phone,
+    dni,
+    address,
+    role,
+    avatar,
+    rating,
+    cityId,
+  }) {
     this.name = name;
-    this.lastNane = lastNane;
+    this.lastName = lastName;
     this.email = email;
     this.password = password;
     this.phone = phone;
@@ -13,6 +25,7 @@ export class RegisterUserDto {
     this.role = role;
     this.avatar = avatar;
     this.rating = rating;
+    this.cityId = cityId;
   }
 
   static create(props) {
@@ -27,8 +40,6 @@ export class RegisterUserDto {
       role: 'role',
       cityId: 'cityId',
     };
-
-    const roles = ['admin', 'passenger', 'driver'];
 
     for (const field in fields) {
       if (!props[field])
@@ -57,10 +68,8 @@ export class RegisterUserDto {
     if (!Validator.validateDni(dni))
       return [CustomeError.badRequest(`Dni must be at least 8 digits: ${dni}`)];
 
-    if (!roles.includes(role))
-      return [
-        CustomeError.badRequest(`Invalid role '${role}'. Allowed roles: ${roles.join(', ')}`),
-      ];
+    if (!Validator.validateId(role))
+      return [CustomeError.badRequest(`Invalid role '${role}' must be a number: ${role}`)];
 
     if (isNaN(cityId)) return [CustomeError.badRequest(`City id '${cityId}' must be a number`)];
 

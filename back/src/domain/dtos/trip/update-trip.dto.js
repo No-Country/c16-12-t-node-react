@@ -5,32 +5,40 @@ export class UpdateTripDto {
   constructor(props) {
     this.id = props.id;
     this.distance = props.distance;
-    this.timeStimated = props.timeStimated;
+    this.time_estimated = props.time_estimated;
     this.seats = props.seats;
-    this.seatsReserved = props.seatsReserved;
-    this.seatPrice = props.seatPrice;
-    this.totalPrice = props.totalPrice;
+    this.seat_price = props.seat_price;
+    this.total_price = props.total_price;
+    this.trip_status = props.trip_status;
     this.origin = props.origin;
     this.destiny = props.destiny;
   }
   static create(props) {
     const { id, user, ...data } = props;
-    console.log(data);
+
+    const tripStatus = ['not_started', 'in_progress', 'completed'];
 
     if (!Object.keys(data).length)
       return [CustomeError.badRequest('Missing city properties in request')];
     if (!Validator.validateId(id)) return [CustomeError.badRequest(`'${id}' must be a number`)];
+
+    if (!tripStatus.includes(data.trip_status))
+      return [
+        CustomeError.badRequest(
+          `'${data.trip_status}' is not a valid trip status. Must be one of | ${tripStatus.join(' | ')} |`,
+        ),
+      ];
 
     return [
       undefined,
       new UpdateTripDto({
         id: props.id,
         distance: props.distance,
-        timeStimated: props.timeStimated,
+        time_estimated: props.time_estimated,
         seats: props.seats,
-        seatsReserved: props.seatsReserved,
-        seatPrice: props.seatPrice,
-        totalPrice: props.totalPrice,
+        seat_price: props.seat_price,
+        total_price: props.total_price,
+        trip_status: props.trip_status,
         origin: props.origin,
         destiny: props.destiny,
       }),

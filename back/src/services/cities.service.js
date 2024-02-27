@@ -7,12 +7,12 @@ export class CitiesService {
   }
 
   async getAllCities() {
-    return await this.repository.getAll();
+    return await this.repository.getCities();
   }
 
   async getById(id) {
     this.validateId(id);
-    return await this.repository.getById(id);
+    return await this.repository.getCityById(id);
   }
 
   async create(data) {
@@ -22,7 +22,7 @@ export class CitiesService {
   async update(data) {
     const { id, ...rest } = data;
 
-    return this.repository.update(id, {
+    return this.repository.updateCity(id, {
       ...rest,
       zip_code: rest.zipCode,
       country_id: rest.countryId,

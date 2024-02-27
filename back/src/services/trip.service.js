@@ -7,7 +7,6 @@ export class TripService {
   }
 
   async getAllTrips(pagination) {
-    console.log(pagination);
     return await this.repository.getAllTrips(pagination);
   }
 
@@ -41,15 +40,9 @@ export class TripService {
     const { id, ...tripData } = updateTripDto;
     const updateData = {
       ...tripData,
-      seats_reserved: tripData.seatsReserved,
-      seat_price: tripData.seatPrice,
-      total_price: tripData.totalPrice,
-      origin_id: tripData.origin,
-      destiny_id: tripData.destiny,
       driver_id: tripData.driver,
-      trip_status: tripData.tripStatus,
     };
-    return await this.repository.update(id, updateData);
+    return await this.repository.updateTrip(id, updateData);
   }
 
   async deleteTrip(id) {
@@ -63,10 +56,10 @@ export class TripService {
       trip_id: data.tripId,
       user_id: data.user.id,
     };
+
     const seatReserved = await this.repository.reserveTrip(reserve);
 
     const trip = await this.repository.getById(data.tripId);
-    console.log(trip);
 
     return {
       trip,
