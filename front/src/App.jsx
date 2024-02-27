@@ -1,7 +1,9 @@
+import { RegisterForm } from "./components/molecules/index";
 function App() {
   return (
-    <div className="flex justify-center items-center">\
-      <h1>Hello World</h1>
+    <div className="flex justify-center items-center">
+      <RegisterForm/>
+   
     </div>
   );
 };

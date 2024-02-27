@@ -25,7 +25,7 @@ export const Button = ({size, content, color}) => {
     let buttonSize = sizeVariants[size]
     let buttonColor = colorVariants[color]
     return (
-        <button type="submit" className={`m-5 text-xl rounded-md flex justify-center items-center ${buttonColor} ${buttonSize}`}>
+        <button type="submit" className={`m-5 text-xl rounded-md flex justify-center items-center text-white ${buttonColor} ${buttonSize}`}>
         {buttonContent}
         </button>
     );
