@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export const Input = ({ size, inputs, placeHolder, label }) => {
   //tamaño de los inputs.
   const inputSizesVariants = {
-    large: 'w-96 h-12 bg-FFFFFF',
+    large: 'w-min-full h-12 bg-FFFFFF',
     medium: 'w-80 h-12 bg-FFFFFF',
     small: 'w-36 h-12 bg-FFFFFF',
   };
