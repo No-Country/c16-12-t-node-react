@@ -1,11 +1,10 @@
 import React from 'react';
-import { CheckBox } from './components/atoms/CheckBox';
+import { LoginComponent } from './components/molecules/LoginComponent';
 
 const App = () => {
   return (
     <div className="App">
-      <h1>Ejemplo de CheckBox</h1>
-      <CheckBox />
+      <LoginComponent />
     </div>
   );
 };
