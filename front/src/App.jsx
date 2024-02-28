@@ -1,11 +1,8 @@
-import React from 'react';
-import { CheckBox } from './components/atoms/CheckBox';
-
-const App = () => {
+import { RegisterForm } from "./components/molecules/index";
+function App() {
   return (
-    <div className="App">
-      <h1>Ejemplo de CheckBox</h1>
-      <CheckBox />
+    <div className="flex justify-center items-center">
+      <RegisterForm/>
     </div>
   );
 };
