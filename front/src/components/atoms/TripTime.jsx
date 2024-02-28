@@ -1,15 +1,11 @@
 import React from 'react';
 import { FaClock } from 'react-icons/fa';
 
-const TripTime = ({ time }) => {
+export const TripTime = ({ time }) => {
   return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <FaClock />
-        
-      <span className='ml-1' >Hora de salida</span>
-      <span className='font-extralight ml-1' >{time}</span>
+    <div className="flex items-center">
+      <FaClock className="mr-2" />
+      <p>{`Hora de salida: ${time}`}</p> 
     </div>
   );
 };
-
-export default TripTime;

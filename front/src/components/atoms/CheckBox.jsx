@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const CheckBox = () => {
+export const CheckBox = () => {
 
   const [idaChecked, setIdaChecked] = useState(false);
   const [idaYVueltaChecked, setIdaYVueltaChecked] = useState(false);
@@ -20,26 +20,25 @@ const CheckBox = () => {
   };
 
   return (
-    <div>
-      <label>
+    <div className="flex items-center">
+      <label className="flex items-center mr-4">
         <input
           type="checkbox"
           checked={idaChecked}
           onChange={handleIdaChange}
+          className="rounded-full mr-2"
         />
-        Ida
+        IDA
       </label>
-      <br />
-      <label>
+      <label className="flex items-center">
         <input
           type="checkbox"
           checked={idaYVueltaChecked}
           onChange={handleIdaYVueltaChange}
+          className="rounded-full mr-2"
         />
-        Ida y vuelta
+        IDA Y VUELTA
       </label>
     </div>
   );
 };
-
-export default CheckBox;
