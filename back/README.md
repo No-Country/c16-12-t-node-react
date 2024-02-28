@@ -6,7 +6,7 @@
 $ pnpm install
 ```
 
-2. Copiar el archivo `.env.template` y renombrar con `.env` y midifica la variable de entorno, ejemplo:
+2. Copiar el archivo `.env.template` y renombrar con `.env` y modifica las variables de entorno, ejemplo:
 
 ```
 BD_NAME=nocountry
