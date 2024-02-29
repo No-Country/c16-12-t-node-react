@@ -41,9 +41,4 @@ export const CheckBox = () => {
       </label>
     </div>
   );
-<<<<<<< HEAD
 };
-
-=======
-};
->>>>>>> 6b8924dbd659cadc87bb9d96e8b6f2fd8a29ea4c

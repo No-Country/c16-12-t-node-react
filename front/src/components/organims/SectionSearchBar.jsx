@@ -1,3 +1,4 @@
+import  { SearchBar } from '@/components/atoms/index';
 import iconoLanding from '@/assets/img/iconoLanding.png';
 
 export const SectionSearchBar = () => {
@@ -12,7 +13,7 @@ export const SectionSearchBar = () => {
       </div>
       <div className="flex justify-between items-center mx-16">
         <div>
-          <p>SearchBar</p>
+          <SearchBar />
         </div>
         <div>
           <img src={iconoLanding} alt="iconoLanding"/>

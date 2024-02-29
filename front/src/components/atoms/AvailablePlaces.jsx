@@ -1,8 +1,4 @@
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 6b8924dbd659cadc87bb9d96e8b6f2fd8a29ea4c
 export const AvailablePlaces = ({ numero }) => {
   return (
     <div className="border-solid border border-black p-4 rounded-md flex items-center w-40 h-10">
@@ -10,9 +6,5 @@ export const AvailablePlaces = ({ numero }) => {
       <div>Lugares libres</div>
     </div>
   );
-<<<<<<< HEAD
 };
 
-=======
-};
->>>>>>> 6b8924dbd659cadc87bb9d96e8b6f2fd8a29ea4c
