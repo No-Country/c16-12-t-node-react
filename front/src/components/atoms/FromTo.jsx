@@ -1,6 +1,7 @@
 import React from 'react';
 import { CiLocationOn } from 'react-icons/ci';
 import { IoFlagOutline } from 'react-icons/io5';
+import PropTypes from 'prop-types';
 
 export const FromTo = ({ from, to }) => (
   <div className="flex  flex-col justify-start">
@@ -16,3 +17,12 @@ export const FromTo = ({ from, to }) => (
 );
 
 
+<<<<<<< HEAD
+=======
+FromTo.propTypes = {
+  from: PropTypes.any,
+  to: PropTypes.any
+}
+
+export default FromTo;
+>>>>>>> 6b8924dbd659cadc87bb9d96e8b6f2fd8a29ea4c

@@ -20,25 +20,30 @@ export const CheckBox = () => {
   };
 
   return (
-    <div>
-      <label>
+    <div className="flex items-center">
+      <label className="flex items-center mr-4">
         <input
           type="checkbox"
           checked={idaChecked}
           onChange={handleIdaChange}
+          className="rounded-full mr-2"
         />
-        Ida
+        IDA
       </label>
-      <br />
-      <label>
+      <label className="flex items-center">
         <input
           type="checkbox"
           checked={idaYVueltaChecked}
           onChange={handleIdaYVueltaChange}
+          className="rounded-full mr-2"
         />
-        Ida y vuelta
+        IDA Y VUELTA
       </label>
     </div>
   );
+<<<<<<< HEAD
 };
 
+=======
+};
+>>>>>>> 6b8924dbd659cadc87bb9d96e8b6f2fd8a29ea4c

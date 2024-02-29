@@ -1,28 +1,37 @@
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { FaGoogle, FaFacebook } from 'react-icons/fa';
 
 // You need to pass on props this arguments for pick size and content for button!
 export const Button = ({size, content, color}) => {
     // Differents sizes for the buttons.
     const sizeVariants = {
-        small: 'w-48 h-12',
-        medium: 'w-96 h-12',
+        small: 'bg-primary-200 hover:bg-primary-300 w-48 h-12',
+        medium: 'bg-primary-300 hover:bg-primary-400 w-96 h-12',
+        mediumlogin: 'bg-white hover:bg-secondary-100 w-96 h-12 border border-black rounded-md mb-2',
         large: '',
-    }
-    // Differents contentss for the buttons.
+    };
     const contentVariants = {
         login: 'Ingresar',
         register: 'Registrarme',
         viewTravel: 'Ver viaje',
         search: 'Buscar',
-        confirmTravel: 'Confirmar viaje'
-    }
-    // Differents colors for the buttons.
+        confirmTravel: 'Confirmar viaje',
+        logingoogle: <>
+                        <FaGoogle style={{ marginRight: '5px' }} />
+                        Continuar con Google
+                    </>,
+        loginfacebook: <>
+                        <FaFacebook style={{ marginRight: '5px' }} />
+                        Continuar con Facebook
+                    </>
+    };
+    
     const colorVariants = {
         primary_normal: 'bg-primary-400 hover:bg-primary-1000'
     }
-    
-    let buttonContent = contentVariants[content]
-    let buttonSize = sizeVariants[size]
+
+    let buttonContent = contentVariants[content];
+    let buttonSize = sizeVariants[size];
     let buttonColor = colorVariants[color]
     
     return (
@@ -33,7 +42,7 @@ export const Button = ({size, content, color}) => {
 };
 
 Button.propTypes = {
-    content: PropTypes.oneOf(['login', 'register', 'viewTravel', 'submit', 'search', 'confirmTravel']),
-    size: PropTypes.oneOf(['small', 'medium', 'large']),
+    content: PropTypes.oneOf(['login', 'register', 'viewTravel', 'submit', 'search', 'confirmTravel', 'logingoogle', 'loginfacebook']),
+    size: PropTypes.oneOf(['small', 'medium', 'mediumlogin', 'large']),
     color: PropTypes.oneOf(['primary_normal'])
-  }
+};
