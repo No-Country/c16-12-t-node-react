@@ -1,9 +1,9 @@
-import { NavBar, RegisterForm } from "@/components/molecules/index";
-import { Footer } from '@/components/organims/index';
+import { RegisterForm } from "@/components/molecules/index";
+import { Footer, Header } from '@/components/organims/index';
 export const RegisterTemplate = () => {
     return(
         <>
-            <NavBar/>
+            <Header/>
             <RegisterForm/>
             <Footer/>
         </>
