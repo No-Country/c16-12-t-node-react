@@ -25,23 +25,15 @@ export const Button = ({size, content, color}) => {
                         Continuar con Facebook
                     </>
     };
-
-    let buttonContent = contentVariants[content];
-    let buttonSize = sizeVariants[size];
-
-    return (
-        <button type="submit" className={`m-5 text-xl rounded-md flex justify-center items-center ${buttonSize}`}>
-            {buttonContent}
-        confirmTravel: 'Confirmar viaje'
-    }
-    // Differents colors for the buttons.
+    
     const colorVariants = {
         primary_normal: 'bg-primary-400 hover:bg-primary-1000'
     }
-    
-    let buttonContent = contentVariants[content]
-    let buttonSize = sizeVariants[size]
+
+    let buttonContent = contentVariants[content];
+    let buttonSize = sizeVariants[size];
     let buttonColor = colorVariants[color]
+    
     return (
         <button type="submit" className={`m-5 text-xl rounded-md flex justify-center items-center text-white ${buttonColor} ${buttonSize}`}>
         {buttonContent}
@@ -52,6 +44,5 @@ export const Button = ({size, content, color}) => {
 Button.propTypes = {
     content: PropTypes.oneOf(['login', 'register', 'viewTravel', 'submit', 'search', 'confirmTravel', 'logingoogle', 'loginfacebook']),
     size: PropTypes.oneOf(['small', 'medium', 'mediumlogin', 'large']),
-};
     color: PropTypes.oneOf(['primary_normal'])
-  }
+};
