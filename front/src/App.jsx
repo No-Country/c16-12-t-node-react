@@ -1,13 +1,10 @@
-import { RegisterForm } from "./components/molecules/index";
-import { Header } from "./components/organims/index";
-import { SectionCards } from "./components/organims/index";
-import { SectionSearchBar } from "./components/organims/index";
+import React from 'react';
+import Footer from './components/organims/Footer';
 
-function App() {
+const App = () => {
   return (
-    <div className="">
-      <Header/>
-      <SectionSearchBar/>
+    <div>
+      <Footer />
     </div>
   );
 };
