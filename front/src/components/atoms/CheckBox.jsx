@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-const CheckBox = () => {
+export const CheckBox = () => {
 
   const [idaChecked, setIdaChecked] = useState(false);
   const [idaYVueltaChecked, setIdaYVueltaChecked] = useState(false);
@@ -42,4 +42,3 @@ const CheckBox = () => {
   );
 };
 
-export default CheckBox;

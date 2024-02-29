@@ -1,10 +1,5 @@
-import { NavBar } from "../molecules/index.js";
+import { NavBar } from '../molecules/NavBar';
 
 export const Header = () => {
-
-    return (
-        <div className="w-full h-80 bg-primary-400">
-        
-        </div>
-    );
-}
+  return <NavBar />;
+};

@@ -1,12 +1,14 @@
 import React from 'react';
-import FromTo from '../atoms/FromTo';
-import { Avatar } from '../atoms/Avatar';
-import { UserName } from '../atoms/Username';
-import { StarRating } from '../atoms/StarRating';
-import TripTime from '../atoms/TripTime';
-import AvailablePlaces from '../atoms/AvailablePlaces';
+import {
+  Avatar,
+  UserName,
+  StarRating,
+  TripTime,
+  AvailablePlaces,
+  Button,
+  FromTo,
+} from '../atoms/index';
 import { FaRegCalendarAlt } from 'react-icons/fa';
-import { Button } from '../atoms/Button';
 
 const CardComponent = ({
   driver,
@@ -18,11 +20,11 @@ const CardComponent = ({
   time,
   spots,
 }) => {
-    let fecha = new Date()
 
-    let day = fecha.getDate()
-    let month = fecha.getMonth() + 1
-    let year = fecha.getFullYear()
+  let fecha = new Date();
+  let day = fecha.getDate();
+  let month = fecha.getMonth() + 1;
+  let year = fecha.getFullYear();
 
   return (
     <div className="bg-white shadow-lg rounded-xl p-4 w-80">
@@ -49,7 +51,8 @@ const CardComponent = ({
           <div className="flex flex-col">
             <span className="text-gray-800">
               <FaRegCalendarAlt className="inline mr-1" />
-              Fecha <span className="font-extralight">{`${day}-0${month}-${year}`}</span>
+              Fecha{' '}
+              <span className="font-extralight">{`${day}-0${month}-${year}`}</span>
             </span>
 
             <TripTime time={time} />
@@ -61,7 +64,7 @@ const CardComponent = ({
       </div>
 
       <div className="flex justify-center items-center">
-        <Button content="viewTravel" size="medium" />
+        <Button content="viewTravel" size="medium" color="primary_normal"/>
       </div>
     </div>
   );
