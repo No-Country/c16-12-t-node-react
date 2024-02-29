@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
 
+import { envs } from './config/index.js';
 import { notFoundMiddleware } from './middleware/index.js';
 import {
   AuthRoute,
@@ -13,6 +14,7 @@ import {
   CountryRoute,
   RoleRoute,
   RatingRoute,
+  ChatRoute,
 } from './routes/index.js';
 
 /**
@@ -40,6 +42,7 @@ export const routes = (baseUriApi) => {
   apiRoutes.use('/countries', CountryRoute.routes());
   apiRoutes.use('/roles', RoleRoute.routes());
   apiRoutes.use('/ratings', RatingRoute.routes());
+  apiRoutes.use('/chats', ChatRoute.routes());
 
   router.use(baseUriApi, apiRoutes);
 

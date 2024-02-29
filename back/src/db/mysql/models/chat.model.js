@@ -12,15 +12,15 @@ export const Chat = sequelize.define('Chat', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  passenger_id: {
+  sender: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  driver_id: {
+  recipient: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
 });
 
-Chat.belongsTo(User, { foreignKey: 'passenger_id', targetKey: 'id' });
-Chat.belongsTo(User, { foreignKey: 'driver_id', targetKey: 'id' });
+Chat.belongsTo(User, { foreignKey: 'sender', targetKey: 'id' });
+Chat.belongsTo(User, { foreignKey: 'recipient', targetKey: 'id' });

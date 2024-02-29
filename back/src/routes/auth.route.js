@@ -14,7 +14,7 @@ export class AuthRoute {
     const service = new AuthService({ repository, jwt_secret: envs.JWT_SECRET });
     const controller = new AuthController({ service });
 
-    router.get('/login', controller.login.bind(controller));
+    router.post('/login', controller.login.bind(controller));
     router.post('/register', controller.register.bind(controller));
 
     return router;
