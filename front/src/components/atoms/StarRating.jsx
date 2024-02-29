@@ -27,7 +27,7 @@ export const StarRating = ({ userRating }) => {
             />
             <FaStar
               className="cursor-pointer transition duration-200"
-              color={ratingValue <= (hover || rating) ? '#FFBA5A' : '#a9a9a9'}
+              color={ratingValue <= (hover || rating) ? '#20ACAF' : '#a9a9a9'}
               size={24}
               onMouseEnter={() => setHover(ratingValue)}
               onMouseLeave={() => setHover(null)}
