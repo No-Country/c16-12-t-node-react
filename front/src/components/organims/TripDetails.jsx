@@ -1,7 +1,5 @@
 //import PropTypes from 'prop-types';
-import { Avatar, UserName, StarRating, Button } from '@/components/atoms/index';
-import  FromTo  from '@/components/atoms/FromTo';
-import TripTime from '@/components/atoms/TripTime';
+import { Avatar, UserName, StarRating, Button, FromTo, TripTime } from '@/components/atoms/index';
 import { FaDog, FaBabyCarriage, FaSmokingBan, FaCalendar} from 'react-icons/fa';
 
 export const TripDetails = () => {

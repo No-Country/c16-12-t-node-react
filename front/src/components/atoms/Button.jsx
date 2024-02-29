@@ -10,6 +10,7 @@ export const Button = ({size, content, color}) => {
         mediumlogin: 'bg-white hover:bg-secondary-100 w-96 h-12 border border-black rounded-md mb-2',
         large: '',
     };
+    // Differents content for the buttons.
     const contentVariants = {
         login: 'Ingresar',
         register: 'Registrarme',
