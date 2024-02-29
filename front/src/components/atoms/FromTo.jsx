@@ -17,12 +17,8 @@ export const FromTo = ({ from, to }) => (
 );
 
 
-<<<<<<< HEAD
-=======
 FromTo.propTypes = {
   from: PropTypes.any,
   to: PropTypes.any
 }
 
-export default FromTo;
->>>>>>> 6b8924dbd659cadc87bb9d96e8b6f2fd8a29ea4c
