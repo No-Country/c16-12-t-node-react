@@ -28,7 +28,7 @@ export const NavBar = () => {
           <Link to="/" className="hover:bg-primary-200 inline-block px-4 py-2 rounded-lg">Sobre nosotros</Link>
           <Link to="/" className="hover:bg-primary-200 inline-block px-4 py-2 rounded-lg">Contactanos</Link>
         </div>
-        <Button content="login" size="small">
+        <Button content="login" size="small" color='primary_normal'>
           <Link to="/login"></Link>
         </Button>
     </nav>

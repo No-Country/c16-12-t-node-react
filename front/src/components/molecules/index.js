@@ -1,3 +1,3 @@
 export { NavBar } from './NavBar';
 export { LoginComponent } from './LoginComponent';   
-export { RegisterForm } from './form_register';
+export { RegisterForm } from './RegisterForm';

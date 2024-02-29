@@ -1,6 +1,9 @@
+import { RegisterTemplate } from "@/components/templates/RegisterTemplate";
+
 function App() {
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="">
+      <RegisterTemplate/>
     </div>
   );
 };

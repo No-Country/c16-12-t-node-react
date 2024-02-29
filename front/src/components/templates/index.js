@@ -1,0 +1,1 @@
+export { RegisterTemplate } from "./RegisterTemplate";
