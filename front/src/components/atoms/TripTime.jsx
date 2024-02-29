@@ -11,4 +11,8 @@ export const TripTime = ({ time }) => {
   );
 };
 
+TripTime.propTypes = {
+  time: PropTypes.number
+}
+
 

@@ -5,7 +5,7 @@ import { Button, Input } from "../atoms/index";
 export const RegisterForm = () =>{
 
     return (
-        <form action="" className="h-810 w-542 bg-white rounded-xl mt-10">
+        <form action="" className="h-810 w-542 bg-white rounded-xl mt-4 mx-auto">
             <span className="flex justify-center p-5 font-bold text-xl">Completa el formulario con tus datos personales</span>
             <section className="flex flex-col justify-center  min-w-full p-8">
                 <Input size='large' inputs='text' placeHolder='nombre' label='nombre' className='min-w-full'/>

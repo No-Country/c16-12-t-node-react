@@ -1,3 +1,4 @@
+import React from 'react';
 
 export const AvailablePlaces = ({ numero }) => {
   return (
@@ -7,4 +8,3 @@ export const AvailablePlaces = ({ numero }) => {
     </div>
   );
 };
-
