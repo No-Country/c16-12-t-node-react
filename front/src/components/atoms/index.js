@@ -1,8 +1,10 @@
 export { Avatar } from './Avatar';
 export { StarRating } from './StarRating';
 export { UserName } from './Username';
-export { CheckBox } from './AvailablePlaces';
+export { CheckBox } from './CheckBox';
 export { AvailablePlaces } from './AvailablePlaces';
 export { TripTime } from './TripTime';
+export { FromTo } from './FromTo';
 export { Button } from './Button';
 export { Input } from './Input';
+export { SearchBar } from './SearchBar'

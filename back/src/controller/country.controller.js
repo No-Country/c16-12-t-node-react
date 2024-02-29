@@ -22,16 +22,6 @@ export class CountryController {
       .catch((err) => handleError.handle(err, res));
   };
 
-  //CREATE NEW COUNTRY
-  createCountry = (req, res) => {
-    const countryData = req.body;
-
-    return this.service
-      .createCountry(countryData)
-      .then((newCountry) => res.status(201).json(newCountry))
-      .catch((err) => handleError.handle(err, res));
-  };
-
   //UPDATE COUNTRY
   updateCountry = (req, res) => {
     const { id } = req.params;
@@ -42,6 +32,16 @@ export class CountryController {
       .updateCountry(id, req.body)
       .then((country) => res.status(201).json(country))
       .catch((error) => res.status(500).send({ message: error.message }));
+  };
+
+  //CREATE NEW COUNTRY
+  createCountry = (req, res) => {
+    const countryData = req.body;
+
+    return this.service
+      .createCountry(countryData)
+      .then((newCountry) => res.status(201).json(newCountry))
+      .catch((err) => handleError.handle(err, res));
   };
 
   //DELTE COUNTRY

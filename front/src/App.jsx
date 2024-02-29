@@ -1,10 +1,13 @@
-import React from 'react';
-import { LoginComponent } from './components/molecules/LoginComponent';
+import { RegisterForm } from "./components/molecules/index";
+import { Header } from "./components/organims/index";
+import { SectionCards } from "./components/organims/index";
+import { SectionSearchBar } from "./components/organims/index";
 
-const App = () => {
+function App() {
   return (
-    <div className="App">
-      <LoginComponent />
+    <div className="">
+      <Header/>
+      <SectionSearchBar/>
     </div>
   );
 };

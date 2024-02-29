@@ -25,16 +25,15 @@ export const Button = ({size, content, color}) => {
                         Continuar con Facebook
                     </>
     };
-
-        // Differents colors for the buttons.
+    
     const colorVariants = {
         primary_normal: 'bg-primary-400 hover:bg-primary-1000'
     }
 
     let buttonContent = contentVariants[content];
     let buttonSize = sizeVariants[size];
-    let buttonColor = colorVariants[color];
- 
+    let buttonColor = colorVariants[color]
+    
     return (
         <button type="submit" className={`m-5 text-xl rounded-md flex justify-center items-center text-white ${buttonColor} ${buttonSize}`}>
         {buttonContent}
