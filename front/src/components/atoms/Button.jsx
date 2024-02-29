@@ -5,15 +5,20 @@ import { FaGoogle, FaFacebook } from 'react-icons/fa';
 export const Button = ({size, content, color}) => {
     // Differents sizes for the buttons.
     const sizeVariants = {
+        minimum : 'bg-primary-200 w-20 h-[60px] ml-[-20px]',
         small: 'bg-primary-200 hover:bg-primary-300 w-48 h-12',
         medium: 'bg-primary-300 hover:bg-primary-400 w-96 h-12',
         mediumlogin: 'bg-white hover:bg-secondary-100 w-96 h-12 border border-black rounded-md mb-2',
+        mediumNewSearch: 'bg-[#188183] border-black text-[#fff] w-96 h-12',
+        mediumAlert: 'bg-white border-2 border-black text-[#188183] w-96 h-12',
         large: '',
     };
     const contentVariants = {
         login: 'Ingresar',
         register: 'Registrarme',
         viewTravel: 'Ver viaje',
+        newSearch: 'Realizar una nueva búsqueda',
+        alert: 'Crear alerta',
         search: 'Buscar',
         confirmTravel: 'Confirmar viaje',
         logingoogle: <>
