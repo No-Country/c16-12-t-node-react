@@ -7,6 +7,7 @@ export const Input = ({ size, inputs, placeHolder, label }) => {
     large: 'w-min-full h-12 bg-FFFFFF',
     medium: 'w-80 h-12 bg-FFFFFF',
     small: 'w-36 h-12 bg-FFFFFF',
+    minimum : 'w-36 h-12 bg-[#188183] text-white placeholder-white text-center'
   };
   //type de los inputs.
   const inputType = {
@@ -29,6 +30,8 @@ export const Input = ({ size, inputs, placeHolder, label }) => {
     destino: 'Destino',
     fechaIda: 'Fecha de ida',
     fechaVuelta: 'Fecha de vuelta',
+    viajeros: 'Viajeros',
+    fecha: 'Fecha'
   };
   //diferentes placeholders
   const placeholderVariants = {
@@ -36,6 +39,10 @@ export const Input = ({ size, inputs, placeHolder, label }) => {
     apellido: 'Tu Apellido',
     email: 'Ej: chirs@example.com',
     iniciarSesion: 'Correo electronico',
+    viajeros: '2',
+    fecha: '24/05/2024',
+    origen: "Mar de Plata",
+    destino: "Buenos Aires"
   };
 
   let labelContent = labelContentVariants[label];
@@ -70,6 +77,8 @@ Input.propTypes = {
     'destino',
     'fechaIda',
     'fechaVuelta',
+    'viajeros',
+    'fecha'
   ]),
-  placeHolder: PropTypes.oneOf(['nombre', 'apellido', 'email', 'iniciarSesion']),
+  placeHolder: PropTypes.oneOf(['nombre', 'apellido', 'email', 'iniciarSesion', 'viajeros']),
 };
