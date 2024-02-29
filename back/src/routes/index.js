@@ -6,3 +6,4 @@ export * from './cities.route.js';
 export * from './country.route.js';
 export * from './role.route.js';
 export * from './rating.route.js';
+export * from './chat.route.js';

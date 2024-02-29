@@ -18,7 +18,15 @@ export class AuthService {
     let isMatch, token;
     try {
       isMatch = BcryptAdapter.compare(data.password, password);
-      token = await JwtAdapter.generateToken({ id: user.id, email: user.email }, this.jwt_secret);
+      token = await JwtAdapter.generateToken(
+        {
+          id: user.id,
+          name: user.name,
+          last_name: user.last_name,
+          email: user.email,
+        },
+        this.jwt_secret,
+      );
     } catch (error) {
       throw CustomeError.serverError(`${error}`);
     }
@@ -49,7 +57,15 @@ export class AuthService {
 
     let token;
     try {
-      token = await JwtAdapter.generateToken({ id: user.id, email: user.email }, this.jwt_secret);
+      token = await JwtAdapter.generateToken(
+        {
+          id: user.id,
+          name: user.name,
+          last_name: user.last_name,
+          email: user.email,
+        },
+        this.jwt_secret,
+      );
     } catch (error) {
       throw CustomeError.serverError(`${error}`);
     }
