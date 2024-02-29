@@ -9,8 +9,8 @@ export const Button = ({size, content, color}) => {
         small: 'bg-primary-200 hover:bg-primary-300 w-48 h-12',
         medium: 'bg-primary-300 hover:bg-primary-400 w-96 h-12',
         mediumlogin: 'bg-white hover:bg-secondary-100 w-96 h-12 border border-black rounded-md mb-2',
-        mediumNewSearch: 'bg-[#188183] border-black text-[#fff] w-96 h-12',
-        mediumAlert: 'bg-white border-2 border-black text-[#188183] w-96 h-12',
+        mediumNewSearch: 'bg-[#188183] border-black w-96 h-12',
+        mediumAlert: 'bg-white border-2 border-black text-[#000] w-96 h-12',
         large: '',
     };
     // Differents content for the buttons.
