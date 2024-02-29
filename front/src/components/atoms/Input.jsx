@@ -31,7 +31,8 @@ export const Input = ({ size, inputs, placeHolder, label }) => {
     fechaIda: 'Fecha de ida',
     fechaVuelta: 'Fecha de vuelta',
     viajeros: 'Viajeros',
-    fecha: 'Fecha'
+    fecha: 'Fecha',
+    viajeros: 'Viajeros'
   };
   //diferentes placeholders
   const placeholderVariants = {
@@ -42,7 +43,10 @@ export const Input = ({ size, inputs, placeHolder, label }) => {
     viajeros: '2',
     fecha: '24/05/2024',
     origen: "Mar de Plata",
-    destino: "Buenos Aires"
+    destino: "Buenos Aires",
+    fecha: '24/05/2024',
+    personas: 'Cuantas personas?',
+    seleccion: 'Selecciona destino'
   };
 
   let labelContent = labelContentVariants[label];
@@ -51,14 +55,14 @@ export const Input = ({ size, inputs, placeHolder, label }) => {
   let placeHolderContent = placeholderVariants[placeHolder];
 
   return (
-    <>
+    <div className='flex flex-col'>
         <label className="text-base">{labelContent}</label>
         <input
           type={inputsType}
-          className={`my-2 text-xl border border-black rounded-md ${inputSize}`}
+          className={`my-2 text-xl p-2 border border-black rounded-md ${inputSize}`}
           placeholder={placeHolderContent}
         />
-    </>
+    </div>
   );
 };
 

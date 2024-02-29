@@ -13,6 +13,7 @@ export const Button = ({size, content, color}) => {
         mediumAlert: 'bg-white border-2 border-black text-[#188183] w-96 h-12',
         large: '',
     };
+    // Differents content for the buttons.
     const contentVariants = {
         login: 'Ingresar',
         register: 'Registrarme',
@@ -30,13 +31,13 @@ export const Button = ({size, content, color}) => {
                         Continuar con Facebook
                     </>
     };
-    
+    // Differents colors for the buttons.
     const colorVariants = {
         primary_normal: 'bg-primary-400 hover:bg-primary-1000'
     }
-
-    let buttonContent = contentVariants[content];
-    let buttonSize = sizeVariants[size];
+        
+    let buttonContent = contentVariants[content]
+    let buttonSize = sizeVariants[size]
     let buttonColor = colorVariants[color]
     
     return (
@@ -51,3 +52,4 @@ Button.propTypes = {
     size: PropTypes.oneOf(['small', 'medium', 'mediumlogin', 'large']),
     color: PropTypes.oneOf(['primary_normal'])
 };
+    

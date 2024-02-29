@@ -1,5 +1,6 @@
-import React from 'react';
+
 import { FaClock } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 
 export const TripTime = ({ time }) => {
   return (
@@ -9,3 +10,9 @@ export const TripTime = ({ time }) => {
     </div>
   );
 };
+
+TripTime.propTypes = {
+  time: PropTypes.number
+}
+
+
