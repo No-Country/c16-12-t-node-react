@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SearchBar = () => {
+export const SearchBar = () => {
 return (
     <div className='w-full flex justify-center'>
         <div className='border-2 border-[#BAE5E6] rounded-lg drop-shadow-2xl  w-[719px] h-[115px] mt-32 pt-5 pb-5 pl-5 pr-5 flex flex-row bg-[#BAE5E6] gap-3'>
@@ -27,4 +27,4 @@ return (
 )
 }
 
-export default SearchBar
+

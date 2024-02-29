@@ -3,7 +3,7 @@ import { CiLocationOn } from 'react-icons/ci';
 import { IoFlagOutline } from 'react-icons/io5';
 import PropTypes from 'prop-types';
 
-const FromTo = ({ from, to }) => (
+export const FromTo = ({ from, to }) => (
   <div className="flex  flex-col justify-start">
     <span>
       <CiLocationOn className="inline mr-1" />
@@ -22,4 +22,3 @@ FromTo.propTypes = {
   to: PropTypes.any
 }
 
-export default FromTo;
