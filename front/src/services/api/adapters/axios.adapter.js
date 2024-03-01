@@ -16,8 +16,8 @@ export const axiosAdapter = (config) => {
       return data;
     },
 
-    put: async (endPoint, body) => {
-      const { data } = await axios.put(
+    patch: async (endPoint, body) => {
+      const { data } = await axios.patch(
         `${API_BASE_URL}${endPoint}`,
         body,
         config

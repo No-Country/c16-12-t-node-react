@@ -27,7 +27,7 @@ export const USER = {
   },
   updateUser: async (userId, updateUserData) => {
     try {
-      return await axiosAdapter(config).put(
+      return await axiosAdapter(config).patch(
         USER_WITH_ID_ENDPOINT(userId),
         updateUserData
       );
