@@ -16,31 +16,25 @@ export const LoginForm = () => {
 
   return (
     <form className="w-full" onSubmit={handleSubmit}>
-      <div className="flex flex-col my-4 border-[1px] border-gray-400">
+      <div className="flex flex-col gap-3 mb-10">
         <Input
           id="email"
           name="email"
-          label="Email"
+          label="Correo electrónico"
           size="large"
+          placeholder="Ingrese su email"
           onChange={handleChange}
         />
         <Input
           id="password"
           name="password"
-          label="password"
+          label="Contraseña"
           size="large"
+          placeholder="Ingrese su contraseña"
           onChange={handleChange}
         />
       </div>
-      <div className="flex flex-col my-4">
-        <p className="text-lg text-left">
-          ¿No tienes cuenta?{' '}
-          <a href="#" className="text-primary-500 hover:underline">
-            Regístrate acá
-          </a>
-        </p>
-      </div>
-      <Button content="login" type="submit" btnType="primary" size="full" />
+      <Button content="Ingresar" type="submit" btnType="primary" size="full" />
     </form>
   );
 };
