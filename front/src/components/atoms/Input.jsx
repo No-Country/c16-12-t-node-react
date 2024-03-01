@@ -11,7 +11,7 @@ export const Input = ({ label, id, name, type, size, value, ...props }) => {
   let inputSize = inputSizesVariants[size];
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-2 my-4">
       {label && (
         <label className="text-base" id={id} name={id || name}>
           {label}
@@ -22,7 +22,7 @@ export const Input = ({ label, id, name, type, size, value, ...props }) => {
         name={name}
         type={type || 'text'}
         value={value}
-        className={`my-2 text-xl p-2 border border-black rounded-md ${inputSize}`}
+        className={`text-xl p-2 border border-black rounded-md ${inputSize}`}
         {...props}
       />
     </div>
@@ -34,6 +34,6 @@ Input.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
   type: PropTypes.string,
-  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  size: PropTypes.oneOf(['small', 'medium', 'large', 'full']),
   value: PropTypes.string || PropTypes.number,
 };
