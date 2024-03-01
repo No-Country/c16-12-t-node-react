@@ -1,79 +1,39 @@
 import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
-export const Input = ({ size, inputs, placeHolder, label }) => {
-  //tamaño de los inputs.
-  const inputSizesVariants = {
-    large: 'w-min-full h-12 bg-FFFFFF',
-    medium: 'w-80 h-12 bg-FFFFFF',
-    small: 'w-36 h-12 bg-FFFFFF',
-  };
-  //type de los inputs.
-  const inputType = {
-    text: 'text',
-    email: 'email',
-    password: 'password',
-    number: 'numbre',
-    date: 'date',
-  };
-  //diferentos tipos de labels.
-  const labelContentVariants = {
-    nombre: 'Nombre',
-    apellido: 'Apellido',
-    email: 'Email',
-    contraseña: 'Contraseña',
-    telefono: 'Numero de telefono',
-    documento: 'Documento de identidad',
-    sesion: 'Iniciar sesión',
-    origen: 'Origen',
-    destino: 'Destino',
-    fechaIda: 'Fecha de ida',
-    fechaVuelta: 'Fecha de vuelta',
-    viajeros: 'Viajeros'
-  };
-  //diferentes placeholders
-  const placeholderVariants = {
-    nombre: 'Tu Nombre',
-    apellido: 'Tu Apellido',
-    email: 'Ej: chirs@example.com',
-    iniciarSesion: 'Correo electronico',
-    fecha: '24/05/2024',
-    personas: 'Cuantas personas?',
-    seleccion: 'Selecciona destino'
-  };
+//tamaño de los inputs.
+const inputSizesVariants = {
+  large: 'w-min-full h-12',
+  medium: 'w-80 h-12',
+  small: 'w-36 h-12',
+};
 
-  let labelContent = labelContentVariants[label];
+export const Input = ({ label, id, name, type, size, value, ...props }) => {
   let inputSize = inputSizesVariants[size];
-  let inputsType = inputType[inputs];
-  let placeHolderContent = placeholderVariants[placeHolder];
 
   return (
-    <div className='flex flex-col'>
-        <label className="text-base">{labelContent}</label>
-        <input
-          type={inputsType}
-          className={`my-2 text-xl p-2 border border-black rounded-md ${inputSize}`}
-          placeholder={placeHolderContent}
-        />
+    <div className="flex flex-col gap-2 my-4">
+      {label && (
+        <label className="text-base" id={id} name={id || name}>
+          {label}
+        </label>
+      )}
+      <input
+        id={id}
+        name={name}
+        type={type || 'text'}
+        value={value}
+        className={`text-xl p-2 border border-black rounded-md ${inputSize}`}
+        {...props}
+      />
     </div>
   );
 };
 
 Input.propTypes = {
-  size: PropTypes.oneOf(['small', 'medium', 'large']),
-  inputs: PropTypes.oneOf(['text', 'email', 'password', 'number', 'date']),
-  label: PropTypes.oneOf([
-    'nombre',
-    'apellido',
-    'email',
-    'contraseña',
-    'telefono',
-    'documento',
-    'sesion',
-    'origen',
-    'destino',
-    'fechaIda',
-    'fechaVuelta',
-  ]),
-  placeHolder: PropTypes.oneOf(['nombre', 'apellido', 'email', 'iniciarSesion']),
+  label: PropTypes.string,
+  id: PropTypes.string,
+  name: PropTypes.string,
+  type: PropTypes.string,
+  size: PropTypes.oneOf(['small', 'medium', 'large', 'full']),
+  value: PropTypes.string || PropTypes.number,
 };

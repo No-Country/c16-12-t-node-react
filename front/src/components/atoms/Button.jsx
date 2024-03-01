@@ -1,50 +1,52 @@
 import PropTypes from 'prop-types';
-import { FaGoogle, FaFacebook } from 'react-icons/fa';
+
+const sizeBtn = {
+  small: 'py-1 px-2',
+  medium: 'py-2 px-4',
+  large: 'py-4 px-6',
+  full: 'py-2 w-full',
+};
+
+const typeBtn = {
+  primary:
+    'bg-primary-400 text-white hover:bg-primary-600 active:bg-primary-500',
+  secondary: 'bg-secondary-500 text-white hover:bg-secondary-400',
+  sufle: 'bg-primary-300 hover:bg-primary-200 active:bg-primary-100 text-black',
+  ghost: 'text-black border border-black hover:bg-primary-200',
+};
 
 // You need to pass on props this arguments for pick size and content for button!
-export const Button = ({size, content, color}) => {
-    // Differents sizes for the buttons.
-    const sizeVariants = {
-        small: 'bg-primary-200 hover:bg-primary-300 w-48 h-12',
-        medium: 'bg-primary-300 hover:bg-primary-400 w-96 h-12',
-        mediumlogin: 'bg-white hover:bg-secondary-100 w-96 h-12 border border-black rounded-md mb-2',
-        large: '',
-    };
-    // Differents content for the buttons.
-    const contentVariants = {
-        login: 'Ingresar',
-        register: 'Registrarme',
-        viewTravel: 'Ver viaje',
-        search: 'Buscar',
-        confirmTravel: 'Confirmar viaje',
-        logingoogle: <>
-                        <FaGoogle style={{ marginRight: '5px' }} />
-                        Continuar con Google
-                    </>,
-        loginfacebook: <>
-                        <FaFacebook style={{ marginRight: '5px' }} />
-                        Continuar con Facebook
-                    </>
-    };
-    // Differents colors for the buttons.
-    const colorVariants = {
-        primary_normal: 'bg-primary-400 hover:bg-primary-1000'
-    }
-        
-    let buttonContent = contentVariants[content]
-    let buttonSize = sizeVariants[size]
-    let buttonColor = colorVariants[color]
-    
-    return (
-        <button type="submit" className={`m-5 text-xl rounded-md flex justify-center items-center text-white ${buttonColor} ${buttonSize}`}>
-        {buttonContent}
-        </button>
-    );
+export const Button = ({
+  children,
+  content,
+  type,
+  btnType = 'primary',
+  size = 'medium',
+  leftIcon,
+  RighIcon,
+  ...props
+}) => {
+  const buttonSize = sizeBtn[size];
+  const buttonColor = typeBtn[btnType];
+  return (
+    <button
+      type={type}
+      className={`rounded-md flex text-xl justify-center items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed ${buttonColor} ${buttonSize}`}
+      {...props}
+    >
+      {leftIcon && <span className="mr-2">{leftIcon}</span>}
+      {children ?? content}
+      {RighIcon && <span className="ml-2">{RighIcon}</span>}
+    </button>
+  );
 };
 
 Button.propTypes = {
-    content: PropTypes.oneOf(['login', 'register', 'viewTravel', 'submit', 'search', 'confirmTravel', 'logingoogle', 'loginfacebook']),
-    size: PropTypes.oneOf(['small', 'medium', 'mediumlogin', 'large']),
-    color: PropTypes.oneOf(['primary_normal'])
+  children: PropTypes.node || PropTypes.string,
+  content: PropTypes.string,
+  type: PropTypes.string,
+  btnType: PropTypes.string,
+  size: PropTypes.oneOf(['small', 'medium', 'large', 'full']),
+  leftIcon: PropTypes.node || PropTypes.string,
+  RighIcon: PropTypes.node || PropTypes.string,
 };
-    
