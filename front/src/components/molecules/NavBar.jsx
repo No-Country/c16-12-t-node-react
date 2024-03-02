@@ -5,7 +5,7 @@ import { Avatar } from '../atoms/Avatar';
 
 export const NavBar = ({ isClicked }) => {
   // todo: check if user is logged
-  const user = true;
+  const user = false;
 
   const remplate = (
     <div className="md:hidden">
@@ -20,7 +20,7 @@ export const NavBar = ({ isClicked }) => {
           to="/about"
           className="text-black hover:bg-primary-300 hover:text-black rounded-lg py-1.5 px-3"
         >
-          Sobre Nosotros
+          Sobre nosotros
         </Link>
         <Link
           to="/contact"
@@ -34,7 +34,7 @@ export const NavBar = ({ isClicked }) => {
 
   return (
     <div className="flex justify-end items-center h-16 w-full gap-2">
-      <nav className="hidden md:flex md:gap-2">
+      <nav className="hidden md:flex md:space-x-4">
         <Link
           to="/"
           className="text-black hover:bg-primary-300 hover:text-black rounded-lg py-1.5 px-3 block"
@@ -45,7 +45,7 @@ export const NavBar = ({ isClicked }) => {
           to="/about"
           className="text-black hover:bg-primary-300 hover:text-black rounded-lg py-1.5 px-3"
         >
-          Sobre Nosotros
+          Sobre nosotros
         </Link>
         <Link
           to="/contact"
