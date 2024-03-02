@@ -1,2 +1,2 @@
-export { RegisterTemplate } from "./RegisterTemplate";
 export { DetailsTrip } from './DetailsTripTemplate';
+export { LayOut } from './template';
