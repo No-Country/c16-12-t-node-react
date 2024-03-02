@@ -22,6 +22,9 @@ export const LoginForm = () => {
           name="email"
           label="Correo electrónico"
           size="large"
+          type="email"
+          border
+          rounded
           placeholder="Ingrese su email"
           onChange={handleChange}
         />
@@ -30,6 +33,9 @@ export const LoginForm = () => {
           name="password"
           label="Contraseña"
           size="large"
+          type="password"
+          border
+          rounded
           placeholder="Ingrese su contraseña"
           onChange={handleChange}
         />
