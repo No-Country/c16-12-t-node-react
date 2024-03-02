@@ -31,6 +31,29 @@ export const Trip = sequelize.define('Trip', {
     allowNull: true,
     defaultValue: 0,
   },
+  trip_date: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  departure_time: {
+    type: DataTypes.TIME,
+    allowNull: false,
+  },
+  pets_allowed: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+  smoothies_allowed: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+  child_seat_available: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
   driver_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
