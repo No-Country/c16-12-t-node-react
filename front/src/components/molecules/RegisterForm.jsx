@@ -50,7 +50,7 @@ export const RegisterForm = () => {
   };
 
   return (
-    <div className="h-content w-[600px]  bg-white rounded-xl mt-4 mx-auto px-8 py-6">
+    <div className="h-content w-[96%] sm:w-[600px]  bg-white rounded-xl mt-4 mx-auto px-8 py-6">
       <span className="flex justify-center p-5 font-bold text-xl text-center">
         Completa el formulario con tus datos personales
       </span>
@@ -60,14 +60,20 @@ export const RegisterForm = () => {
           id="name"
           name="name"
           size="full"
+          type="text"
+          border
+          rounded
           placeholder="Ej. Juan"
           onChange={handleChange}
         />
         <Input
-          label="Nombre"
+          label="Apellidos"
           id="last_name"
           name="last_name"
           size="full"
+          type="text"
+          border
+          rounded
           placeholder="Ej. Lopez"
           onChange={handleChange}
         />
@@ -77,6 +83,8 @@ export const RegisterForm = () => {
           name="email"
           type="email"
           size="full"
+          border
+          rounded
           placeholder="Ej. juanloper@mail.com"
           onChange={handleChange}
         />
@@ -86,6 +94,9 @@ export const RegisterForm = () => {
           name="password"
           type="password"
           size="full"
+          border
+          rounded
+          placeholder="Ej. ******"
           onChange={handleChange}
         />
         <span className="ml-2 pb-2 font-bold">
@@ -97,6 +108,11 @@ export const RegisterForm = () => {
           name="phone"
           size="full"
           type="number"
+          inputMode="numeric"
+          pattern="\d*"
+          border
+          rounded
+          min={0}
           onChange={handleChange}
         />
         <Input
@@ -107,6 +123,9 @@ export const RegisterForm = () => {
           type="number"
           inputMode="numeric"
           pattern="\d*"
+          border
+          rounded
+          min={0}
           onChange={handleChange}
         />
         <Select
