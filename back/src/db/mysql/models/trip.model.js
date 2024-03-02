@@ -44,7 +44,7 @@ export const Trip = sequelize.define('Trip', {
     allowNull: false,
     defaultValue: false,
   },
-  smoothies_allowed: {
+  smoking_allowed: {
     type: DataTypes.BOOLEAN,
     allowNull: false,
     defaultValue: false,
