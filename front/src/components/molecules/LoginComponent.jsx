@@ -6,7 +6,7 @@ import { FaGoogle, FaFacebook } from 'react-icons/fa';
 
 export const LoginComponent = () => {
   return (
-    <div className="container rounded-[20px] shadow-xl flex flex-col justify-evenly p-6 bg-white max-w-[448px] h-[810px] m-auto pb-20">
+    <div className="container rounded-[20px] shadow-xl flex flex-col justify-evenly p-6 bg-white w-[96%] sm:max-w-[448px] h-[810px] m-auto pb-20">
       <div className="object-cover w-full h-20 flex items-center justify-center">
         <img src="../src/assets/img/logo.png" alt="Logo" />
       </div>
