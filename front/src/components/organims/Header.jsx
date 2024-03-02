@@ -15,7 +15,7 @@ export const Header = () => {
 
   return (
     <header className="w-full py-2">
-      <div className="flex px-1.5 justify-between items-center md:container mx-auto relative">
+      <div className="flex px-1.5 justify-between gap-1.5 items-center md:container mx-auto relative">
         <Link to="/" className="inline-block">
           <img src={Logo} alt="Logo" className="object-cover" />
         </Link>
