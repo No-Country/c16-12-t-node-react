@@ -3,7 +3,7 @@ import { LANDING } from '@/contacts/langingUtils';
 
 export const SectionStadistic = () => {
   return (
-    <section className="py-20 sm:px-12 flex flex-col gap-24">
+    <section className="sm:px-12 flex flex-col gap-24">
       <h2 className="text-4xl font-bold text-primary-400 text-center py-10">
         Nuestra Comunidad viajera en números
       </h2>

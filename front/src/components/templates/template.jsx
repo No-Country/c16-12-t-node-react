@@ -6,7 +6,8 @@ export const LayOut = ({ children }) => {
   return (
     <>
       <Header />
-      <div className="w-full min-h-[calc(100vh-300px)] px-1.5 md:container mx-auto py-9">
+      <div className="w-full h-[80px]"></div>
+      <div className="w-full min-h-[calc(100vh-220px)] px-1.5 md:container mx-auto">
         {children}
       </div>
       <Footer />
