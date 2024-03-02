@@ -19,7 +19,7 @@ const typeBtn = {
 export const Button = ({
   children,
   content,
-  type,
+  type = 'button',
   btnType = 'primary',
   size = 'medium',
   leftIcon,
