@@ -7,7 +7,17 @@ const inputSizesVariants = {
   small: 'w-36 h-12',
 };
 
-export const Input = ({ label, id, name, type, size, value, ...props }) => {
+export const Input = ({
+  label,
+  id,
+  name,
+  type,
+  size,
+  value,
+  border,
+  rounded = true,
+  ...props
+}) => {
   let inputSize = inputSizesVariants[size];
 
   return (
@@ -22,7 +32,7 @@ export const Input = ({ label, id, name, type, size, value, ...props }) => {
         name={name}
         type={type || 'text'}
         value={value}
-        className={`text-xl p-2 border border-black rounded-md ${inputSize}`}
+        className={`text-xl outline-none focus:ring-[3px] focus:ring-primary-500 p-2 ${border ? 'border border-black' : ''} ${rounded ? 'rounded-xl' : 'rounded-md'} ${inputSize}`}
         {...props}
       />
     </div>
@@ -34,6 +44,8 @@ Input.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
   type: PropTypes.string,
+  border: PropTypes.bool,
+  rounded: PropTypes.bool,
   size: PropTypes.oneOf(['small', 'medium', 'large', 'full']),
   value: PropTypes.string || PropTypes.number,
 };
