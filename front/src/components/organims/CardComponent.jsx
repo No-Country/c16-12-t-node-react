@@ -1,73 +1,78 @@
-import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { LuMapPin } from 'react-icons/lu';
+import { LiaMapPinSolid } from 'react-icons/lia';
+import { IoCalendarOutline } from 'react-icons/io5';
+import { IoMdTime } from 'react-icons/io';
+
 import {
   Avatar,
   UserName,
   StarRating,
-  TripTime,
-  AvailablePlaces,
   Button,
-  FromTo,
+  DataContent,
 } from '../atoms/index';
-import { FaRegCalendarAlt } from 'react-icons/fa';
 
-const CardComponent = ({
+export const CardComponent = ({
+  id,
+  avatarUrl,
   driver,
   userRating,
-  avatarUrl,
-  from,
-  to,
-  date,
-  time,
+  origin,
+  destiny,
+  tripDate,
+  DepartureTime,
   spots,
 }) => {
-
-  let fecha = new Date();
-  let day = fecha.getDate();
-  let month = fecha.getMonth() + 1;
-  let year = fecha.getFullYear();
-
   return (
-    <div className="bg-white shadow-lg rounded-xl p-4 w-80">
-      <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center">
-          <span className="font-bold text-gray-800">
-            <div className="object-cover w-full h-full">
-              <Avatar avatarUrl={avatarUrl} userName={driver} />
-            </div>
-          </span>
-        </div>
-        <div className="flex justify-start flex-col ml-9">
-          <span className="text-gray-100 font-extralight flex items-right justify-end cursor-pointer">
-            Ver perfil
-          </span>
-          <UserName username={driver} />
+    <div className="bg-white shadow-lg rounded-xl p-6 w-[356px] h-[446px] flex flex-col justify-between">
+      <div className="flex space-x-8">
+        <Avatar avatarUrl={avatarUrl} userName={driver} size="small" />
+        <div className="flex flex-col gap-2 justify-center">
+          <UserName username={driver} size="medium" />
           <StarRating userRating={userRating} />
         </div>
       </div>
-
-      <div className="flex items-center justify-between mb-4 flex-1 gap-4 ">
-        <div className="flex flex-col">
-          <FromTo from={from} to={to} />
-          <div className="flex flex-col">
-            <span className="text-gray-800">
-              <FaRegCalendarAlt className="inline mr-1" />
-              Fecha{' '}
-              <span className="font-extralight">{`${day}-0${month}-${year}`}</span>
-            </span>
-
-            <TripTime time={time} />
-          </div>
-        </div>
+      <div className="flex flex-col gap-1">
+        <DataContent
+          icon={<LiaMapPinSolid size={24} color="#1C1C1C" />}
+          aperture="Desde"
+          description={origin}
+        />
+        <DataContent
+          icon={<LuMapPin size={24} color="#1C1C1C" />}
+          aperture="Hasta"
+          description={destiny}
+        />
+        <DataContent
+          icon={<IoCalendarOutline size={24} color="#1C1C1C" />}
+          aperture="Fecha"
+          description={tripDate}
+        />
+        <DataContent
+          icon={<IoMdTime size={24} color="#1C1C1C" />}
+          aperture="Fecha"
+          description={DepartureTime}
+        />
       </div>
-      <div className="flex items-center justify-center">
-        <AvailablePlaces numero={spots} />
-      </div>
-
       <div className="flex justify-center items-center">
-        <Button content="viewTravel" size="medium" color="primary_normal"/>
+        <span className="text-gray-600">{`Lugares disponibles: ${spots}`}</span>
       </div>
+      <Link to={`/trip/${id}`} className="flex justify-center items-center">
+        <Button content="Ver viaje" size="full" color="primary_normal" />
+      </Link>
     </div>
   );
 };
 
-export default CardComponent;
+CardComponent.propTypes = {
+  id: PropTypes.number,
+  driver: PropTypes.string,
+  userRating: PropTypes.number,
+  avatarUrl: PropTypes.string,
+  origin: PropTypes.string,
+  destiny: PropTypes.string,
+  tripDate: PropTypes.string,
+  DepartureTime: PropTypes.string,
+  spots: PropTypes.number,
+};

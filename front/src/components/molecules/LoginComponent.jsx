@@ -1,28 +1,41 @@
-import React from 'react';
-import { Input } from '../atoms/Input';
+import { Link } from 'react-router-dom';
 import { Button } from '../atoms/Button';
+import { Divider } from '../atoms/divider';
+import { LoginForm } from './LoginForm';
+import { FaGoogle, FaFacebook } from 'react-icons/fa';
 
 export const LoginComponent = () => {
   return (
-    <div className="container rounded-lg shadow-xl flex flex-col items-center justify-center" style={{ width: '448px', height: '810px' }}>
-      <div className="flex flex-col items-center justify-center my-4">
-        <img src="../src/assets/img/logo.png" alt="Logo" className="mb-2" />
+    <div className="container rounded-[20px] shadow-xl flex flex-col justify-evenly p-6 bg-white w-[96%] sm:max-w-[448px] h-[810px] m-auto pb-20">
+      <div className="object-cover w-full h-20 flex items-center justify-center">
+        <img src="../src/assets/img/logo.png" alt="Logo" />
       </div>
-      <div className="flex flex-col my-4">
-        <Input size="medium" inputs="email" label="sesion" placeHolder="iniciarSesion" />
+      <div className="flex flex-col gap-2">
+        <LoginForm />
+        <div className="flex gap-2 justify-start w-full">
+          <p className="text-lg">¿No tienes cuenta?</p>
+          <Link
+            to="/register"
+            className="text-primary-500 hover:underline text-lg"
+          >
+            Regístrate acá
+          </Link>
+        </div>
       </div>
-      <div className="flex flex-col my-4">
-        <Input size="medium" inputs="password" label="contraseña" placeHolder="contraseña" />
-        <p className="text-lg text-left">
-          ¿No tienes cuenta?{' '}
-          <a href="#" className="text-primary-500 hover:underline">Regístrate acá</a>
-        </p>
-      </div>
-      <Button size="medium" content="login" className="my-4" />
-      <hr className="my-8 w-full border-gray-400" />
-      <div className="flex flex-col items-center justify-center my-4">
-        <Button size="mediumlogin" content="logingoogle" />
-        <Button size="mediumlogin" content="loginfacebook" />
+      <Divider />
+      <div className="flex flex-col items-center gap-6 w-full">
+        <Button
+          size="full"
+          btnType="ghost"
+          content="login con google"
+          leftIcon={<FaGoogle />}
+        />
+        <Button
+          size="full"
+          content="login con facebook"
+          btnType="ghost"
+          leftIcon={<FaFacebook />}
+        />
       </div>
     </div>
   );
