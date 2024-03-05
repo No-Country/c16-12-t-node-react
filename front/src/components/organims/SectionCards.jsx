@@ -1,75 +1,13 @@
+import { useTrip } from '@/context/Trips.context';
 import { CardComponent } from './CardComponent';
+import { useEffect } from 'react';
 
 export const SectionCards = () => {
-  // TODO: get trips from context
-  const trips = [
-    {
-      id: 1,
-      origin: 'Cordoba',
-      destiny: 'Buenos Aires',
-      avatarUrl: 'https://i.pravatar.cc/300',
-      userRating: 4,
-      driver: 'Lucas',
-      tripDate: '2022-05-20',
-      DepartureTime: '10:30',
-      spots: 3,
-    },
-    {
-      id: 2,
-      origin: 'Cordoba',
-      destiny: 'Buenos Aires',
-      avatarUrl: 'https://i.pravatar.cc/310',
-      userRating: 4.5,
-      driver: 'Jorge',
-      tripDate: '2022-05-20',
-      DepartureTime: '14:30',
-      spots: 2,
-    },
-    {
-      id: 3,
-      origin: 'Cordoba',
-      destiny: 'Buenos Aires',
-      avatarUrl: 'https://i.pravatar.cc/312',
-      userRating: 3.5,
-      driver: 'Manuel',
-      tripDate: '2022-05-20',
-      DepartureTime: '12:30',
-      spots: 1,
-    },
-    {
-      id: 4,
-      origin: 'Cordoba',
-      destiny: 'Buenos Aires',
-      avatarUrl: 'https://i.pravatar.cc/313',
-      userRating: 5,
-      driver: 'Lucas',
-      tripDate: '2022-05-20',
-      DepartureTime: '10:30',
-      spots: 3,
-    },
-    {
-      id: 5,
-      origin: 'Cordoba',
-      destiny: 'Buenos Aires',
-      avatarUrl: 'https://i.pravatar.cc/314',
-      userRating: 4.5,
-      driver: 'Jorge',
-      tripDate: '2022-05-20',
-      DepartureTime: '14:30',
-      spots: 2,
-    },
-    {
-      id: 6,
-      origin: 'Cordoba',
-      destiny: 'Buenos Aires',
-      avatarUrl: 'https://i.pravatar.cc/315',
-      userRating: 3.5,
-      driver: 'Manuel',
-      tripDate: '2022-05-20',
-      DepartureTime: '12:30',
-      spots: 1,
-    },
-  ];
+  const { tripData, getTrips } = useTrip();
+
+  useEffect(() => {
+    getTrips();
+  }, []);
 
   return (
     <div className="container mx-auto px-4 py-8 flex flex-col justify-center items-center">
@@ -77,17 +15,17 @@ export const SectionCards = () => {
         Descubre los viajes disponibles
       </p>
       <div className="flex flex-wrap justify-center gap-x-20 gap-y-14">
-        {trips.map((trip) => (
+        {tripData?.data?.map((trip, i) => (
           <CardComponent
-            key={trip.id}
-            origin={trip.origin}
-            destiny={trip.destiny}
-            avatarUrl={trip.avatarUrl}
-            userRating={trip.userRating}
+            key={i}
+            id={trip.id}
+            seats={trip.seats}
+            origin={trip.origin?.name}
+            destiny={trip.destiny?.name}
             driver={trip.driver}
-            tripDate={trip.tripDate}
-            DepartureTime={trip.DepartureTime}
-            spots={trip.spots}
+            tripDate={trip.trip_date}
+            DepartureTime={trip.departure_time}
+            spots={trip.seats_reserved}
           />
         ))}
       </div>
