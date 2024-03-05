@@ -23,5 +23,5 @@ export const Avatar = ({ avatarUrl, userName, size }) => {
 Avatar.propTypes = {
   avatarUrl: PropTypes.string,
   userName: PropTypes.string,
-  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  size: PropTypes.oneOf(['mini', 'small', 'medium', 'large']),
 };
