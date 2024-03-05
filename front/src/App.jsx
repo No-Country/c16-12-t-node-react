@@ -1,8 +1,7 @@
+import { Router } from './routes/routes';
+
 function App() {
-  return (
-    <div className="">
-    </div>
-  );
-};
+  return <Router />;
+}
 
 export default App;
