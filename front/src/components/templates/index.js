@@ -1,2 +1,2 @@
-export { DetailsTrip } from './DetailsTripTemplate';
 export { LayOut } from './template';
+export { Section } from './Section';
