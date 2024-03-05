@@ -99,7 +99,6 @@ export class TripRepository extends BaseRepository {
         t.pets_allowed,
         t.smoking_allowed,
         t.child_seat_available,
-        t.driver_id,
         t.trip_status,
         (SELECT SUM(seats_reserved)FROM SeatReserveds WHERE trip_id = t.id) AS seats_reserved,
         (SELECT
