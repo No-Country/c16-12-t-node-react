@@ -6,67 +6,49 @@ import { TRIPS } from '@/services/apiServices/Trips.service';
 const TripContext = createContext();
 
 function TripProvider({ children }) {
-  const [trips, settrips] = useState([]);
+  const [trip, setTrip] = useState({});
+  const [trips, setTrips] = useState([]);
 
-  useEffect(() => {
+  const getTrips = () => {
     TRIPS.getTrips()
-      .then((trips) => {
-        settrips({
-          ...trips,
-          ['trips']: trips.data,
-        });
-      })
+      .then((trips) => setTrips(trips))
       .catch(console.error);
-  }, []);
+  };
 
   const getTrip = (tripId) => {
     TRIPS.getTrip(tripId)
       .then((trip) => {
-        settrips({
-          ...trips,
-          ['trip']: trip,
-        });
+        setTrip((prev) => ({ ...prev, trip }));
       })
       .catch(console.error);
   };
 
   const createTrip = (newTripData) => {
     TRIPS.createTrip(newTripData)
-      .then((trip) =>
-        settrips({
-          ...trips,
-          ['trip']: trip,
-        })
-      )
+      .then((newTrip) => setTrip((prev) => ({ ...prev, newTrip })))
       .catch(console.error);
   };
 
   const updateTrip = (tripId, updateTripData) => {
     TRIPS.updateTrip(tripId, updateTripData)
-      .then((trip) =>
-        settrips({
-          ...trips,
-          ['trip']: trip,
-        })
-      )
+      .then((trip) => setTrip((prev) => ({ ...prev, trip })))
       .catch(console.error);
   };
 
   const deleteTrip = (tripId) => {
     TRIPS.deleleTrip(tripId)
-      .then(() =>
-        settrips({
-          ...trips,
-          ['trip']: {},
-        })
-      )
+      .then((confirm) => {
+        if (confirm) {
+          setTrips(trips.filter((trip) => trip.id !== tripId));
+        }
+      })
       .catch(console.error);
   };
 
   const reserveTrip = (tripId) => {
     TRIPS.reserveTrip(tripId)
       .then((reserve) =>
-        settrips({
+        setTrips({
           ...trips,
           ['trip']: reserve,
         })
@@ -77,7 +59,7 @@ function TripProvider({ children }) {
   const cancelTrip = (tripId) => {
     TRIPS.cancelTrip(tripId)
       .then((reserveCanceled) =>
-        settrips({
+        setTrips({
           ...trips,
           ['trip']: reserveCanceled,
         })
@@ -88,7 +70,9 @@ function TripProvider({ children }) {
   return (
     <TripContext.Provider
       value={{
+        trip,
         trips,
+        getTrips,
         getTrip,
         createTrip,
         updateTrip,
