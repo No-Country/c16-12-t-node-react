@@ -23,7 +23,6 @@ export class TripRepository extends BaseRepository {
           t.seats,
           t.seat_price,
           t.total_price,
-          t.driver_id,
           t.trip_date,
           t.departure_time,
           t.pets_allowed,
@@ -47,7 +46,18 @@ export class TripRepository extends BaseRepository {
               'longitud', d.longitud,
               'country_id', d.country_id,
               'country', (SELECT JSON_OBJECT('id', cd.id, 'name', cd.name, 'code', cd.code))
-          )) AS destiny
+          )) AS destiny,
+          (SELECT
+            JSON_OBJECT(
+                'id', u.id,
+                'name', u.name,
+                'last_name', u.last_name,
+                'avatar', u.avatar,
+                'rating', u.rating,
+                'email', u.email,
+                'phone', u.phone
+            )
+        ) AS driver
         FROM 
             Trips t
         INNER JOIN 
@@ -58,6 +68,8 @@ export class TripRepository extends BaseRepository {
             Countries AS co ON o.country_id = co.id
         INNER JOIN 
             Countries AS cd ON d.country_id = cd.id
+        JOIN
+          Users AS u ON t.driver_id = u.id
         LIMIT ${limit} OFFSET ${offset};
     `;
 
@@ -125,6 +137,9 @@ export class TripRepository extends BaseRepository {
             JSON_OBJECT(
                 'id', u.id,
                 'name', u.name,
+                'last_name', u.last_name,
+                'avatar', u.avatar,
+                'rating', u.rating,
                 'email', u.email,
                 'phone', u.phone
             )
