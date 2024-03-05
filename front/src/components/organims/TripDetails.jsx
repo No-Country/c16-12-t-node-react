@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { FaBabyCarriage, FaSmokingBan } from 'react-icons/fa';
@@ -8,52 +9,25 @@ import { IoCalendarOutline } from 'react-icons/io5';
 import { IoMdTime } from 'react-icons/io';
 import { TbSmokingNo } from 'react-icons/tb';
 
+import { getDate, tranformFormatTwentyFour } from '@/utils/shared';
 import { Button, DataContent } from '@/components/atoms/index';
 import { UserAvatar } from '../molecules/userAvatar';
-import { useEffect } from 'react';
 import { useTrip } from '@/context/Trips.context';
+import { useUser } from '@/context/user.context';
 
 export const TripDetails = () => {
-  // todo: Se debe recupera desde el context useContext el usuario logeado
-  // const { user } = useUser();
-  const user = true;
+  const { user } = useUser();
 
-  // todo: llamar a useTrip de context trip para recuperar solo el trip con el id
-  // const { id: tripId } = useParams();
-  // const { getTrip, trip } = useTrip(); // <<-- el objeto trip debe contener los mismos campos que el ejemplo.
+  const { tripId } = useParams();
+  const { getTrip, trip } = useTrip();
 
-  // useEffect(() => {
-  //   getTrip(tripId);
-  // }, []);
+  useEffect(() => {
+    getTrip(Number(tripId));
+  }, []);
 
-  //! se tiene que eliminar este ejemplo
-  const trip = {
-    id: 1,
-    distance: 2.5,
-    time_estimated: 3,
-    seats: 5,
-    seat_price: 20,
-    total_price: 100,
-    trip_date: '2024-03-20',
-    departure_time: '10:00',
-    pets_allowed: true,
-    smoking_allowed: false,
-    child_seat_available: true,
-    trip_status: 'not_started',
-    seats_reserved: 3,
-    origin: 'Cordoba',
-    destiny: 'Buenos Aires',
-    driver: {
-      id: 1,
-      name: 'Lucas',
-      last_name: 'Perez',
-      email: 'zOqFP@example.com',
-      phone: '123456789',
-      avatarUrl: 'https://i.pravatar.cc/300',
-      rating: 4,
-    },
-    passengers: [],
-  };
+  const hour = tranformFormatTwentyFour(trip?.departure_time);
+  const date = getDate(trip?.trip_date);
+  const spots = trip.seats_reserved ? trip?.seats - trip?.seats_reserved : 0;
 
   return (
     <div className=" min-w-11 md:max-w-[900px] mx-auto">
@@ -61,7 +35,7 @@ export const TripDetails = () => {
         <aside className="flex flex-col justify-between gap-10">
           <section className="flex">
             <UserAvatar
-              avatarUrl={trip.driver?.avatarUrl}
+              avatarUrl={trip?.driver?.avatar}
               username={trip.driver?.name + ' ' + trip.driver?.last_name}
               rating={trip.driver?.rating}
             />
@@ -73,28 +47,28 @@ export const TripDetails = () => {
                 <DataContent
                   icon={<LiaMapPinSolid size={24} color="#1C1C1C" />}
                   aperture="Desde"
-                  description={trip.origin}
+                  description={trip?.origin?.name}
                 />
                 <DataContent
                   icon={<LuMapPin size={24} color="#1C1C1C" />}
                   aperture="Hasta"
-                  description={trip.destiny}
+                  description={trip?.destiny?.name}
                 />
                 <DataContent
                   icon={<IoCalendarOutline size={24} color="#1C1C1C" />}
                   aperture="Fecha"
-                  description={trip.trip_date}
+                  description={date}
                 />
                 <DataContent
                   icon={<IoMdTime size={24} color="#1C1C1C" />}
-                  aperture="Fecha"
-                  description={trip.departure_time}
+                  aperture="Hora"
+                  description={hour}
                 />
               </div>
               <div className="flex flex-col gap-2">
                 <DataContent
                   icon={<MdEventSeat size={24} />}
-                  aperture={trip.seats - trip.seats_reserved}
+                  aperture={spots}
                   description="Asientos disponibles"
                 />
                 <DataContent
