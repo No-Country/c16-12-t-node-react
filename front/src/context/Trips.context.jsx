@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, createContext } from 'react';
+import { useState, useContext, createContext } from 'react';
 import PropTypes from 'prop-types';
 
 import { TRIPS } from '@/services/apiServices/Trips.service';
@@ -7,7 +7,8 @@ const TripContext = createContext();
 
 function TripProvider({ children }) {
   const [trip, setTrip] = useState({});
-  const [trips, setTrips] = useState([]);
+  const [tripData, setTrips] = useState({});
+  const [tripsReserved, setTripsReserved] = useState({});
 
   const getTrips = () => {
     TRIPS.getTrips()
@@ -17,21 +18,26 @@ function TripProvider({ children }) {
 
   const getTrip = (tripId) => {
     TRIPS.getTrip(tripId)
-      .then((trip) => {
-        setTrip((prev) => ({ ...prev, trip }));
-      })
+      .then((trip) => setTrip(trip))
       .catch(console.error);
   };
 
   const createTrip = (newTripData) => {
     TRIPS.createTrip(newTripData)
-      .then((newTrip) => setTrip((prev) => ({ ...prev, newTrip })))
+      .then((newTrip) =>
+        setTrips({ ...tripData, data: [...tripData.data, newTrip] })
+      )
       .catch(console.error);
   };
 
   const updateTrip = (tripId, updateTripData) => {
     TRIPS.updateTrip(tripId, updateTripData)
-      .then((trip) => setTrip((prev) => ({ ...prev, trip })))
+      .then((tripUpdated) =>
+        setTrips({
+          ...tripData,
+          data: [...tripData.data, tripUpdated],
+        })
+      )
       .catch(console.error);
   };
 
@@ -39,7 +45,10 @@ function TripProvider({ children }) {
     TRIPS.deleleTrip(tripId)
       .then((confirm) => {
         if (confirm) {
-          setTrips(trips.filter((trip) => trip.id !== tripId));
+          setTrips({
+            ...tripData,
+            data: tripData.data.filter((trip) => trip.id !== tripId),
+          });
         }
       })
       .catch(console.error);
@@ -48,9 +57,9 @@ function TripProvider({ children }) {
   const reserveTrip = (tripId) => {
     TRIPS.reserveTrip(tripId)
       .then((reserve) =>
-        setTrips({
-          ...trips,
-          ['trip']: reserve,
+        setTripsReserved({
+          ...tripsReserved,
+          reserved: [...tripsReserved.reserved, reserve],
         })
       )
       .catch(console.error);
@@ -58,12 +67,7 @@ function TripProvider({ children }) {
 
   const cancelTrip = (tripId) => {
     TRIPS.cancelTrip(tripId)
-      .then((reserveCanceled) =>
-        setTrips({
-          ...trips,
-          ['trip']: reserveCanceled,
-        })
-      )
+      .then((tripReserved) => console.log(tripReserved))
       .catch(console.error);
   };
 
@@ -71,7 +75,7 @@ function TripProvider({ children }) {
     <TripContext.Provider
       value={{
         trip,
-        trips,
+        tripData,
         getTrips,
         getTrip,
         createTrip,
