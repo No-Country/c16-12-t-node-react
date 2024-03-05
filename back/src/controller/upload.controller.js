@@ -1,4 +1,4 @@
-import handleError from '../errors/handle.error.js';
+import { HandleError } from '../errors/index.js';
 
 export class UploadController {
   constructor({ service }) {
@@ -11,7 +11,7 @@ export class UploadController {
     return this.service
       .upload(data)
       .then((files) => res.status(200).json(files))
-      .catch((err) => handleError.handle(err, res));
+      .catch((err) => HandleError.handle(err, res));
   };
 
   deleteFiles = (req, res) => {
@@ -21,6 +21,6 @@ export class UploadController {
     return this.service
       .remove({ type, ...data })
       .then((data) => res.status(200).json(data))
-      .catch((err) => handleError.handle(err, res));
+      .catch((err) => HandleError.handle(err, res));
   };
 }
