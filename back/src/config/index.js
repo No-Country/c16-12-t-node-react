@@ -3,6 +3,7 @@ import env from 'env-var';
 
 export const envs = {
   PORT: env.get('PORT').required().asPortNumber(),
+  BASE_API: env.get('BASE_API').required().asString(),
   BD_NAME: env.get('BD_NAME').required().asString(),
   DB_USERNAME: env.get('DB_USERNAME').required().asString(),
   DB_PASSWORD: env.get('DB_PASSWORD').required().asString(),

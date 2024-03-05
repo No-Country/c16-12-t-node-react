@@ -3,13 +3,13 @@ import express from 'express';
 import { CitiesController } from '../controller/index.js';
 import { CitiesService } from '../services/index.js';
 import { CitiesRepository } from '../repositories/index.js';
-import { City } from '../db/mysql/models/index.js';
+import { City, Country } from '../db/mysql/models/index.js';
 
 export class CitiesRoute {
   static routes() {
     const router = express.Router();
 
-    const repository = new CitiesRepository({ model: City });
+    const repository = new CitiesRepository({ cityModel: City, countryModel: Country });
     const service = new CitiesService({ repository });
     const controller = new CitiesController({ service });
 

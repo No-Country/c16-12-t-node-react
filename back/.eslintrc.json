@@ -11,7 +11,7 @@
     "sourceType": "module"
   },
   "ignorePatterns": [
-    "dist",
+    "dist", 
     "node_modules",
     "test",
     "tests",
@@ -19,6 +19,8 @@
     "src/__tests__"
   ],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "no-unused-vars": "off",
+    "no-unsafe-optional-chaining": "off"
   }
 }

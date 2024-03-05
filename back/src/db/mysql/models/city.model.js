@@ -26,4 +26,9 @@ export const City = sequelize.define('City', {
   },
 });
 
-City.belongsTo(Country, { foreignKey: 'country_id', targetKey: 'id' });
+City.belongsTo(Country, {
+  foreignKey: 'country_id',
+  targetKey: 'id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+});
