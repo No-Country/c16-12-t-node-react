@@ -1,11 +1,18 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { Avatar } from '../atoms/Avatar';
+import { useUser } from '@/context/user.context';
+import { Button } from '../atoms/Button';
 
 export const NavBar = ({ isClicked }) => {
-  // todo: check if user is logged
-  const user = false;
+  const navigation = useNavigate();
+  const { user, logout } = useUser();
+
+  const handleClick = () => {
+    logout();
+    navigation('/');
+  };
 
   const remplate = (
     <div className="md:hidden">
@@ -16,18 +23,38 @@ export const NavBar = ({ isClicked }) => {
         >
           Inicio
         </Link>
-        <Link
-          to="/about"
-          className="text-black hover:bg-primary-300 hover:text-black rounded-lg py-1.5 px-3"
-        >
-          Sobre nosotros
-        </Link>
-        <Link
-          to="/contact"
-          className="text-black hover:bg-primary-300 hover:text-black rounded-lg py-1.5 px-3"
-        >
-          Contacto
-        </Link>
+        {user ? (
+          <>
+            <Link
+              to="/mytrips"
+              className="text-black hover:bg-primary-300 hover:text-black rounded-lg py-1.5 px-3"
+            >
+              Mis viajes
+            </Link>
+            <Link
+              to="/messages"
+              className="text-black hover:bg-primary-300 hover:text-black rounded-lg py-1.5 px-3"
+            >
+              Mis mensajes
+            </Link>
+            <Button content="Salir" onClick={handleClick} />
+          </>
+        ) : (
+          <>
+            <Link
+              to="/about"
+              className="text-black hover:bg-primary-300 hover:text-black rounded-lg py-1.5 px-3"
+            >
+              Sobre nosotros
+            </Link>
+            <Link
+              to="/contact"
+              className="text-black hover:bg-primary-300 hover:text-black rounded-lg py-1.5 px-3"
+            >
+              Contacto
+            </Link>
+          </>
+        )}
       </nav>
     </div>
   );
@@ -41,18 +68,38 @@ export const NavBar = ({ isClicked }) => {
         >
           Inicio
         </Link>
-        <Link
-          to="/about"
-          className="text-black hover:bg-primary-300 hover:text-black rounded-lg py-1.5 px-3"
-        >
-          Sobre nosotros
-        </Link>
-        <Link
-          to="/contact"
-          className="text-black hover:bg-primary-300 hover:text-black rounded-lg py-1.5 px-3"
-        >
-          Contacto
-        </Link>
+        {user ? (
+          <>
+            <Link
+              to="/mytrips"
+              className="text-black hover:bg-primary-300 hover:text-black rounded-lg py-1.5 px-3"
+            >
+              Mis viajes
+            </Link>
+            <Link
+              to="/messages"
+              className="text-black hover:bg-primary-300 hover:text-black rounded-lg py-1.5 px-3"
+            >
+              Mis mensajes
+            </Link>
+            <Button content="Salir" onClick={handleClick} />
+          </>
+        ) : (
+          <>
+            <Link
+              to="/about"
+              className="text-black hover:bg-primary-300 hover:text-black rounded-lg py-1.5 px-3"
+            >
+              Sobre nosotros
+            </Link>
+            <Link
+              to="/contact"
+              className="text-black hover:bg-primary-300 hover:text-black rounded-lg py-1.5 px-3"
+            >
+              Contacto
+            </Link>
+          </>
+        )}
       </nav>
       {isClicked && remplate}
       <div className="flex gap-2 justify-end">
