@@ -6,37 +6,19 @@ import { CITIES } from '@/services/apiServices/city.service';
 const CityContext = createContext();
 
 function CityProvider({ children }) {
-  const cityData = {
-    cities: [],
-    city: {},
-  };
-
-  const [cities, setCities] = useState(cityData);
+  const [cities, setCities] = useState([]);
+  const [city, setCity] = useState({});
 
   useEffect(() => {
-    CITIES.getCities()
-      .then((cities) => {
-        setCities({
-          ...cities,
-          ['roles']: cities.data,
-        });
-      })
-      .catch(console.error);
+    CITIES.getCities().then(setCities).catch(console.error);
   }, []);
 
   const getCity = (cityId) => {
-    CITIES.getCity(cityId)
-      .then((city) => {
-        setCities({
-          ...cities,
-          ['city']: city,
-        });
-      })
-      .catch(console.error);
+    CITIES.getCity(cityId).then(setCity).catch(console.error);
   };
 
   return (
-    <CityContext.Provider value={{ cities, getCity }}>
+    <CityContext.Provider value={{ city, cities, getCity }}>
       {children}
     </CityContext.Provider>
   );
