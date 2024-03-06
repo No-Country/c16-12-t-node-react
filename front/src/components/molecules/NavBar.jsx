@@ -26,7 +26,7 @@ export const NavBar = ({ isClicked }) => {
         {user ? (
           <>
             <Link
-              to="/mytrips"
+              to={`/trips/${user.id}/my-trips`}
               className="text-black hover:bg-primary-300 hover:text-black rounded-lg py-1.5 px-3"
             >
               Mis viajes
@@ -71,7 +71,7 @@ export const NavBar = ({ isClicked }) => {
         {user ? (
           <>
             <Link
-              to="/mytrips"
+              to={`/trips/${user.id}/my-trips`}
               className="text-black hover:bg-primary-300 hover:text-black rounded-lg py-1.5 px-3"
             >
               Mis viajes
@@ -103,7 +103,7 @@ export const NavBar = ({ isClicked }) => {
       </nav>
       {isClicked && remplate}
       <div className="flex gap-2 justify-end">
-        {user && <Avatar size="mini" />}
+        {user && <Avatar size="mini" avatarUrl={user?.avatar} />}
         {!user && (
           <>
             <Link

@@ -76,11 +76,11 @@ export const Chat = () => {
 
   useEffect(() => {
     // todo: implementar con adaptador axios
-    fetch;
     fetch(`http://localhost:3000/api/trips/${user.id}`).then((res) => {
-      const offlinePeopleArr = res.data.passengers
-        .filter(({ id }) => !onlinePeople.find((user) => user.id === id))
-        .filter(({ id }) => id !== user.id);
+      const offlinePeopleArr =
+        res?.data?.passengers
+          .filter(({ id }) => !onlinePeople.find((user) => user.id === id))
+          .filter(({ id }) => id !== user.id) || [];
       setOfflinePeople(offlinePeopleArr);
     });
   }, [onlinePeople]);
