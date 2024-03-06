@@ -6,22 +6,10 @@ import { COUNTRIES } from '@/services/apiServices/country.sercive';
 const CountryContext = createContext();
 
 function CountryProvider({ children }) {
-  const countryData = {
-    countries: [],
-    country: {},
-  };
-
-  const [countries, setCountries] = useState(countryData);
+  const [countries, setCountries] = useState([]);
 
   useEffect(() => {
-    COUNTRIES.getCountries()
-      .then((countries) => {
-        setCountries({
-          ...countries,
-          ['countries']: countries.data,
-        });
-      })
-      .catch(console.error);
+    COUNTRIES.getCountries().then(setCountries).catch(console.error);
   }, []);
 
   const getCountry = (countryId) => {
