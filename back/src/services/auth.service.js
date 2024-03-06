@@ -24,6 +24,10 @@ export class AuthService {
           name: user.name,
           last_name: user.last_name,
           email: user.email,
+          role: user.role,
+          city_id: user.city_id,
+          rating: user.rating,
+          avatar: user.avatar,
         },
         this.jwt_secret,
       );
@@ -62,6 +66,10 @@ export class AuthService {
           name: user.name,
           last_name: user.last_name,
           email: user.email,
+          role: user.role,
+          city_id: user.city_id,
+          rating: user.rating,
+          avatar: user.avatar,
         },
         this.jwt_secret,
       );
