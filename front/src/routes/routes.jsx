@@ -7,6 +7,8 @@ import {
   LoginPage,
   MessagesPage,
   TripDetailsPage,
+  MyTrips,
+  CreateNewTripPage,
 } from '../pages';
 import { useUser } from '../context/user.context';
 
@@ -31,13 +33,13 @@ export const Router = () => {
             path="/trips/:user/my-reservations"
             element={<h1>mis reservaciones</h1>}
           />
-          <Route path="/trips/:user/my-trips" element={<h1>mis viajes</h1>} />
+          <Route path="/trips/:userId/my-trips" element={<MyTrips />} />
           <Route
-            path="/trips/:user/create-new-trip"
-            element={<h1>crear nuevo viaje</h1>}
+            path="/trips/:userId/create-new-trip"
+            element={<CreateNewTripPage />}
           />
           <Route
-            path="/trips/:user/edit-trip/:tripId"
+            path="/trips/:userId/edit-trip/:tripId"
             element={<h1>Editar viaje</h1>}
           />
         </>

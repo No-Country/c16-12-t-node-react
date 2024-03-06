@@ -9,6 +9,7 @@ function TripProvider({ children }) {
   const [trip, setTrip] = useState({});
   const [tripData, setTrips] = useState({});
   const [tripsReserved, setTripsReserved] = useState({});
+  const [TripsByUser, setTripsByUser] = useState([]);
 
   const getTrips = () => {
     TRIPS.getTrips()
@@ -71,11 +72,19 @@ function TripProvider({ children }) {
       .catch(console.error);
   };
 
+  const getTripsByUser = (userId) => {
+    TRIPS.geTripsByUser(userId)
+      .then((trips) => setTripsByUser(trips))
+      .catch(console.error);
+  };
+
   return (
     <TripContext.Provider
       value={{
         trip,
         tripData,
+        tripsReserved,
+        TripsByUser,
         getTrips,
         getTrip,
         createTrip,
@@ -83,6 +92,7 @@ function TripProvider({ children }) {
         deleteTrip,
         reserveTrip,
         cancelTrip,
+        getTripsByUser,
       }}
     >
       {children}
