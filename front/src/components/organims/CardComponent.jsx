@@ -28,7 +28,7 @@ export const CardComponent = ({
   const userDriver = `${name} ${last_name}`;
   const hour = tranformFormatTwentyFour(DepartureTime);
   const date = getDate(tripDate);
-  const spot = spots ? `${seats - Number(spots)}` : 0;
+  const spot = spots === null ? seats : `${seats - Number(spots)}`;
 
   return (
     <div className="bg-white shadow-lg rounded-xl p-6 w-[356px] h-[446px] flex flex-col justify-between">
