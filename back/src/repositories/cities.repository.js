@@ -11,10 +11,8 @@ export class CitiesRepository extends BaseRepository {
 
   async getCities() {
     const query = `
-        SELECT c.id, c.name, c.zip_code, co.name AS country, c.latitud, c.longitud
+        SELECT c.id, c.name, c.zip_code, c.country_id, c.latitud, c.longitud
         FROM Cities c
-        INNER JOIN Countries co
-          ON c.country_id = co.id
         `;
     try {
       return await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
