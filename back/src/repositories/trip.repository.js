@@ -55,7 +55,8 @@ export class TripRepository extends BaseRepository {
                 'avatar', u.avatar,
                 'rating', u.rating,
                 'email', u.email,
-                'phone', u.phone
+                'phone', u.phone,
+                'role_id', u.role
             )
         ) AS driver
         FROM 
@@ -141,7 +142,8 @@ export class TripRepository extends BaseRepository {
                 'avatar', u.avatar,
                 'rating', u.rating,
                 'email', u.email,
-                'phone', u.phone
+                'phone', u.phone,
+                'role_id', u.role
             )
         ) AS driver,
         COALESCE(
@@ -181,6 +183,78 @@ export class TripRepository extends BaseRepository {
     try {
       const trip = await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
       return trip.at(0);
+    } catch (error) {
+      throw CustomeError.serverError(`${error}`);
+    }
+  }
+
+  async getTripsByUser(userId) {
+    const query = `
+      SELECT
+        t.id,
+        t.distance,
+        t.time_estimated,
+        t.seats,
+        t.seat_price,
+        t.total_price,
+        t.trip_date,
+        t.departure_time,
+        t.pets_allowed,
+        t.smoking_allowed,
+        t.child_seat_available,
+        t.trip_status,
+        (SELECT SUM(seats_reserved)FROM SeatReserveds WHERE trip_id = t.id) AS seats_reserved,
+        (SELECT
+            JSON_OBJECT(
+                'id', o.id,
+                'name', o.name,
+                'zip_code', o.zip_code,
+                'latitud', o.latitud,
+                'longitud', o.longitud,
+                'country', JSON_OBJECT('id', co.id, 'code', co.code, 'name', co.name)
+            )
+        ) AS origin,
+        (SELECT
+            JSON_OBJECT(
+                'id', d.id,
+                'name', d.name,
+                'zip_code', d.zip_code,
+                'latitud', d.latitud,
+                'longitud', d.longitud,
+                'country', JSON_OBJECT('id', cd.id, 'code', cd.code, 'name', cd.name)
+            )
+        ) AS destiny,
+        (SELECT
+            JSON_OBJECT(
+                'id', u.id,
+                'name', u.name,
+                'last_name', u.last_name,
+                'avatar', u.avatar,
+                'rating', u.rating,
+                'email', u.email,
+                'phone', u.phone,
+                'role_id', u.role
+            )
+        ) AS driver
+      FROM
+          Trips t
+      JOIN
+          Cities AS o ON t.origin_id = o.id
+      JOIN
+          Cities AS d ON t.destiny_id = d.id
+      JOIN
+          Countries AS co ON o.country_id = co.id
+      JOIN
+          Countries AS cd ON d.country_id = cd.id
+      JOIN
+          Users AS u ON t.driver_id = u.id
+      WHERE
+        t.driver_id = ${userId};
+    `;
+    try {
+      // return await this.tripModel.findAll({ where: { driver_id: userId } });
+      const trips = await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
+      return trips;
     } catch (error) {
       throw CustomeError.serverError(`${error}`);
     }

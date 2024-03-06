@@ -35,6 +35,12 @@ export class TripRoute {
       controller.cancelTrip.bind(controller),
     );
 
+    router.get(
+      '/:userId/my-trips',
+      [AuthMiddleware.authentication],
+      controller.getTripsByUser.bind(controller),
+    );
+
     return router;
   }
 }

@@ -64,6 +64,10 @@ export class TripService {
     };
   }
 
+  async getTripsByUser(userId) {
+    return await this.repository.getTripsByUser(userId);
+  }
+
   async cancelTrip(id) {
     this.validateId(id);
     return await this.repository.cancelTrip(id);
