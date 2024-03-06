@@ -1,17 +1,10 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-export const ChatForm = ({ ws, userSelected, addMessage }) => {
-  // todo: call user context to get user data
-  // const { user } = useUser();
+import { useUser } from '@/context/user.context';
 
-  // ! remove this
-  const user = {
-    id: 1,
-    avatarUrl: 'https://i.pravatar.cc/300',
-    username: 'Lucas',
-    information: 'arrancamos en 10 min',
-  };
+export const ChatForm = ({ ws, userSelected, addMessage }) => {
+  const { user } = useUser();
 
   const [newMessage, setNewMessage] = useState('');
 

@@ -1,15 +1,9 @@
 import { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useUser } from '@/context/user.context';
 
 export const Messages = ({ sender, message }) => {
-  //todo: call user context to get user data
-
-  const user = {
-    id: 1,
-    avatarUrl: 'https://i.pravatar.cc/300',
-    username: 'Lucas',
-    information: 'arrancamos en 10 min',
-  };
+  const { user } = useUser();
   const divUnderMessages = useRef(null);
 
   useEffect(() => {

@@ -31,7 +31,7 @@ function UserProvider({ children }) {
   };
 
   const logout = () => {
-    setUser({});
+    setUser(null);
     AUTH.logout();
   };
 
