@@ -10,12 +10,17 @@ export const webSocketServer = (wss) => {
       [...wss.clients].forEach((client) => {
         client.send(
           JSON.stringify({
-            online: [...wss.clients].map((cliente) => ({
-              id: cliente.id,
-              username: cliente.username,
-              email: cliente.email,
-              rating: cliente.rating,
-            })),
+            online: [...wss.clients].map((cliente) => {
+              return {
+                id: cliente.id,
+                username: cliente.username,
+                email: cliente.email,
+                rating: cliente.rating,
+                avatar: client.avatar,
+                city_id: client.city_id,
+                role: client.role,
+              };
+            }),
           }),
         );
       });
@@ -40,10 +45,14 @@ export const webSocketServer = (wss) => {
 
     JwtAdapter.verifytoken(token, envs.JWT_SECRET).then((payload) => {
       if (!payload) return;
+
       connection.id = payload.id;
       connection.username = `${payload.name} ${payload.last_name}`;
       connection.email = payload.email;
+      connection.role = payload.role;
       connection.rating = payload.rating;
+      connection.avatar = payload.avatar;
+      connection.city_id = payload.city_id;
     });
 
     connection.on('message', async (msg) => {
