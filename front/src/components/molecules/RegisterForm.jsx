@@ -1,13 +1,19 @@
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 import { useChange } from '@/hooks/useChange';
 import { Button, Input } from '../atoms/index';
 import { CustomeCheckBox } from '../atoms/customeCheckBox';
 import { Select } from '../atoms/Select';
 import { useUser } from '@/context/user.context';
+import { useCity } from '@/context/cities.context';
+import { useCountry } from '@/context/countries.context';
+import { useRoles } from '@/context/roles.context';
+import { useEffect } from 'react';
 
 export const RegisterForm = () => {
-  const { register } = useUser();
+  const navigate = useNavigate();
+  const { register, user } = useUser();
   const initialValues = {
     name: '',
     last_name: '',
@@ -21,33 +27,27 @@ export const RegisterForm = () => {
     terms: false,
   };
 
-  // todo: recuperador de la base de datos
-  const roles = [
-    { id: 1, name: 'Admin' },
-    { id: 2, name: 'Moderador' },
-    { id: 3, name: 'Usuario' },
-  ];
-
-  // todo: recuperador de la base de datos
-  const citys = [
-    { id: 1, name: 'Cali' },
-    { id: 2, name: 'Medellín' },
-    { id: 3, name: 'Barranquilla' },
-  ];
-
-  // todo: recuperador de la base de datos
-  const countries = [
-    { id: 1, name: 'Colombia' },
-    { id: 2, name: 'Ecuador' },
-    { id: 3, name: 'Perú' },
-  ];
+  const { roles } = useRoles();
+  const { cities } = useCity();
+  const { countries } = useCountry();
 
   const { state, handleChange } = useChange(initialValues);
+
+  const filterCities = cities.filter(
+    (city) => city.country_id === Number(state.country_id)
+  );
+  const filterRoles = roles.filter((rol) => rol.name !== 'admin');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     register(state);
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   return (
     <div className="h-content w-[96%] sm:w-[600px]  bg-white rounded-xl mt-4 mx-auto px-8 py-6">
@@ -131,7 +131,7 @@ export const RegisterForm = () => {
         <Select
           label="Role"
           name="role"
-          roles={roles}
+          roles={filterRoles}
           selectOne="---- Seleccionar role ----"
           value={state.role}
           onChange={handleChange}
@@ -147,7 +147,7 @@ export const RegisterForm = () => {
         <Select
           label="Ciudad"
           name="city_id"
-          roles={citys}
+          roles={filterCities}
           selectOne="---- Seleccionar ciudad -----"
           value={state.city_id}
           onChange={handleChange}
