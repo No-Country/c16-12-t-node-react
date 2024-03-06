@@ -6,59 +6,37 @@ import { ROLE } from '@/services/apiServices/role.service';
 const RoleContext = createContext();
 
 function RoleProvider({ children }) {
-  const roleData = {
-    roles: [],
-    role: {},
-  };
-
-  const [roles, setRoles] = useState(roleData);
+  const [roles, setRoles] = useState([]);
+  const [rol, setRol] = useState({});
 
   useEffect(() => {
-    ROLE.getRoles()
-      .then((roles) => {
-        setRoles({
-          ...roles,
-          ['roles']: roles.data,
-        });
-      })
-      .catch(console.error);
+    ROLE.getRoles().then(setRoles).catch(console.error);
   }, []);
 
   const createRole = (newRole) => {
-    ROLE.createRole(newRole)
-      .then((role) =>
-        setRoles({
-          ...roles,
-          ['role']: role,
-        })
-      )
-      .catch(console.error);
+    ROLE.createRole(newRole).then(setRol).catch(console.error);
   };
 
   const updateRole = (roleId, updateRoleData) => {
-    ROLE.updateRole(roleId, updateRoleData)
-      .then((role) =>
-        setRoles({
-          ...roles,
-          ['role']: role,
-        })
-      )
-      .catch(console.error);
+    ROLE.updateRole(roleId, updateRoleData).then(setRol).catch(console.error);
   };
 
   const deleteRole = (roleId) => {
     ROLE.deleteRole(roleId)
       .then(() =>
-        setRoles({
-          ...roles,
-          ['role']: {},
-        })
+        setRoles(
+          roles.filter((role) => {
+            return role.id !== roleId;
+          })
+        )
       )
       .catch(console.error);
   };
 
   return (
-    <RoleContext.Provider value={{ roles, createRole, updateRole, deleteRole }}>
+    <RoleContext.Provider
+      value={{ rol, roles, createRole, updateRole, deleteRole }}
+    >
       {children}
     </RoleContext.Provider>
   );
