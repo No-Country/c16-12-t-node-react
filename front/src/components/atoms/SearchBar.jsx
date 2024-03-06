@@ -2,12 +2,31 @@ import { IoSearch } from 'react-icons/io5';
 
 import { Button } from './Button';
 import { Input } from './Input';
+import { useChange } from '@/hooks/useChange';
 
 export const SearchBar = () => {
+  const initialValue = {
+    origin: '',
+    destiny: '',
+    date: '',
+    time: '',
+  };
+
+  const { state, handleChange } = useChange(initialValue);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log(state);
+  };
+
   return (
-    <div className="flex absolute top-0 left-0 w-full">
-      <form className="flex w-11/12 sm:w-9/12 lg:w-fit flex-col lg:flex-row gap-2 mx-auto bg-primary-300 rounded-2xl p-4 drop-shadow-2xl bg-opacity-85">
-        <div className="w-full lg:w-[10rem]">
+    <div className="absolute top-0 left-0 w-full">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-wrap gap-2 p-6 md:w-4/5 lg:w-2/3 mx-auto bg-primary-300 rounded-2xl drop-shadow-2xl bg-opacity-85"
+      >
+        <div className="input_wrap">
           <Input
             label="Origen"
             placeholder="Origen de viaje"
@@ -15,9 +34,10 @@ export const SearchBar = () => {
             type="text"
             name="origin"
             id="origin"
+            onChange={handleChange}
           />
         </div>
-        <div className="lg:w-[10rem]">
+        <div className="input_wrap">
           <Input
             label="Destino"
             placeholder="Destino de viaje"
@@ -25,9 +45,10 @@ export const SearchBar = () => {
             type="text"
             name="destiny"
             id="destiny"
+            onChange={handleChange}
           />
         </div>
-        <div className="lg:w-[10rem]">
+        <div className="input_wrap">
           <Input
             label="Fecha"
             placeholder="Fecha de viaje"
@@ -35,23 +56,26 @@ export const SearchBar = () => {
             type="date"
             name="date"
             id="date"
+            onChange={handleChange}
           />
         </div>
-        <div className="lg:w-[10rem]">
+        <div className="input_wrap">
           <Input
-            label="Viajeros"
-            placeholder="Cant. de viajeros"
+            label="Hora"
+            placeholder="Hora de viaje"
             size="full"
-            type="number"
-            name="viajeros"
-            id="viajeros"
+            type="time"
+            name="time"
+            id="time"
+            onChange={handleChange}
           />
         </div>
-        <div className=" m-auto w-full sm:w-[20rem] lg:w-[5rem]">
-          <div className="w-1 h-8 hidden lg:block"></div>
+        <div className="button_wrap flex flex-col">
+          <div className="w-full h-10 block"></div>
           <Button
             size="full"
             color="primary"
+            type="submit"
             RighIcon={
               <IoSearch size={40} color="white" className="rotate-90 " />
             }

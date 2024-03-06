@@ -2,14 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    background-color: #E5E5E5;
+body {
+  background-color: #e5e5e5;
 }
 
 @layer base {
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
+}
+
+.input_wrap {
+  flex: 1 1 8rem;
+}
+
+.button_wrap {
+  flex: 1 0 4rem;
+}
