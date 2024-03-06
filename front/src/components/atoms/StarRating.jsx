@@ -1,15 +1,16 @@
+import { useUser } from '@/context/user.context';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 
 export const StarRating = ({ userRating }) => {
+  const { updateUser } = useUser();
   const [rating, setRating] = useState(userRating);
   const [hover, setHover] = useState(null);
 
-  //todo: add fetch rating on db
-
   const handleRating = (ratingValue) => {
     setRating(ratingValue);
+    updateUser({ rating: ratingValue });
   };
 
   return (
