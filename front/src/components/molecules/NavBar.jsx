@@ -61,7 +61,7 @@ export const NavBar = ({ isClicked }) => {
 
   return (
     <div className="flex justify-end items-center h-16 w-full gap-2">
-      <nav className="hidden md:flex md:space-x-4">
+      <nav className="hidden md:flex md:space-x-4 md:justify-center md:items-center">
         <Link
           to="/"
           className="text-black hover:bg-primary-300 hover:text-black rounded-lg py-1.5 px-3 block"
