@@ -4,7 +4,7 @@ import { UserAvatar } from '../molecules/userAvatar';
 
 export const Contact = ({
   id,
-  avatarUrl,
+  avatar,
   username,
   information,
   onClick,
@@ -20,7 +20,7 @@ export const Contact = ({
       {selected && <div className="w-1 h-20 bg-[#20ACAF] rounded-r-lg" />}
       <div className="flex gap-2 py-3 pl-12 items-center">
         <UserAvatar
-          avatarUrl={avatarUrl}
+          avatarUrl={avatar}
           username={username}
           information={information}
         />
@@ -31,7 +31,7 @@ export const Contact = ({
 
 Contact.propTypes = {
   id: PropTypes.number,
-  avatarUrl: PropTypes.string,
+  avatar: PropTypes.string,
   username: PropTypes.string,
   information: PropTypes.string,
   onClick: PropTypes.func,
