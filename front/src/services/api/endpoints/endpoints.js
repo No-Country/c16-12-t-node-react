@@ -20,6 +20,9 @@ export const RATING_WITH_ID_ENDPOINT = (ratingId) =>
 export const TRIPS_ENDPOINT = '/trips';
 export const TRIP_WITH_ID_ENDPOINT = (tripId) => `${TRIPS_ENDPOINT}/${tripId}`;
 
+export const TRIPS_BY_USER_ENDPOINT = (userId) =>
+  `${TRIPS_ENDPOINT}/${userId}/my-trips`;
+
 export const RESERVATIONS_ENDPOINT = (tripId) =>
   `${TRIPS_ENDPOINT}/${tripId}/reserve`;
 export const CALCEL_RESERVATIONS_ENDPOINT = (tripId) =>

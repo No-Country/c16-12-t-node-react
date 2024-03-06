@@ -5,6 +5,7 @@ import { getHeaders } from '../utils/fetch-config';
 import {
   CALCEL_RESERVATIONS_ENDPOINT,
   RESERVATIONS_ENDPOINT,
+  TRIPS_BY_USER_ENDPOINT,
   TRIPS_ENDPOINT,
   TRIP_WITH_ID_ENDPOINT,
 } from '../api/endpoints/endpoints';
@@ -63,6 +64,13 @@ export const TRIPS = {
       return await axiosAdapter(config).patch(
         CALCEL_RESERVATIONS_ENDPOINT(tripId)
       );
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+  geTripsByUser: async (userid) => {
+    try {
+      return await axiosAdapter(config).get(TRIPS_BY_USER_ENDPOINT(userid));
     } catch (error) {
       throw new Error(error);
     }
