@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +10,6 @@ import { useUser } from '@/context/user.context';
 import { useCity } from '@/context/cities.context';
 import { useCountry } from '@/context/countries.context';
 import { useRoles } from '@/context/roles.context';
-import { useEffect } from 'react';
 
 export const RegisterForm = () => {
   const navigate = useNavigate();

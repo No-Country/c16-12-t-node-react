@@ -1,10 +1,14 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { Input } from '../atoms/Input';
 import { useUser } from '@/context/user.context';
 import { useChange } from '@/hooks/useChange';
 import { Button } from '../atoms/Button';
 
 export const LoginForm = () => {
-  const { login } = useUser();
+  const navigate = useNavigate();
+  const { user, login } = useUser();
 
   const initialValues = { email: '', password: '' };
 
@@ -13,6 +17,12 @@ export const LoginForm = () => {
     e.preventDefault();
     login(state);
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   return (
     <form className="w-full" onSubmit={handleSubmit}>
