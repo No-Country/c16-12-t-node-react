@@ -4,7 +4,7 @@ import { Validator } from '../../../helpers/validator.helper.js';
 export class RegisterUserDto {
   constructor({
     name,
-    lastName,
+    last_name,
     email,
     password,
     phone,
@@ -13,10 +13,10 @@ export class RegisterUserDto {
     role,
     avatar,
     rating,
-    cityId,
+    city_id,
   }) {
     this.name = name;
-    this.lastName = lastName;
+    this.last_name = last_name;
     this.email = email;
     this.password = password;
     this.phone = phone;
@@ -25,20 +25,20 @@ export class RegisterUserDto {
     this.role = role;
     this.avatar = avatar;
     this.rating = rating;
-    this.cityId = cityId;
+    this.city_id = city_id;
   }
 
   static create(props) {
-    const { name, lastName, email, password, phone, dni, role, cityId } = props;
+    const { name, last_name, email, password, phone, dni, role, city_id } = props;
     const fields = {
       name: 'name',
-      lastName: 'lastName',
+      last_name: 'last_name',
       email: 'email',
       password: 'password',
       phone: 'phone',
       dni: 'dni',
       role: 'role',
-      cityId: 'cityId',
+      city_id: 'city_id',
     };
 
     for (const field in fields) {
@@ -49,8 +49,8 @@ export class RegisterUserDto {
     if (!Validator.validateName(name))
       return [CustomeError.badRequest(`Name must be at least 3 characters: ${name}`)];
 
-    if (!Validator.validateName(lastName))
-      return [CustomeError.badRequest(`LastName must be at least 5 characters: ${lastName}`)];
+    if (!Validator.validateName(last_name))
+      return [CustomeError.badRequest(`Last_name must be at least 5 characters: ${last_name}`)];
 
     if (!Validator.validateEmail(email))
       return [CustomeError.badRequest(`Invalid email: ${email}`)];
@@ -60,18 +60,18 @@ export class RegisterUserDto {
 
     if (isNaN(phone)) return [CustomeError.badRequest(`Phone '${phone}' must be a number`)];
 
-    if (!Validator.validatePhone(phone))
+    if (Validator.validatePhone(phone))
       return [CustomeError.badRequest(`Phone must be at least 8 digits: ${phone}`)];
 
     if (isNaN(dni)) return [CustomeError.badRequest(`Dni '${dni}' must be a number`)];
 
-    if (!Validator.validateDni(dni))
+    if (Validator.validateDni(dni))
       return [CustomeError.badRequest(`Dni must be at least 8 digits: ${dni}`)];
 
     if (!Validator.validateId(role))
       return [CustomeError.badRequest(`Invalid role '${role}' must be a number: ${role}`)];
 
-    if (isNaN(cityId)) return [CustomeError.badRequest(`City id '${cityId}' must be a number`)];
+    if (isNaN(city_id)) return [CustomeError.badRequest(`City id '${city_id}' must be a number`)];
 
     return [undefined, new RegisterUserDto(props)];
   }

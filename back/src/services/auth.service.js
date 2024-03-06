@@ -47,7 +47,6 @@ export class AuthService {
 
     const userData = {
       ...data,
-      last_name: data.lastName,
       password: passWordHashed,
       role: +data.role,
     };

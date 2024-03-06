@@ -87,19 +87,19 @@ export class UserRepository extends BaseRepository {
   }
 
   async createUser(data) {
-    const { cityId, role } = data;
+    const { city_id, role } = data;
 
     const userData = {
       ...data,
-      city_id: +cityId,
+      city_id: +city_id,
       role: +role,
     };
 
     const roleExists = await this.roleModel.findOne({ where: { id: role } });
     if (!roleExists) throw CustomeError.notFound(`Role with id '${role}' not found`);
 
-    const cityExists = await this.cityModel.findOne({ where: { id: cityId } });
-    if (!cityExists) throw CustomeError.notFound(`City with id '${cityId}' not found`);
+    const cityExists = await this.cityModel.findOne({ where: { id: city_id } });
+    if (!cityExists) throw CustomeError.notFound(`City with id '${city_id}' not found`);
 
     try {
       const user = await this.userModel.create(userData);
