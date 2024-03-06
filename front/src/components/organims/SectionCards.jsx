@@ -5,9 +5,14 @@ import { useEffect } from 'react';
 export const SectionCards = () => {
   const { tripData, getTrips } = useTrip();
 
+  const { data } = tripData;
   useEffect(() => {
     getTrips();
   }, []);
+
+  const filterTripByDriverRating = data?.filter(
+    (trip) => trip.driver.rating >= 3
+  );
 
   return (
     <div className="container mx-auto px-4 py-8 flex flex-col justify-center items-center">
@@ -15,7 +20,7 @@ export const SectionCards = () => {
         Descubre los viajes disponibles
       </p>
       <div className="flex flex-wrap justify-center gap-x-20 gap-y-14">
-        {tripData?.data?.map((trip, i) => (
+        {filterTripByDriverRating?.map((trip, i) => (
           <CardComponent
             key={i}
             id={trip.id}
