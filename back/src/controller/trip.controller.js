@@ -76,12 +76,9 @@ export class TripController {
 
   getTripsByUser = (req, res) => {
     const { userId } = req.params;
-    const { user } = req.body;
-
-    if (Number(userId) !== Number(user.id)) HandleError.handle('You are not authorized', res);
 
     return this.service
-      .getTripsByUser(user.id)
+      .getTripsByUser(userId)
       .then((trip) => res.status(200).json(trip))
       .catch((error) => HandleError.handle(error, res));
   };
