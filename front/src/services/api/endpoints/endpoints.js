@@ -23,6 +23,8 @@ export const TRIP_WITH_ID_ENDPOINT = (tripId) => `${TRIPS_ENDPOINT}/${tripId}`;
 export const TRIPS_BY_USER_ENDPOINT = (userId) =>
   `${TRIPS_ENDPOINT}/${userId}/my-trips`;
 
+export const USER_RESERVATION_ENDPOINT = (userId) =>
+  `${TRIPS_ENDPOINT}/${userId}/reservations`;
 export const RESERVATIONS_ENDPOINT = (tripId) =>
   `${TRIPS_ENDPOINT}/${tripId}/reserve`;
 export const CALCEL_RESERVATIONS_ENDPOINT = (tripId) =>

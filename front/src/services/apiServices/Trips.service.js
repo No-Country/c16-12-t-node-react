@@ -8,6 +8,7 @@ import {
   TRIPS_BY_USER_ENDPOINT,
   TRIPS_ENDPOINT,
   TRIP_WITH_ID_ENDPOINT,
+  USER_RESERVATION_ENDPOINT,
 } from '../api/endpoints/endpoints';
 
 const token = getFromSessionStorage(TOKEN);
@@ -48,6 +49,13 @@ export const TRIPS = {
   deleleTrip: async (tripId) => {
     try {
       return await axiosAdapter(config).delete(TRIP_WITH_ID_ENDPOINT(tripId));
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+  getUserTripsReservations: async (userId) => {
+    try {
+      return axiosAdapter(config).get(USER_RESERVATION_ENDPOINT(userId));
     } catch (error) {
       throw new Error(error);
     }

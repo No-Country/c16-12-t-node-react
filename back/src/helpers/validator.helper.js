@@ -60,7 +60,7 @@ export class Validator {
   }
 
   static validateSeats(seats) {
-    return this.getValidator().isLength(seats, { min: 1 }) && this.getValidator().isNumber(seats);
+    return !this.getValidator().isLength(seats, { min: 1 }) && this.getValidator().isNumber(seats);
   }
 
   static validateDistance(distance) {

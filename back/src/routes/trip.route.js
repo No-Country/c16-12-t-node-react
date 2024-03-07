@@ -24,6 +24,7 @@ export class TripRoute {
     router.patch('/:id', [AuthMiddleware.authentication], controller.updateTrip.bind(controller));
     router.delete('/:id', [AuthMiddleware.authentication], controller.deleteTrip.bind(controller));
 
+    router.get('/:userId/reservations', controller.getReservationsByUser.bind(controller));
     router.post(
       '/:tripId/reserve',
       [AuthMiddleware.authentication],

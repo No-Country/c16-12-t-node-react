@@ -13,8 +13,8 @@ export const Select = ({ label, value, name, roles, selectOne, ...props }) => {
         <option value="" disabled>
           {selectOne}
         </option>
-        {roles.map((role) => (
-          <option key={role.id} value={role.id}>
+        {roles.map((role, i) => (
+          <option key={i} value={role.id}>
             {role.name}
           </option>
         ))}

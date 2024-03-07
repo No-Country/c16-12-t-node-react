@@ -59,6 +59,7 @@ export class UserRepository extends BaseRepository {
           u.dni,
           u.address,
           u.avatar,
+          u.password,
           COALESCE(AVG(ra.rating), 0) AS rating,
           u.information,
           (SELECT JSON_OBJECT('id', r.id, 'name', r.name)) AS role,
@@ -103,7 +104,7 @@ export class UserRepository extends BaseRepository {
 
     try {
       const user = await this.userModel.create(userData);
-      return user;
+      return await this.getUserById(user.id);
     } catch (error) {
       throw CustomeError.serverError(`${error}`);
     }

@@ -1,7 +1,7 @@
 import { BcryptAdapter } from '../../config/adapters/bcrypt.adapter.js';
 
 export const seedData = {
-  roles: [{ name: 'admin' }, { name: 'client' }, { name: 'driver' }],
+  roles: [{ name: 'admin' }, { name: 'passenger' }, { name: 'driver' }],
   countries: [
     { name: 'Colombia', code: 'CO' },
     { name: 'Perú', code: 'PE' },

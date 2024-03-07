@@ -1,17 +1,13 @@
 import { useTrip } from '@/context/Trips.context';
 import { CardComponent } from './CardComponent';
-import { useEffect } from 'react';
 
 export const SectionCards = () => {
-  const { tripData, getTrips } = useTrip();
+  const { tripData } = useTrip();
 
   const { data } = tripData;
-  useEffect(() => {
-    getTrips();
-  }, []);
 
   const filterTripByDriverRating = data?.filter(
-    (trip) => trip.driver.rating >= 3
+    (trip) => trip.driver?.rating >= 3
   );
 
   return (

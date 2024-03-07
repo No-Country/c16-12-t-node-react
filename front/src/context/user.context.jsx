@@ -1,10 +1,11 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { getFromSessionStorage } from '@/services/utils/handle-token.utils';
 import { USER_ID } from '@/config/config';
 import { USER } from '@/services/apiServices/user.service';
 import { AUTH } from '@/services/apiServices/auth.service';
+import { useEffect } from 'react';
 
 const UserContext = createContext();
 const userID = getFromSessionStorage(USER_ID);
@@ -13,10 +14,14 @@ function UserProvider({ children }) {
   const [user, setUser] = useState({});
 
   useEffect(() => {
+    getUser(userID);
+  }, []);
+
+  const getUser = (userID) => {
     USER.getUser(userID)
       .then((user) => setUser(user))
       .catch(console.error);
-  }, []);
+  };
 
   const register = (newUserData) => {
     AUTH.register(newUserData)
@@ -49,7 +54,7 @@ function UserProvider({ children }) {
 
   return (
     <UserContext.Provider
-      value={{ user, login, register, logout, updateUser, deleteUser }}
+      value={{ user, login, register, logout, getUser, updateUser, deleteUser }}
     >
       {children}
     </UserContext.Provider>

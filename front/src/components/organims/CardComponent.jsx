@@ -57,7 +57,7 @@ export const CardComponent = ({
         />
         <DataContent
           icon={<IoMdTime size={24} color="#1C1C1C" />}
-          aperture="Fecha"
+          aperture="Hora"
           description={hour}
         />
       </div>

@@ -58,6 +58,15 @@ export class TripController {
       .catch((error) => HandleError.handle(error, res));
   };
 
+  getReservationsByUser(req, res) {
+    const { userId } = req.params;
+
+    return this.service
+      .getReservationsByUser(userId)
+      .then((trip) => res.status(200).json(trip))
+      .catch((error) => HandleError.handle(error, res));
+  }
+
   reserveTrip = (req, res) => {
     const { tripId } = req.params;
     return this.service

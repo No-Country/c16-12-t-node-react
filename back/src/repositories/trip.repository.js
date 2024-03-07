@@ -306,6 +306,81 @@ export class TripRepository extends BaseRepository {
     }
   }
 
+  async getReservationsByUser(userId) {
+    const query = `
+      SELECT
+        re.id,
+        re.seats_reserved,
+        re.user_id,
+        re.reserved_status,
+        (SELECT
+            JSON_OBJECT(
+              'id',t.id,
+              'distance',t.distance,
+              'time_estimated',t.time_estimated,
+              'seats',t.seats,
+              'seat_price',t.seat_price,
+              'total_price',t.total_price,
+              'trip_date',t.trip_date,
+              'departure_time',t.departure_time,
+              'pets_allowed',t.pets_allowed,
+              'smoking_allowed',t.smoking_allowed,
+              'child_seat_available',t.child_seat_available,
+              'trip_status',t.trip_status
+          )) AS trip,
+          (SELECT
+            JSON_OBJECT(
+              'id', o.id,
+              'name', o.name,
+              'latitud', o.latitud,
+              'longitud', o.longitud,
+              'country', (SELECT JSON_OBJECT('id', co.id, 'name', co.name, 'code', co.code))
+          )) AS origin,
+          (SELECT
+            JSON_OBJECT(
+              'id', d.id,
+              'name', d.name,
+              'latitud', d.latitud,
+              'longitud', d.longitud,
+              'country_id', d.country_id,
+              'country', (SELECT JSON_OBJECT('id', cd.id, 'name', cd.name, 'code', cd.code))
+          )) AS destiny,
+          (SELECT
+            JSON_OBJECT(
+                'id', u.id,
+                'name', u.name,
+                'last_name', u.last_name,
+                'avatar', u.avatar,
+                'rating', u.rating,
+                'email', u.email,
+                'phone', u.phone,
+                'role_id', u.role
+            )
+        ) AS driver
+      FROM 
+        SeatReserveds re
+      JOIN
+        Trips t ON re.trip_id = t.id
+      JOIN
+        Cities o ON t.origin_id = o.id
+      JOIN
+        Cities d ON t.destiny_id = d.id
+      JOIN
+        Countries co ON o.country_id = co.id
+      JOIN
+        Countries cd ON d.country_id = cd.id
+      JOIN
+        Users u ON t.driver_id = u.id
+      WHERE
+        re.user_id = ${userId}
+    `;
+    try {
+      return await sequelize.query(query, { type: sequelize.QueryTypes.SELECT });
+    } catch (error) {
+      throw CustomeError.serverError(`${error}`);
+    }
+  }
+
   async reserveTrip(data) {
     const { trip_id } = data;
     await this.findOne({ id: trip_id });

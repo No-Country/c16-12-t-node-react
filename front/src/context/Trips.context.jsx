@@ -1,15 +1,29 @@
-import { useState, useContext, createContext } from 'react';
+import { useState, useContext, createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { TRIPS } from '@/services/apiServices/Trips.service';
+import { getFromSessionStorage } from '@/services/utils/handle-token.utils';
+import { USER_ID } from '@/config/config';
 
 const TripContext = createContext();
+
+const userID = getFromSessionStorage(USER_ID);
 
 function TripProvider({ children }) {
   const [trip, setTrip] = useState({});
   const [tripData, setTrips] = useState({});
+  const [tripsByUser, setTripsByUser] = useState([]);
+
   const [tripsReserved, setTripsReserved] = useState({});
-  const [TripsByUser, setTripsByUser] = useState([]);
+  const [userReservations, setUserReservations] = useState([]);
+
+  useEffect(() => {
+    getTrips();
+    if (userID) {
+      getTripsByUser(userID);
+      getUserReservations(userID);
+    }
+  }, []);
 
   const getTrips = () => {
     TRIPS.getTrips()
@@ -55,6 +69,11 @@ function TripProvider({ children }) {
       .catch(console.error);
   };
 
+  const getUserReservations = (userId) => {
+    TRIPS.getUserTripsReservations(userId)
+      .then(setUserReservations)
+      .catch(console.error);
+  };
   const reserveTrip = (tripId) => {
     TRIPS.reserveTrip(tripId)
       .then((reserve) =>
@@ -84,7 +103,8 @@ function TripProvider({ children }) {
         trip,
         tripData,
         tripsReserved,
-        TripsByUser,
+        tripsByUser,
+        userReservations,
         getTrips,
         getTrip,
         createTrip,
@@ -93,6 +113,7 @@ function TripProvider({ children }) {
         reserveTrip,
         cancelTrip,
         getTripsByUser,
+        getUserReservations,
       }}
     >
       {children}
