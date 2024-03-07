@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import { useChange } from '@/hooks/useChange';
 import { Button } from '../atoms/Button';
 import { Input } from '../atoms/Input';
@@ -12,6 +14,7 @@ export const TripForm = () => {
   const { cities } = useCity();
   const { createTrip } = useTrip();
   const { country } = user;
+  const navigate = useNavigate();
 
   const initialValues = {
     seats: 0,
@@ -29,8 +32,8 @@ export const TripForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(state);
     createTrip(state);
+    navigate(`/trips/${user.id}/my-trips`);
   };
 
   const filterCities = cities.filter((city) => city.country_id === country?.id);
