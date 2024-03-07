@@ -19,11 +19,19 @@ export const TripDetails = () => {
   const { user } = useUser();
 
   const { tripId } = useParams();
-  const { getTrip, trip } = useTrip();
+  const { getTrip, trip, userReservations, tripsByUser } = useTrip();
 
   useEffect(() => {
     getTrip(Number(tripId));
   }, []);
+
+  const isTripReserved = userReservations?.some(
+    (reservation) => reservation?.trip.id === Number(tripId)
+  );
+
+  const isUserTrip = tripsByUser?.some((trip) => trip?.id === Number(tripId));
+
+  console.log({ isTripReserved, isUserTrip });
 
   const hour = tranformFormatTwentyFour(trip?.departure_time);
   const date = getDate(trip?.trip_date);
@@ -101,20 +109,43 @@ export const TripDetails = () => {
           </section>
         </aside>
         <div className="flex flex-col justify-center items-end mt-7">
-          <div className="flex flex-col gap-2 justify-center items-center border border-primary-400 p-6 rounded-md w-full md:w-auto">
-            {user ? (
-              <>
-                <Button size="medium" content="Reservar asiento" />
-              </>
-            ) : (
-              <>
+          <div className="flex flex-col gap-2 justify-center items-center p-6 rounded-md w-full md:w-auto">
+            {user?.role.name === 'passenger' && !isTripReserved && (
+              <Button
+                size="medium"
+                type="button"
+                content="Reservar asiento"
+                onClick={() => console.log('abrir popup')}
+              />
+            )}
+
+            {user?.role.name === 'passenger' && isTripReserved && (
+              <Button
+                size="medium"
+                type="button"
+                content="Cancelar"
+                onClick={() => console.log('abrir popup para cancelar')}
+              />
+            )}
+
+            {user?.role.name === 'driver' && isUserTrip && (
+              <Button
+                size="medium"
+                type="button"
+                content="Editar"
+                onClick={() => console.log('redirección para editar')}
+              />
+            )}
+
+            {!user && (
+              <div className="flex flex-col items-center gap-2">
                 <p className="text-xl w-[250px]">
                   Inicia Sesión o Registrate para reservar un asiento
                 </p>
                 <Link to="/login">
                   <Button content="Iniciar Sesion" />
                 </Link>
-              </>
+              </div>
             )}
           </div>
         </div>

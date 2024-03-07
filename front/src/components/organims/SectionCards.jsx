@@ -7,7 +7,7 @@ export const SectionCards = () => {
   const { data } = tripData;
 
   const filterTripByDriverRating = data?.filter(
-    (trip) => trip.driver?.rating >= 3
+    (trip) => trip.driver?.rating >= 0
   );
 
   return (

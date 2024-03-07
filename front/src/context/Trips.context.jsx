@@ -17,6 +17,13 @@ function TripProvider({ children }) {
   const [tripsReserved, setTripsReserved] = useState({});
   const [userReservations, setUserReservations] = useState([]);
 
+  const [searching, setSearching] = useState({
+    origin: '',
+    destiny: '',
+    date: '',
+    time: '',
+  });
+
   useEffect(() => {
     getTrips();
     if (userID) {
@@ -25,6 +32,9 @@ function TripProvider({ children }) {
     }
   }, []);
 
+  const getPropsToFilter = (props) => {
+    setSearching(props);
+  };
   const getTrips = () => {
     TRIPS.getTrips()
       .then((trips) => setTrips(trips))
@@ -105,6 +115,7 @@ function TripProvider({ children }) {
         tripsReserved,
         tripsByUser,
         userReservations,
+        searching,
         getTrips,
         getTrip,
         createTrip,
@@ -114,6 +125,7 @@ function TripProvider({ children }) {
         cancelTrip,
         getTripsByUser,
         getUserReservations,
+        getPropsToFilter,
       }}
     >
       {children}
