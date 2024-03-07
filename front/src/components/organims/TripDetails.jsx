@@ -14,10 +14,11 @@ import { Button, DataContent } from '@/components/atoms/index';
 import { UserAvatar } from '../molecules/userAvatar';
 import { useTrip } from '@/context/Trips.context';
 import { useUser } from '@/context/user.context';
+import { useShow } from '@/context/show.context';
 
 export const TripDetails = () => {
   const { user } = useUser();
-
+  const { handleShow, getID } = useShow();
   const { tripId } = useParams();
   const { getTrip, trip, userReservations, tripsByUser } = useTrip();
 
@@ -110,16 +111,19 @@ export const TripDetails = () => {
         </aside>
         <div className="flex flex-col justify-center items-end mt-7">
           <div className="flex flex-col gap-2 justify-center items-center p-6 rounded-md w-full md:w-auto">
-            {user?.role.name === 'passenger' && !isTripReserved && (
+            {user?.role?.name === 'passenger' && !isTripReserved && (
               <Button
                 size="medium"
                 type="button"
                 content="Reservar asiento"
-                onClick={() => console.log('abrir popup')}
+                onClick={() => {
+                  handleShow();
+                  getID(tripId);
+                }}
               />
             )}
 
-            {user?.role.name === 'passenger' && isTripReserved && (
+            {user?.role?.name === 'passenger' && isTripReserved && (
               <Button
                 size="medium"
                 type="button"
@@ -128,7 +132,7 @@ export const TripDetails = () => {
               />
             )}
 
-            {user?.role.name === 'driver' && isUserTrip && (
+            {user?.role?.name === 'driver' && isUserTrip && (
               <Button
                 size="medium"
                 type="button"

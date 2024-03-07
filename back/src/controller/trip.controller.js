@@ -69,6 +69,7 @@ export class TripController {
 
   reserveTrip = (req, res) => {
     const { tripId } = req.params;
+
     return this.service
       .reserveTrip({ tripId, ...req.body })
       .then((trip) => res.status(201).json(trip))

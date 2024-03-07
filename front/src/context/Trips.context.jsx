@@ -84,8 +84,8 @@ function TripProvider({ children }) {
       .then(setUserReservations)
       .catch(console.error);
   };
-  const reserveTrip = (tripId) => {
-    TRIPS.reserveTrip(tripId)
+  const reserveTrip = (tripId, seats) => {
+    TRIPS.reserveTrip(tripId, seats)
       .then((reserve) =>
         setTripsReserved({
           ...tripsReserved,

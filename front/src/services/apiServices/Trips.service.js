@@ -60,9 +60,12 @@ export const TRIPS = {
       throw new Error(error);
     }
   },
-  reserveTrip: async (tripId) => {
+  reserveTrip: async (tripId, seats) => {
     try {
-      return await axiosAdapter(config).post(RESERVATIONS_ENDPOINT(tripId));
+      return await axiosAdapter(config).post(
+        RESERVATIONS_ENDPOINT(tripId),
+        seats
+      );
     } catch (error) {
       throw new Error(error);
     }

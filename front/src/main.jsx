@@ -10,6 +10,7 @@ import { RoleProvider } from './context/roles.context.jsx';
 import { CityProvider } from './context/cities.context.jsx';
 import { CountryProvider } from './context/countries.context.jsx';
 import { TripProvider } from './context/Trips.context.jsx';
+import { ShowProvider } from './context/show.context.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -19,7 +20,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <CityProvider>
             <CountryProvider>
               <TripProvider>
-                <App />
+                <ShowProvider>
+                  <App />
+                </ShowProvider>
               </TripProvider>
             </CountryProvider>
           </CityProvider>

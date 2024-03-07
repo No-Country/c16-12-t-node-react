@@ -53,7 +53,7 @@ export class TripService {
 
   async reserveTrip(data) {
     const reserve = {
-      seats_reserved: data.seats,
+      seats_reserved: data.seats_reserved,
       trip_id: data.tripId,
       user_id: data.user.id,
     };
