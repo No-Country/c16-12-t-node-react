@@ -21,3 +21,13 @@ body {
 .button_wrap {
   flex: 1 0 4rem;
 }
+
+/* grid card auto fill */
+.grid-card-auto-fill {
+  display: grid;
+  gap: 1rem;
+  grid-auto-flow: dense;
+  place-items: center;
+  width: auto;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+}

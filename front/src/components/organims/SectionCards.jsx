@@ -19,7 +19,7 @@ export const SectionCards = () => {
       <p className="text-xl md:text-left md:text-4xl font-bold text-gray-800 mb-10">
         Descubre los viajes disponibles
       </p>
-      <div className="flex flex-wrap justify-center gap-x-20 gap-y-14">
+      <div className="grid-card-auto-fill gap-8 w-full md:w-[80%] mx-auto">
         {filterTripByDriverRating?.map((trip, i) => (
           <CardComponent
             key={i}
