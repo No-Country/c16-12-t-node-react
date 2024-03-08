@@ -32,6 +32,11 @@ export class UserService {
     return await this.repository.deleteUser(id);
   }
 
+  async updateUserRating(userId, rating) {
+    this.validateId(userId);
+    return await this.repository.updateUserRating(userId, rating);
+  }
+
   validateId(id) {
     if (!id) throw CustomeError.badRequest('Id is required');
     if (!Validator.validateId(id)) throw CustomeError.badRequest(`Invalid id: '${id}'`);

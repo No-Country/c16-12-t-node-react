@@ -58,8 +58,18 @@ export class TripController {
       .catch((error) => HandleError.handle(error, res));
   };
 
+  getReservationsByUser(req, res) {
+    const { userId } = req.params;
+
+    return this.service
+      .getReservationsByUser(userId)
+      .then((trip) => res.status(200).json(trip))
+      .catch((error) => HandleError.handle(error, res));
+  }
+
   reserveTrip = (req, res) => {
     const { tripId } = req.params;
+
     return this.service
       .reserveTrip({ tripId, ...req.body })
       .then((trip) => res.status(201).json(trip))
@@ -76,12 +86,9 @@ export class TripController {
 
   getTripsByUser = (req, res) => {
     const { userId } = req.params;
-    const { user } = req.body;
-
-    if (Number(userId) !== Number(user.id)) HandleError.handle('You are not authorized', res);
 
     return this.service
-      .getTripsByUser(user.id)
+      .getTripsByUser(userId)
       .then((trip) => res.status(200).json(trip))
       .catch((error) => HandleError.handle(error, res));
   };

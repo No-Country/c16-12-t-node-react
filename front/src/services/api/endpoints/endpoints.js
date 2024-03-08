@@ -2,6 +2,8 @@ export const LOGIN_ENDPOINT = '/auth/login';
 export const REGISTER_ENDPOINT = '/auth/register';
 export const USERS_ENDPOINT = '/users';
 export const USER_WITH_ID_ENDPOINT = (userId) => `${USERS_ENDPOINT}/${userId}`;
+export const USER_RATING_ENDPOINT = (userId) =>
+  `${USERS_ENDPOINT}/rating/${userId}`;
 
 export const CITIES_ENDPOINT = '/cities';
 export const CITY_WITH_ID_ENDPOINT = (cityId) => `${CITIES_ENDPOINT}/${cityId}`;
@@ -23,6 +25,8 @@ export const TRIP_WITH_ID_ENDPOINT = (tripId) => `${TRIPS_ENDPOINT}/${tripId}`;
 export const TRIPS_BY_USER_ENDPOINT = (userId) =>
   `${TRIPS_ENDPOINT}/${userId}/my-trips`;
 
+export const USER_RESERVATION_ENDPOINT = (userId) =>
+  `${TRIPS_ENDPOINT}/${userId}/reservations`;
 export const RESERVATIONS_ENDPOINT = (tripId) =>
   `${TRIPS_ENDPOINT}/${tripId}/reserve`;
 export const CALCEL_RESERVATIONS_ENDPOINT = (tripId) =>

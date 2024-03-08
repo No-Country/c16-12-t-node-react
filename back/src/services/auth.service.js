@@ -11,9 +11,10 @@ export class AuthService {
   async login(data) {
     const { email } = data;
     const userExists = await this.repository.getUserByEmail(email);
-    if (!userExists) throw CustomeError.unauthorized(`User with email '${email}' not found`);
+    if (!userExists) throw CustomeError.unauthorized('Invalid credentials');
 
-    const { password, ...user } = userExists.dataValues;
+    const userFound = await this.repository.getUserById(userExists.id);
+    const { password, ...user } = userFound;
 
     let isMatch, token;
     try {
@@ -56,7 +57,10 @@ export class AuthService {
     };
 
     const newUser = await this.repository.createUser(userData);
-    const { password, ...user } = newUser.dataValues;
+    if (!newUser) throw CustomeError.serverError('Error creating user');
+
+    const getNewUser = await this.repository.getUserById(newUser.id);
+    const { password, ...user } = getNewUser;
 
     let token;
     try {

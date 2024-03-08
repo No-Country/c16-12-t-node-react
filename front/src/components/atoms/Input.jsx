@@ -47,5 +47,5 @@ Input.propTypes = {
   border: PropTypes.bool,
   rounded: PropTypes.bool,
   size: PropTypes.oneOf(['small', 'medium', 'large', 'full']),
-  value: PropTypes.string || PropTypes.number,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };

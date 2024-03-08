@@ -42,11 +42,11 @@ export const Button = ({
 };
 
 Button.propTypes = {
-  children: PropTypes.node || PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   content: PropTypes.string,
   type: PropTypes.string,
   btnType: PropTypes.string,
   size: PropTypes.oneOf(['small', 'medium', 'large', 'full']),
-  leftIcon: PropTypes.node || PropTypes.string,
-  RighIcon: PropTypes.node || PropTypes.string,
+  leftIcon: PropTypes.node,
+  RighIcon: PropTypes.node,
 };

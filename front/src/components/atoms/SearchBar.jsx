@@ -1,10 +1,14 @@
+import { useNavigate } from 'react-router-dom';
+
 import { IoSearch } from 'react-icons/io5';
 
 import { Button } from './Button';
 import { Input } from './Input';
 import { useChange } from '@/hooks/useChange';
+import { useTrip } from '@/context/Trips.context';
 
 export const SearchBar = () => {
+  const navigate = useNavigate();
   const initialValue = {
     origin: '',
     destiny: '',
@@ -13,11 +17,12 @@ export const SearchBar = () => {
   };
 
   const { state, handleChange } = useChange(initialValue);
+  const { getPropsToFilter } = useTrip();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log(state);
+    getPropsToFilter(state);
+    navigate('/result');
   };
 
   return (

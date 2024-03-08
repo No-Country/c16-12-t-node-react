@@ -56,7 +56,6 @@ export class CreateTripDto {
     const totalPrice = Number(props.seats) * Number(props.seat_price);
 
     const tripDate = new Date(props.trip_date);
-    const departureTime = new Date(props.departure_time);
 
     return [
       undefined,
@@ -69,7 +68,7 @@ export class CreateTripDto {
         driver: user.id,
         total_price: totalPrice,
         trip_date: tripDate,
-        departure_time: departureTime,
+        departure_time: props.departure_time,
         pets_allowed: petAllowed,
         smoking_allowed: smokingAllowed,
         child_seat_available: childSeatAvailable,

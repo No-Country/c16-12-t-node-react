@@ -1,16 +1,15 @@
-import { useUser } from '@/context/user.context';
+import { USER } from '@/services/apiServices/user.service';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 
-export const StarRating = ({ userRating }) => {
-  const { updateUser } = useUser();
+export const StarRating = ({ userId, userRating }) => {
   const [rating, setRating] = useState(userRating);
   const [hover, setHover] = useState(null);
 
   const handleRating = (ratingValue) => {
     setRating(ratingValue);
-    updateUser({ rating: ratingValue });
+    USER.updateRating(userId, { rating: ratingValue });
   };
 
   return (
@@ -41,5 +40,6 @@ export const StarRating = ({ userRating }) => {
 };
 
 StarRating.propTypes = {
+  userId: PropTypes.number,
   userRating: PropTypes.number,
 };

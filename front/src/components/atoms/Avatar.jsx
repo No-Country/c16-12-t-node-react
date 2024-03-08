@@ -13,7 +13,7 @@ export const Avatar = ({ avatarUrl, userName, size }) => {
 
   return (
     <img
-      src={avatarUrl ?? defaultAvatar}
+      src={avatarUrl || defaultAvatar}
       alt={userName}
       className={`object-cover rounded-full bg-center shadow-md shadow-gray-500 ${avatarSize}`}
     />

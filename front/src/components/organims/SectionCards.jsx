@@ -1,17 +1,13 @@
 import { useTrip } from '@/context/Trips.context';
 import { CardComponent } from './CardComponent';
-import { useEffect } from 'react';
 
 export const SectionCards = () => {
-  const { tripData, getTrips } = useTrip();
+  const { tripData } = useTrip();
 
   const { data } = tripData;
-  useEffect(() => {
-    getTrips();
-  }, []);
 
   const filterTripByDriverRating = data?.filter(
-    (trip) => trip.driver.rating >= 3
+    (trip) => trip.driver?.rating >= 0
   );
 
   return (
@@ -19,7 +15,7 @@ export const SectionCards = () => {
       <p className="text-xl md:text-left md:text-4xl font-bold text-gray-800 mb-10">
         Descubre los viajes disponibles
       </p>
-      <div className="flex flex-wrap justify-center gap-x-20 gap-y-14">
+      <div className="grid-card-auto-fill gap-8 w-full md:w-[80%] mx-auto">
         {filterTripByDriverRating?.map((trip, i) => (
           <CardComponent
             key={i}

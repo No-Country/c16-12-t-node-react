@@ -47,9 +47,13 @@ export class TripService {
     return await this.repository.delete(id);
   }
 
+  async getReservationsByUser(userId) {
+    return await this.repository.getReservationsByUser(userId);
+  }
+
   async reserveTrip(data) {
     const reserve = {
-      seats_reserved: data.seats,
+      seats_reserved: data.seats_reserved,
       trip_id: data.tripId,
       user_id: data.user.id,
     };

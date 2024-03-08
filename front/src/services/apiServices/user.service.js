@@ -4,6 +4,7 @@ import { getFromSessionStorage } from '../utils/handle-token.utils';
 import { getHeaders } from '../utils/fetch-config';
 import {
   USERS_ENDPOINT,
+  USER_RATING_ENDPOINT,
   USER_WITH_ID_ENDPOINT,
 } from '../api/endpoints/endpoints';
 
@@ -38,6 +39,15 @@ export const USER = {
   deleteUser: async (userId) => {
     try {
       return await axiosAdapter(config).delete(USER_WITH_ID_ENDPOINT(userId));
+    } catch (error) {
+      return console.error(`Error: ${error}`);
+    }
+  },
+  updateRating: async (userId, rating) => {
+    try {
+      return await axiosAdapter(config).patch(USER_RATING_ENDPOINT(userId), {
+        rating,
+      });
     } catch (error) {
       return console.error(`Error: ${error}`);
     }

@@ -41,7 +41,7 @@ export const User = sequelize.define('User', {
   avatar: {
     type: DataTypes.STRING,
     allowNull: true,
-    defaultValue: 'No avatar',
+    defaultValue: '',
   },
   role: {
     type: DataTypes.INTEGER,

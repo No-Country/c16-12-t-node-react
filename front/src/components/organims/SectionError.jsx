@@ -1,11 +1,12 @@
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import upsIllustrator from '../../assets/svg/ups-illustrator.svg';
 import { Button } from '../atoms/Button';
 
 export const SectionError = () => {
+  const navigate = useNavigate();
   const handleClick = () => {
-    Navigate();
+    navigate('/');
   };
 
   return (

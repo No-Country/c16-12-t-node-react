@@ -1,16 +1,40 @@
-import { useState, useContext, createContext } from 'react';
+import { useState, useContext, createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { TRIPS } from '@/services/apiServices/Trips.service';
+import { getFromSessionStorage } from '@/services/utils/handle-token.utils';
+import { USER_ID } from '@/config/config';
 
 const TripContext = createContext();
+
+const userID = getFromSessionStorage(USER_ID);
 
 function TripProvider({ children }) {
   const [trip, setTrip] = useState({});
   const [tripData, setTrips] = useState({});
-  const [tripsReserved, setTripsReserved] = useState({});
-  const [TripsByUser, setTripsByUser] = useState([]);
+  const [tripsByUser, setTripsByUser] = useState([]);
 
+  const [tripsReserved, setTripsReserved] = useState({});
+  const [userReservations, setUserReservations] = useState([]);
+
+  const [searching, setSearching] = useState({
+    origin: '',
+    destiny: '',
+    date: '',
+    time: '',
+  });
+
+  useEffect(() => {
+    getTrips();
+    if (userID) {
+      getTripsByUser(userID);
+      getUserReservations(userID);
+    }
+  }, []);
+
+  const getPropsToFilter = (props) => {
+    setSearching(props);
+  };
   const getTrips = () => {
     TRIPS.getTrips()
       .then((trips) => setTrips(trips))
@@ -55,8 +79,13 @@ function TripProvider({ children }) {
       .catch(console.error);
   };
 
-  const reserveTrip = (tripId) => {
-    TRIPS.reserveTrip(tripId)
+  const getUserReservations = (userId) => {
+    TRIPS.getUserTripsReservations(userId)
+      .then(setUserReservations)
+      .catch(console.error);
+  };
+  const reserveTrip = (tripId, seats) => {
+    TRIPS.reserveTrip(tripId, seats)
       .then((reserve) =>
         setTripsReserved({
           ...tripsReserved,
@@ -66,9 +95,9 @@ function TripProvider({ children }) {
       .catch(console.error);
   };
 
-  const cancelTrip = (tripId) => {
-    TRIPS.cancelTrip(tripId)
-      .then((tripReserved) => console.log(tripReserved))
+  const cancelTrip = (tripId, seats) => {
+    TRIPS.cancelTrip(tripId, seats)
+      .then((reserved) => setTripsReserved(reserved))
       .catch(console.error);
   };
 
@@ -84,7 +113,9 @@ function TripProvider({ children }) {
         trip,
         tripData,
         tripsReserved,
-        TripsByUser,
+        tripsByUser,
+        userReservations,
+        searching,
         getTrips,
         getTrip,
         createTrip,
@@ -93,6 +124,8 @@ function TripProvider({ children }) {
         reserveTrip,
         cancelTrip,
         getTripsByUser,
+        getUserReservations,
+        getPropsToFilter,
       }}
     >
       {children}
