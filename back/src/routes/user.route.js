@@ -26,6 +26,11 @@ export class UserRoute {
       [AuthMiddleware.authentication],
       controller.deleteUserById.bind(controller),
     );
+    router.patch(
+      '/rating/:userId',
+      [AuthMiddleware.authentication],
+      controller.updateUserRating.bind(controller),
+    );
 
     return router;
   }

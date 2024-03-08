@@ -2,6 +2,8 @@ export const LOGIN_ENDPOINT = '/auth/login';
 export const REGISTER_ENDPOINT = '/auth/register';
 export const USERS_ENDPOINT = '/users';
 export const USER_WITH_ID_ENDPOINT = (userId) => `${USERS_ENDPOINT}/${userId}`;
+export const USER_RATING_ENDPOINT = (userId) =>
+  `${USERS_ENDPOINT}/rating/${userId}`;
 
 export const CITIES_ENDPOINT = '/cities';
 export const CITY_WITH_ID_ENDPOINT = (cityId) => `${CITIES_ENDPOINT}/${cityId}`;

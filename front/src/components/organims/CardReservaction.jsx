@@ -11,14 +11,17 @@ import { TbSmokingNo } from 'react-icons/tb';
 
 import { DataContent } from '../atoms/DataContent';
 import { getDate, tranformFormatTwentyFour } from '@/utils/shared';
+import { useShow } from '@/context/show.context';
 
 export const CardResevation = ({
+  id,
   origin,
   destiny,
   seatReserved,
   reservedStatus,
   trip,
 }) => {
+  const { handleCancelTrip, getID } = useShow();
   const hour = tranformFormatTwentyFour(trip.departure_time);
   const date = getDate(trip.trip_date);
 
@@ -85,9 +88,9 @@ export const CardResevation = ({
           />
         </div>
       </div>
-      <div className="flex gap-4 justify-end">
+      <div className="flex gap-4 justify-between mt-4">
         {reservedStatus === 'reserved' ? (
-          <span className="bg-green-600  text-white px-2 rounded-md py-1">
+          <span className="bg-green-600  text-white px-2 rounded-md py-1 flex justify-center items-center self-start">
             Reservado
           </span>
         ) : (
@@ -95,18 +98,30 @@ export const CardResevation = ({
             Cancelado
           </span>
         )}
-        <Link
-          to={`/trips/${trip.id}`}
-          className="bg-blue-400 text-white px-2 rounded-md py-1 hover:bg-blue-700"
-        >
-          Ver detalles
-        </Link>
+        <div className="flex gap-2 justify-end items-center">
+          <Link
+            to={`/trips/${trip.id}`}
+            className="bg-blue-400 text-white px-2 rounded-md py-1 hover:bg-blue-700 flex justify-center items-center self-end"
+          >
+            Ver detalles
+          </Link>
+          <button
+            className="bg-red-600 text-white px-2 rounded-md py-1"
+            onClick={() => {
+              handleCancelTrip();
+              getID(id);
+            }}
+          >
+            Cancelar
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
 CardResevation.propTypes = {
+  id: propTypes.number,
   origin: propTypes.string,
   destiny: propTypes.string,
   seatReserved: propTypes.string,

@@ -95,9 +95,9 @@ function TripProvider({ children }) {
       .catch(console.error);
   };
 
-  const cancelTrip = (tripId) => {
-    TRIPS.cancelTrip(tripId)
-      .then((tripReserved) => console.log(tripReserved))
+  const cancelTrip = (tripId, seats) => {
+    TRIPS.cancelTrip(tripId, seats)
+      .then((reserved) => setTripsReserved(reserved))
       .catch(console.error);
   };
 

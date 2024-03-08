@@ -41,4 +41,14 @@ export class UserController {
       .then((user) => res.status(200).json(user))
       .catch((err) => HandleError.handle(err, res));
   };
+
+  updateUserRating = (req, res) => {
+    const { userId } = req.params;
+    const { rating } = req.body;
+
+    return this.service
+      .updateUserRating(userId, rating)
+      .then((user) => res.status(200).json(user))
+      .catch((err) => HandleError.handle(err, res));
+  };
 }

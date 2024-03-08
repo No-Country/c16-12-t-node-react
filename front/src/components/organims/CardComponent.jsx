@@ -36,7 +36,7 @@ export const CardComponent = ({
         <Avatar avatarUrl={avatar} userName={userDriver} size="small" />
         <div className="flex flex-col gap-2 justify-center">
           <UserName username={userDriver} size="medium" />
-          <StarRating userRating={rating} />
+          <StarRating userId={driver.id} userRating={rating} />
         </div>
       </div>
       <div className="flex flex-col gap-1">

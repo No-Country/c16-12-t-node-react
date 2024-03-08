@@ -32,8 +32,6 @@ export const TripDetails = () => {
 
   const isUserTrip = tripsByUser?.some((trip) => trip?.id === Number(tripId));
 
-  console.log({ isTripReserved, isUserTrip });
-
   const hour = tranformFormatTwentyFour(trip?.departure_time);
   const date = getDate(trip?.trip_date);
   const seatsAvailable = trip?.seats - trip?.seats_reserved;
@@ -45,6 +43,7 @@ export const TripDetails = () => {
         <aside className="flex flex-col justify-between gap-10">
           <section className="flex">
             <UserAvatar
+              userId={trip?.driver?.id}
               avatarUrl={trip?.driver?.avatar}
               username={trip.driver?.name + ' ' + trip.driver?.last_name}
               rating={trip.driver?.rating}
@@ -124,12 +123,9 @@ export const TripDetails = () => {
             )}
 
             {user?.role?.name === 'passenger' && isTripReserved && (
-              <Button
-                size="medium"
-                type="button"
-                content="Cancelar"
-                onClick={() => console.log('abrir popup para cancelar')}
-              />
+              <div className="text-center bg-primary-400 text-white p-3 rounded-md">
+                Ya reservaste este viaje
+              </div>
             )}
 
             {user?.role?.name === 'driver' && isUserTrip && (

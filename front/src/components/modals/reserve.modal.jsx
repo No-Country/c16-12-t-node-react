@@ -25,7 +25,6 @@ export const ReserveModal = () => {
     handleShow();
   };
 
-  console.log(state, stateId);
   return (
     <div className="absolute top-0 left-0 right-0 -bottom-[10rem] bg-[rgba(0,0,0,0.5)] bg z-50 grid place-items-center">
       <div className="flex flex-col gap-2 p-6 w-[4rem mx-auto bg-white  rounded-2xl drop-shadow-2xl bg-opacity-85">

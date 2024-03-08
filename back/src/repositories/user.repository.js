@@ -159,6 +159,14 @@ export class UserRepository extends BaseRepository {
     }
   }
 
+  async updateUserRating(userId, rating) {
+    try {
+      await this.userModel.update(rating, { where: { id: userId } });
+    } catch (error) {
+      throw CustomeError.serverError(`${error}`);
+    }
+  }
+
   async deleteUser(id) {
     await this.findOne({ id });
     try {
