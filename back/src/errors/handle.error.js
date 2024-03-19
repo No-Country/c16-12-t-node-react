@@ -1,14 +1,7 @@
 import { CustomeError } from './custome.error.js';
 
-class HandleError {
-  static getInstance() {
-    if (!HandleError.instance) {
-      HandleError.instance = new HandleError();
-    }
-    return HandleError.instance;
-  }
-
-  handle(error, res) {
+export class HandleError {
+  static handle(error, res) {
     if (error instanceof CustomeError) {
       return res.status(error.status).json({
         statusCode: error.status,
@@ -24,5 +17,3 @@ class HandleError {
     });
   }
 }
-
-export default HandleError.getInstance();

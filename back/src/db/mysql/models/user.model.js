@@ -12,6 +12,10 @@ export const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  last_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -23,7 +27,7 @@ export const User = sequelize.define('User', {
   },
   phone: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   dni: {
     type: DataTypes.STRING,
@@ -37,12 +41,33 @@ export const User = sequelize.define('User', {
   avatar: {
     type: DataTypes.STRING,
     allowNull: true,
-    defaultValue: 'No avatar',
+    defaultValue: '',
+  },
+  role: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 2,
+    validate: {
+      isIn: [[1, 2, 3]],
+    },
+  },
+  rating: {
+    type: DataTypes.FLOAT,
+    allowNull: true,
+    defaultValue: 0,
+    validate: {
+      min: 0,
+      max: 5,
+    },
   },
   information: {
     type: DataTypes.STRING,
     allowNull: true,
     defaultValue: 'No information',
+  },
+  city_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
   },
 });
 
