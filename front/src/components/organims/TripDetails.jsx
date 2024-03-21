@@ -34,7 +34,8 @@ export const TripDetails = () => {
 
   const hour = tranformFormatTwentyFour(trip?.departure_time);
   const date = getDate(trip?.trip_date);
-  const seatsAvailable = trip?.seats - trip?.seats_reserved;
+  const seatsAvailable = Number(trip?.seats) - Number(trip?.seats_reserved);
+
   const spots = trip.seats_reserved === null ? trip.seats : seatsAvailable;
 
   return (

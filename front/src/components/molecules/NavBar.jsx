@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Avatar } from '../atoms/Avatar';
 import { useUser } from '@/context/user.context';
 import { Button } from '../atoms/Button';
+import { UserName } from '../atoms/Username';
 
 export const NavBar = ({ isClicked }) => {
   const navigation = useNavigate();
@@ -103,7 +104,10 @@ export const NavBar = ({ isClicked }) => {
       </nav>
       {isClicked && remplate}
       <div className="flex gap-2 justify-end">
-        {user && <Avatar size="mini" avatarUrl={user?.avatar} />}
+        <div className="flex gap-2 justify-center items-center">
+          {user && <UserName username={user?.name} />}
+          {user && <Avatar size="mini" avatarUrl={user?.avatar} />}
+        </div>
         {!user && (
           <>
             <Link

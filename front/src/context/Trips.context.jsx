@@ -14,7 +14,7 @@ function TripProvider({ children }) {
   const [tripData, setTrips] = useState({});
   const [tripsByUser, setTripsByUser] = useState([]);
 
-  const [tripsReserved, setTripsReserved] = useState({});
+  const [tripsReserved, setTripsReserved] = useState([]);
   const [userReservations, setUserReservations] = useState([]);
 
   const [searching, setSearching] = useState({
@@ -89,7 +89,7 @@ function TripProvider({ children }) {
       .then((reserve) =>
         setTripsReserved({
           ...tripsReserved,
-          reserved: [...tripsReserved.reserved, reserve],
+          reserve,
         })
       )
       .catch(console.error);

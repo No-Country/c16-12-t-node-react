@@ -4,6 +4,7 @@ import { SectionError } from '@/components/organims/SectionError';
 import { Section } from '@/components/templates/Section';
 import { LayOut } from '@/components/templates/template';
 import { useTrip } from '@/context/Trips.context';
+import { getDate, tranformFormatTwentyFour } from '@/utils/shared';
 
 const filterByOrigin = (trips, origin) => {
   if (origin === '') return trips;
@@ -17,13 +18,25 @@ const filterByDestiny = (trips, destiny) => {
 };
 
 const filterByDate = (trips, date) => {
+  console.log(date);
   if (date === '') return trips;
-  return trips.filter((trip) => trip.trip_date === date);
+
+  console.log(trips);
+
+  return trips.filter((trip) => {
+    const tripDate = getDate(trip.trip_date);
+    const result = getDate(date);
+    return tripDate === result;
+  });
 };
 
 const filterByTime = (trips, time) => {
   if (time === '') return trips;
-  return trips.filter((trip) => trip.departure_time === time);
+  return trips.filter((trip) => {
+    const timeTransformed = tranformFormatTwentyFour(trip.departure_time);
+    const timeCompare = tranformFormatTwentyFour(time);
+    return timeTransformed === timeCompare;
+  });
 };
 export const ResultPage = () => {
   const { tripData, searching } = useTrip();

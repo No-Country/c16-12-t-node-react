@@ -48,7 +48,8 @@ export class TripService {
   }
 
   async getReservationsByUser(userId) {
-    return await this.repository.getReservationsByUser(userId);
+    const result = await this.repository.getReservationsByUser(userId);
+    return result;
   }
 
   async reserveTrip(data) {
@@ -69,7 +70,8 @@ export class TripService {
   }
 
   async getTripsByUser(userId) {
-    return await this.repository.getTripsByUser(userId);
+    const result = await this.repository.getTripsByUser(userId);
+    return result;
   }
 
   async cancelTrip(id) {
