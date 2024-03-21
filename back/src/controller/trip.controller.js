@@ -9,7 +9,7 @@ export class TripController {
 
   // Fetch all trips
   getAllTrips = (req, res) => {
-    const { page = 1, limit = 10 } = req.query;
+    const { page = 1, limit = 100 } = req.query;
     return this.service
       .getAllTrips({ page: Number(page), limit: Number(limit) })
       .then((users) => res.status(200).json(users))

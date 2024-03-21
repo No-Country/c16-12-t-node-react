@@ -11,6 +11,8 @@ import {
   CreateNewTripPage,
 } from '../pages';
 import { useUser } from '../context/user.context';
+import { AboutPage } from '@/pages/AboutPage';
+import { ContactPage } from '@/pages/ContactPage.';
 
 export const Router = () => {
   const { user } = useUser();
@@ -18,7 +20,8 @@ export const Router = () => {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      <Route path="/about" element={<h1>Sobre nosotros</h1>} />
+      <Route path="/about" element={<AboutPage />} />
+      <Route path="/contact" element={<ContactPage />} />
       <Route path="/trips/:tripId" element={<TripDetailsPage />} />
       <Route path="/result" element={<ResultPage />} />
       <Route path="/register" element={<RegistePage />} />
@@ -29,10 +32,6 @@ export const Router = () => {
           <Route path="/result" element={<ResultPage />} />
           <Route path="/profile" element={<h1>Mi perfil</h1>} />
           <Route path="/messages" element={<MessagesPage />} />
-          <Route
-            path="/trips/:user/my-reservations"
-            element={<h1>mis reservaciones</h1>}
-          />
           <Route path="/trips/:userId/my-trips" element={<MyTrips />} />
           <Route
             path="/trips/:userId/create-new-trip"

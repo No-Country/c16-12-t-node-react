@@ -124,7 +124,7 @@ CardResevation.propTypes = {
   id: propTypes.number,
   origin: propTypes.string,
   destiny: propTypes.string,
-  seatReserved: propTypes.string,
+  seatReserved: propTypes.oneOfType([propTypes.string, propTypes.number]),
   reservedStatus: propTypes.string,
   trip: propTypes.object,
 };
